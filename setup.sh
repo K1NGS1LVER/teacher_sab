@@ -96,16 +96,16 @@ setup_learner() {
 
 harness_picker() {
   printf "%b\n  Which AI harness do you use?%b\n" "$C_WHT" "$C_RST"
-  printf "  %b1)%b opencode        %b2)%b Claude Code   %b3)%b Codex%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
-  printf "  %b4)%b Cursor          %b5)%b pi (original) %b6)%b Universal (.agents/skills)%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
-  printf "  %b7)%b Plain chat (no files - prints what to paste)%b\n" "$C_SAFF" "$C_RST" "$C_RST"
+  printf "  %b 1)%b opencode        %b 2)%b Claude Code   %b 3)%b Codex        %b 4)%b Kilo Code%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
+  printf "  %b 5)%b Cursor          %b 6)%b Antigravity (agy) %b 7)%b Hermes    %b 8)%b pi (original)%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
+  printf "  %b 9)%b Universal (.agents/skills)          %b10)%b Plain chat (no files)%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
   local a
-  read -r -p "$(printf '%b  Pick a number 1-7: %b' "$C_SAFF" "$C_RST")" a
+  read -r -p "$(printf '%b  Pick a number 1-10: %b' "$C_SAFF" "$C_RST")" a
   case "$a" in
-    1) CHOICE=opencode;;    2) CHOICE=claude;;    3) CHOICE=codex;;
-    4) CHOICE=cursor;;      5) CHOICE=pi;;        6) CHOICE=universal;;
-    7) CHOICE=chat;;
-    *) err "pick a number 1-7"; return 1;;
+    1) CHOICE=opencode;;    2) CHOICE=claude;;    3) CHOICE=codex;;    4) CHOICE=kilo;;
+    5) CHOICE=cursor;;      6) CHOICE=agy;;       7) CHOICE=hermes;;   8) CHOICE=pi;;
+    9) CHOICE=universal;;   10) CHOICE=chat;;
+    *) err "pick a number 1-10"; return 1;;
   esac
   ok "harness: $CHOICE"
 }
@@ -116,7 +116,10 @@ runbook() {
     opencode)   say '  run opencode in this project and say:  "use the teach skill. Teach me <topic>."';;
     claude)     say '  run claude in this project and say:  "use the teach skill. Teach me <topic>."' ;;
     codex)      say '  restart Codex, then:  "use the teach skill. Teach me <topic>."' ;;
+    kilo)       say '  in Kilo Code run "/reload" (project skills rescan), then ask:  "teach me <topic>."' ;;
     cursor)     say '  open Cursor in this project. The teach rule is alwaysApply, so just ask:  "teach me <topic>."';;
+    agy)        say '  run agy (Antigravity CLI) here and ask:  "use the teach skill. Teach me <topic>."' ;;
+    hermes)     say '  run hermes here and ask:  "use the teach skill. Teach me <topic>." (or /skills)' ;;
     pi)         say '  open pi in this project and ask:  "use the teach skill. Teach me <topic>."';;
     universal)  say '  run any skill-capable agent here and ask:  "use the teach skill. Teach me <topic>."';;
     chat)       :
@@ -152,6 +155,22 @@ case "$CHOICE" in
     install_skills "$TARGET/.agents/skills" "$WITH_VIS"
     info "subagents are inline for Codex - nothing to install, research uses its own tools"
     info "want it for ALL your repos? install to ~/.agents/skills instead and rerun"
+    ;;
+  kilo)
+    install_skills "$TARGET/.kilo/skills" "$WITH_VIS"
+    [[ "$WITH_AGENTS" == "y" ]] && install_agents "$TARGET/.kilo/agent"
+    info "Kilo Code also reads .agents/skills/ by default if you prefer the universal setup"
+    ;;
+  agy)
+    install_skills "$TARGET/.agents/skills" "$WITH_VIS"
+    info "Antigravity (agy) reads .agents/skills/ by default"
+    info "want it for ALL your projects? install to ~/.gemini/config/skills/ instead and rerun"
+    info "subagents: Antigravity uses plugin-bundled agents - for plain skills, research runs inline"
+    ;;
+  hermes)
+    install_skills "$TARGET/.hermes/skills" "$WITH_VIS"
+    info "for ALL your projects, install into ~/.hermes/skills/ instead and rerun (primary dir)"
+    info "subagents: Hermes has no project agent file dir - research runs inline"
     ;;
   cursor)
     mkdir -p "$TARGET/.cursor/rules"
