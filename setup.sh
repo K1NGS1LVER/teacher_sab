@@ -3,11 +3,11 @@
 # Proof of concept. Later maybe a Bubble Tea TUI; for now this is the script.
 set -euo pipefail
 
-# ---------------------------------------------------------------- colors (the tricolor, of course)
+# ---------------------------------------------------------------- colors
 C_RST=$'\033[0m'; C_BOLD=$'\033[1m'; C_DIM=$'\033[2m'
 C_SAFF=$'\033[38;2;255;153;51m'      # saffron - top stripe
 C_GREEN=$'\033[38;2;19;136;8m'       # india green - bottom stripe
-C_NAVY=$'\033[38;2;0;0;128m'         # chakra navy - accents
+C_NAVY=$'\033[38;2;0;0;128m'         # navy - accents
 C_WHT=$'\033[38;2;255;255;255m'      # flag white
 C_YEL=$'\033[33m'; C_RED=$'\033[31m'
 
