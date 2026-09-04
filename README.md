@@ -38,6 +38,7 @@ are added only when a picture genuinely beats words - never decoration.
 | `agents/researcher.md` | brief for a research subagent (accuracy checks) | optional |
 | `agents/mermaid-maker.md` | brief for a diagram-maker subagent | optional |
 | `agents/svg-maker.md` | brief for a geometry-diagram subagent | optional |
+| `study-artifacts/` | session log dir - auto-created at install, filled by the teach skill | generated |
 | `LEARNER.template.md` | blank profile for handing the system to someone else | - |
 
 Minimum viable setup: `skills/teach/SKILL.md` + `LEARNER.md`. Everything else is
@@ -53,6 +54,39 @@ every skill-capable agent.
 Pick one row. Every path below installs the pieces you chose from the table
 above. After installing, run your agent and tell it: **"Use the `teach` skill.
 Teach me <topic>. Read LEARNER.md first."**
+
+### Quickstart: setup script
+
+`setup.sh` installs everything interactively - it asks questions with tricolor
+(yes, you guessed it) menus:
+
+```bash
+bash <path-to-this-repo>/setup.sh
+```
+
+Run it from anywhere; it finds its own files from its own location.
+
+**Pick one harness or several.** Type one number, or space/comma-separated
+numbers for multiple (e.g. `2 6 9` installs into Claude, Antigravity, and the
+universal dir at once). Type `a` for everything.
+
+**Copy or symlink.** It asks whether to copy the files in or symlink to the
+repo. Symlink mode makes the repo the single source of truth: edit
+`skills/teach/SKILL.md` or `LEARNER.md` once and every harness sees the change.
+(Cursor rules are generated `.mdc` files, so those are always written.)
+
+When it asks where to install, you can type a path, **or drag a folder from
+Finder into the terminal** (it pastes the path for you), or just press Enter to
+use the current directory. Relative paths resolve against wherever you ran the
+script from:
+
+```
+Install into directory (absolute or relative) [..]: ~/some/project
+```
+
+If you pick a *global* harness (Claude, Kilo, Hermes, Cursor), the script also
+offers a user-level install so the skill follows you across projects instead of
+staying in a project folder.
 
 ### The universal method (recommended - works across agents)
 

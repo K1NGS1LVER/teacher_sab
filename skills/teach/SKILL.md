@@ -14,6 +14,13 @@ are teaching - background, preferred pace, Socratic-vs-expository default,
 subjects, practical constraints. Everything below is tuned to that file. If you
 cannot read the file, ask who the learner is and teach to that.
 
+**Then: read `study-artifacts/` before you probe.** If there's a previous session
+file on this topic (or anything overlapping), read it first - it carries the
+learner's level, what landed, and the Misses still to revisit. This is what makes
+the system survive harness switches: the files, not the chat, are the memory.
+Quote back what you know about them at the top of your reply, so they can see
+the continuity is real.
+
 The goal is never "they can recite the fact." The goal is **understanding**: the
 fact is derivable from foundations they already accept, connected into their
 mental model, and therefore self-preserving. Memorized facts rot. Understood
@@ -371,6 +378,50 @@ foundational or not - stop: either motivate it and confirm it lands, or ground
 it in something already established. Unmotivated, unconfirmed facts don't lock
 in - that's the whole point.
 
+## Logging: `study-artifacts/`
+
+Every session is logged - the lesson markdown *and* the learner's replies - so
+the history is reviewable, the teacher can pick up where it stopped, and the
+learner gets a review deck.
+
+**Where.** A `study-artifacts/` directory at your working-directory root (same
+root as `LEARNER.md`). Create it if missing - use your harness's file tools.
+One markdown file per topic: `study-artifacts/<topic-slug>.md` (lowercase,
+hyphens). Same topic later = append to the same file, never a new one.
+
+**Structure - sessions are `##` sections, replies are set apart.** Inside each
+topic file, append one `## <YYYY-MM-DD>` section per session containing:
+
+1. **Meta** - the goal (from Phase 1b), one line.
+2. **The dependency map** - the mermaid/text DAG from Phase 2.
+3. **Probe Q&A** - every Phase 1 quiz question plus the option the learner
+   picked.
+4. **Nodes taught** - for each node: what was established, and its quiz-check
+   question, options, picked answer, whether it landed.
+5. **Misses** - every wrong pick or "I don't know", listed at the end of the
+   section: the threads to revisit next session.
+
+Log every quiz exchange as two visibly separated blocks - the teacher's lines
+are `> ` prefixed, the learner's replies sit on their own line:
+
+```
+> Quiz 3: Which of these is an unconditional truth?
+> 1. ...  2. ...  3. ...  4. ...
+Learner replies: 2
+Correct: 3 - <why>
+```
+
+That separation is the point: lesson and answers never blur, so the log reads
+as both a lesson record and a review deck.
+
+**Time-cheap rule:** log while you go - append each quiz exchange right after
+you grade it, not in one big write-up at the end. The end-of-session write-up
+is only Meta, the map, and the Misses recap.
+
+**No file tools?** (plain chat apps) End every session with a fenced markdown
+block containing the same structure, prefixed: *"Study log - save this under
+study-artifacts/<topic-slug>.md"*.
+
 ## Formatting - math renders as LaTeX
 
 Write everything in plain Markdown. Most viewers (Obsidian, GitHub, VS Code,
@@ -382,11 +433,3 @@ Notion, etc.) render Markdown and LaTeX natively, so:
 If LaTeX can be used, it should be. Write $f(x) = x^2$, not `f(x) = x^2`. When
 the learner's viewer can't render math (plain terminal), fall back to readable
 plain text and say so.
-
-## Optional: keeping a written log
-
-If the learner wants a record of the session (e.g. to review in an editor that
-renders Markdown), write the lesson to a `.md` file using whatever file tools
-your harness has. Include the probe questions, the dependency map, the taught
-nodes, and quiz Q&A - it mirrors the session so it reads fine on its own later.
-If your harness has no file tools, offer the learner the raw chat text instead.
