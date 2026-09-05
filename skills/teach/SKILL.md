@@ -378,31 +378,30 @@ foundational or not - stop: either motivate it and confirm it lands, or ground
 it in something already established. Unmotivated, unconfirmed facts don't lock
 in - that's the whole point.
 
-## Logging: `study-artifacts/`
+## Logging: `study-artifacts/` (auto, live, never asked about)
 
-Every session is logged - the lesson markdown *and* the learner's replies - so
-the history is reviewable, the teacher can pick up where it stopped, and the
-learner gets a review deck.
+The log is not optional and you never ask permission to create it - it is part
+of teaching, not an add-on. It is the system's memory across topics, sessions,
+and harnesses.
 
-**Where.** A `study-artifacts/` directory at your working-directory root (same
-root as `LEARNER.md`). Create it if missing - use your harness's file tools.
-One markdown file per topic: `study-artifacts/<topic-slug>.md` (lowercase,
-hyphens). Same topic later = append to the same file, never a new one.
+**Where.** `study-artifacts/` at your working-directory root (same root as
+`LEARNER.md`) - create it and the file on your own with your file tools. One
+file per topic: `study-artifacts/<topic-slug>.md` (lowercase, hyphens). Same
+topic later = append to that file, never a new one.
 
-**Structure - sessions are `##` sections, replies are set apart.** Inside each
-topic file, append one `## <YYYY-MM-DD>` section per session containing:
+**Create it at the first quiz of the session - and write the planned graph
+first.** The very top of the file is the session's **planned knowledge graph**:
+the Phase 2 dependency map as a mermaid DAG (or text tree) - every node and edge
+you intend to teach. It goes in the moment the plan is approved, before any
+teaching. The learner is never asked "should I create this?".
 
-1. **Meta** - the goal (from Phase 1b), one line.
-2. **The dependency map** - the mermaid/text DAG from Phase 2.
-3. **Probe Q&A** - every Phase 1 quiz question plus the option the learner
-   picked.
-4. **Nodes taught** - for each node: what was established, and its quiz-check
-   question, options, picked answer, whether it landed.
-5. **Misses** - every wrong pick or "I don't know", listed at the end of the
-   section: the threads to revisit next session.
-
-Log every quiz exchange as two visibly separated blocks - the teacher's lines
-are `> ` prefixed, the learner's replies sit on their own line:
+**Log each question and answer live, in order.** Every quiz you ask and every
+answer they give is appended to the file the moment it happens - before you ask
+the next question. This covers Phase 1 probes, Phase 3 quiz-checks, and "I
+don't know" X answers. No drafting a big dump at the end; the live record *is*
+the file. Teacher lines are `> ` prefixed, the learner's reply on its own
+`Learner replies:` line; a new session under the same topic continues the file
+under a `## <YYYY-MM-DD>` header so the sessions stay separable:
 
 ```
 > Quiz 3: Which of these is an unconditional truth?
@@ -411,16 +410,25 @@ Learner replies: 2
 Correct: 3 - <why>
 ```
 
-That separation is the point: lesson and answers never blur, so the log reads
-as both a lesson record and a review deck.
+**The second knowledge graph - ONLY after the lesson is actually learnt.**
+When the session's final node passes its quiz-check, append the **learned
+knowledge graph**: the same DAG drawn from what really happened. A solid arrow
+for every edge the learner confirmed at quiz-check time; nodes they missed,
+skipped, or answered X on become dashed `-.->` edges annotated "not landed".
+The difference between the planned and learned graph is the honest record of
+the lesson.
 
-**Time-cheap rule:** log while you go - append each quiz exchange right after
-you grade it, not in one big write-up at the end. The end-of-session write-up
-is only Meta, the map, and the Misses recap.
+**If the session ends before the lesson completes, do NOT write it.** The
+second graph appears only when the last node lands - possibly in a later
+session, appended after that session's live record. A file with only the
+planned graph is the visible signal that the lesson is unfinished. Under the
+second graph goes the **Misses** recap: every wrong pick and X, the
+exact threads to revisit next session.
 
-**No file tools?** (plain chat apps) End every session with a fenced markdown
-block containing the same structure, prefixed: *"Study log - save this under
-study-artifacts/<topic-slug>.md"*.
+**No file tools?** (plain chat apps) You cannot write files there - so after
+each exchange, print the running log block with the header *"Study log -
+save this under study-artifacts/<topic-slug>.md"* so the learner maintains the
+file. Still never ask whether to log; the block is produced unconditionally.
 
 ## Formatting - math renders as LaTeX
 
