@@ -4,7 +4,7 @@
   "description": "A teaching system that works in any AI harness - opencode, Claude Code, Codex, Cursor, pi, plain chat. The teach skill reads the learner's profile every session, probes before explaining, and spaces review across sessions. Pedagogy by amosblomqvist/learn (forked); harness-agnostic installer and improvements by K1NGS1LVER.",
   "type": "module",
   "bin": {
-    "teacher-sab": "./bin/cli.js"
+    "teacher-sab": "bin/cli.js"
   },
   "files": [
     "bin",
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/K1NGS1LVER/teacher_sab.git"
+    "url": "git+https://github.com/K1NGS1LVER/teacher_sab.git"
   },
   "bugs": {
     "url": "https://github.com/K1NGS1LVER/teacher_sab/issues"
