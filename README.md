@@ -32,7 +32,7 @@ are added only when a picture genuinely beats words - never decoration.
 
 | Path | Role | Required? |
 | --- | --- | --- |
-| `skills/teach/SKILL.md` | the teaching philosophy + process | **yes** |
+| `skills/teach/SKILL.md` | the teaching philosophy + process (atomic lessons + course mode for whole domains) | **yes** |
 | `LEARNER.md` | the learner profile the teacher reads each session | **yes** |
 | `skills/visualize/SKILL.md` | when/how to add a correct visual to a lesson | optional |
 | `agents/researcher.md` | brief for a research subagent (accuracy checks) | optional |

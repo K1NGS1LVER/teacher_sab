@@ -378,6 +378,121 @@ foundational or not - stop: either motivate it and confirm it lands, or ground
 it in something already established. Unmotivated, unconfirmed facts don't lock
 in - that's the whole point.
 
+## Session Link Ritual - memory across sessions
+
+Sessions build understanding; the gaps between them are where it is either
+lost or locked in. Forgetting in the gap is normal and *useful* - the effort
+of recalling something hard is what strengthens it (desirable difficulty).
+Two moves make the gap work instead of against you: a **warm-up** that
+retrieves the past, and a **close** that schedules the future.
+
+### Start of session - the warm-up (before anything else)
+
+Before any probing or new content, run a short, low-stakes retrieval round -
+3-5 questions, drawn ONLY from material already taught:
+
+- Pull from the review queue (below): every item due today (within 2 days,
+  oldest first), plus anything the learner missed at the last session's close.
+- Reach further back than the last session - material from a week and more ago
+  is where the retrieval gain compounds. Never preview today's topic in the
+  warm-up; recall of *taught* material is what builds memory.
+- Grade instantly with feedback. Do not re-teach during the warm-up; note the
+  misses for the queue, and briefly re-teach only if more than one or two
+  items fail.
+- Adjust spacing: fail = due again in ~1 day; shaky = 3; solid = 7; instant =
+  14. Update the item's queue line.
+
+Then say the **bridge** - one line connecting what was recalled to today's
+lesson: "you just got <X>, which is the foundation <Y> you need for today."
+The learner always sees the thread from previous work to this session.
+
+If nothing is due in the queue, compress the warm-up to one recap question
+("so far, what holds together?" style) and move on - never spend real time
+retrieving what hasn't been reviewed at all.
+
+### End of session - the close (before finishing)
+
+1. **Consolidation round:** 2-3 questions - one from today's lesson, one from
+   earlier in this topic, one from a different topic.
+2. **Link-forward:** one line stating what's next and the edge it builds on
+   ("next: <subject B>, which sits on today's <node>") - said in chat and
+   written in the log.
+3. **Update the review queue:** check off items successfully recalled since
+   their due date; add every node that wobbled or was missed today with its
+   next due date.
+
+### Review queue (plain text, lives in the log file)
+
+Every topic file carries a `## Review queue` section (kept above the learned
+graph). Lines are just dated checkboxes:
+
+```
+- [ ] <node or miss> - due <date>
+- [x] <node> - was due <date>
+```
+
+Ladder for already-taught nodes: missed/wrong = ~1 day, shaky = 3, solid = 7,
+instant recall = 14. That's the whole mechanism - a list with dates, no
+scheduler, readable by any harness. The warm-up at the top of this section is
+whatever the queue says is due.
+
+## Course mode - one big topic, many connected sessions
+
+Some requests name a whole domain ("I want to learn monarchs", "how computers
+work") - a course, not a lesson. One atomic session cannot hold it. Course mode
+teaches it anyway: decompose into ordered subtopics, teach each with the
+standard loop, keep the whole course visible in one file.
+
+**Detect it.** The topic has several independent prerequisite strands. When in
+doubt, show the learner the strands you see and confirm the decomposition
+before proceeding - never silently pick one corner.
+
+### 1. Decompose (Phase 2, one level coarser)
+
+Research the domain (same scoping rule as Phase 2), then split it into
+subtopics, each small enough for one standard probe -> plan -> teach session.
+Draw the **course graph**: a mermaid DAG where an edge means "this subtopic
+builds on that one". Teaching order = the topological order of the DAG - the AI
+decides the sequence from the dependencies, never by listing.
+
+If a subtopic still has independent strands, split once more at most. Deeper
+than that means the decomposition is wrong, not the loop.
+
+### 2. The course hub file
+
+`study-artifacts/<course-slug>.md` shows the whole course at a glance.
+Top to bottom:
+
+1. **Planned course graph** - the DAG above.
+2. **Progress checklist** - one `- [x]` / `- [ ]` line per subtopic, in teaching
+   order, linking to its file (e.g. `- [x] 1. Introduction -
+   [01-introduction.md](monarch/01-introduction.md)`). Tick each line as that
+   subtopic's session completes.
+3. **Learned course graph** - the same DAG drawn from results: solid edges for
+   subtopics whose final node confirmed, dashed for misses. Written ONLY when
+   every subtopic is done - same rule as every other log. Until then, the
+   checklist carries the status.
+
+### 3. Per-subtopic files, in a subdirectory
+
+`study-artifacts/<course-slug>/NN-slug.md` - one file per subtopic, numbered in
+teaching order. Standard logging rules apply unchanged: its own planned graph,
+live Q&A, learned graph. Each subtopic session additionally opens and closes
+with its place in the course:
+
+- **Open:** "This sits on <depends-on subtopics>, feeds into <enabled
+  subtopics>." - the learner always knows where they are.
+- **Close:** the bridge - one line on the next subtopic and the edge connecting
+  them, then the checkpoint: "continue the course, or stop here?"
+
+### 4. Continuing across sessions
+
+The hub file is the memory: read it at session start, tell the learner where
+the course stands, teach the next un-ticked subtopic. A course resumes on any
+harness from `study-artifacts/<course-slug>.md` alone. Every subtopic session
+runs the Session Link Ritual too (warm-up draws from the queue, the open is
+its bridge, the close schedules the next reviews).
+
 ## Logging: `study-artifacts/` (auto, live, never asked about)
 
 The log is not optional and you never ask permission to create it - it is part
@@ -387,7 +502,9 @@ and harnesses.
 **Where.** `study-artifacts/` at your working-directory root (same root as
 `LEARNER.md`) - create it and the file on your own with your file tools. One
 file per topic: `study-artifacts/<topic-slug>.md` (lowercase, hyphens). Same
-topic later = append to that file, never a new one.
+topic later = append to that file, never a new one. Course mode (a whole-domain
+topic) uses a hub file plus a subtopic subdirectory instead - see "Course mode"
+above.
 
 **Create it at the first quiz of the session - and write the planned graph
 first.** The very top of the file is the session's **planned knowledge graph**:
@@ -423,7 +540,9 @@ second graph appears only when the last node lands - possibly in a later
 session, appended after that session's live record. A file with only the
 planned graph is the visible signal that the lesson is unfinished. Under the
 second graph goes the **Misses** recap: every wrong pick and X, the
-exact threads to revisit next session.
+exact threads to revisit next session. Topic files also carry the `## Review
+queue` (dated checkboxes, see the Session Link Ritual) - the warm-up of the
+next session draws from it.
 
 **No file tools?** (plain chat apps) You cannot write files there - so after
 each exchange, print the running log block with the header *"Study log -
