@@ -23,10 +23,14 @@ Two principles, verified by the original owner over years of use:
 2. **"How could I have discovered this?"** - every step gets a reason, so
    nothing feels arbitrary. A fact you could have found yourself, you remember.
 
-Plus a **probe → plan → teach** loop: graded quizzes to locate the exact edge of
-your understanding, a plan (with a dependency map) you approve before any
-teaching, then node-by-node building with a quiz check after every step. Visuals
-are added only when a picture genuinely beats words - never decoration.
+Plus a **probe → plan → teach** loop: graded quizzes (and free-recall checks)
+to locate the exact edge of your understanding, a plan (with a dependency map)
+you approve before any teaching, then node-by-node building with a quiz check
+after every step - and misses are self-explained before being corrected. Every
+session opens with a low-stakes retrieval warm-up and closes with a brain-dump,
+feeding a spaced review queue so knowledge survives the gaps between sessions.
+Whole domains run as connected course sessions. Visuals are added only when a
+picture genuinely beats words - never decoration.
 
 ## What's in here
 
@@ -38,7 +42,7 @@ are added only when a picture genuinely beats words - never decoration.
 | `agents/researcher.md` | brief for a research subagent (accuracy checks) | optional |
 | `agents/mermaid-maker.md` | brief for a diagram-maker subagent | optional |
 | `agents/svg-maker.md` | brief for a geometry-diagram subagent | optional |
-| `study-artifacts/` | session log dir - auto-created at install, filled by the teach skill | generated |
+| `study-artifacts/` | session logs (planned + learned knowledge graphs, review queues) + an auto-maintained index - auto-created, filled by the teach skill | generated |
 | `LEARNER.template.md` | blank profile for handing the system to someone else | - |
 
 Minimum viable setup: `skills/teach/SKILL.md` + `LEARNER.md`. Everything else is
@@ -54,6 +58,10 @@ every skill-capable agent.
 Pick one row. Every path below installs the pieces you chose from the table
 above. After installing, run your agent and tell it: **"Use the `teach` skill.
 Teach me <topic>. Read LEARNER.md first."**
+
+To pick up mid-stream without naming a topic - due reviews first, then your
+next step: **"Use the teach skill. Continue my studies."** The teacher reads the
+logs and review queues and proposes today's session.
 
 ### Quickstart: setup script
 

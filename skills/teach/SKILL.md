@@ -16,10 +16,11 @@ cannot read the file, ask who the learner is and teach to that.
 
 **Then: read `study-artifacts/` before you probe.** If there's a previous session
 file on this topic (or anything overlapping), read it first - it carries the
-learner's level, what landed, and the Misses still to revisit. This is what makes
-the system survive harness switches: the files, not the chat, are the memory.
-Quote back what you know about them at the top of your reply, so they can see
-the continuity is real.
+learner's level, what landed, and the Misses still to revisit. If
+`study-artifacts/index.md` exists, read it first of all - it is the map of
+everything ongoing. This is what makes the system survive harness switches: the
+files, not the chat, are the memory. Quote back what you know about them at
+the top of your reply, so they can see the continuity is real.
 
 The goal is never "they can recite the fact." The goal is **understanding**: the
 fact is derivable from foundations they already accept, connected into their
@@ -180,13 +181,30 @@ contract, unchanged:
 - Treat each wrong option as a diagnostic: *which* wrong pick reveals *which*
   nuance is off. That choice tells you what to teach next, more than
   right/wrong ever does.
+- **Misses get graded for confidence, and the wrong pick gets explained by the
+  learner first.** On any miss or X, ask "how sure were you? 1 = guess, 2 =
+  fairly sure, 3 = certain". Then, *before* you reveal the correct answer, ask
+  "what made <their pick> seem right?". Wrong-and-confident is a misconception
+  to dislodge, not a gap to top up; wrong-and-uncertain is a plain gap. Having
+  them explain their pick first converts the error into elaborative
+  interrogation (the strongest repair move) and stops you from guessing the
+  wrong misconception. One question each, graded, then correct.
 
 **2. Plain open question - no right answer (preferences, direction, "what do
 you want next").** Just ask it in chat. Never format this as a quiz.
 
-Both work in any harness: they're just text. If your harness happens to have a
-real quiz/popup tool, you may use it for the same contract - but the in-chat
-format always works.
+**3. Free-recall check - graded, but no options.** Recognizing the right option
+is the weakest retrieval; producing an answer from nothing is the strongest
+(free recall beats multiple choice for retention - Roediger & Karpicke). For
+the most important nodes, skip the numbered quiz and ask: "explain <X> in your
+own words" or "list everything you remember about <X>". Grade it against the
+correct content - what came out missing or wrong is exactly as diagnostic as a
+wrong option pick. Use these for key nodes and in the close; fall back to the
+numbered quiz when energy is low.
+
+All three work in any harness: they're just text. If your harness happens to
+have a real quiz/popup tool, you may use it for the same contract - but the
+in-chat format always works.
 
 ### Writing quiz options - a construction procedure (applies to every quiz)
 
@@ -400,7 +418,11 @@ Before any probing or new content, run a short, low-stakes retrieval round -
   misses for the queue, and briefly re-teach only if more than one or two
   items fail.
 - Adjust spacing: fail = due again in ~1 day; shaky = 3; solid = 7; instant =
-  14. Update the item's queue line.
+  14. Update the item's queue line. Ask "how sure? 1-3" after grading each
+  item - confidence refines the placement, accuracy alone doesn't: wrong-but-
+  sure is a misconception (reach it again soon, teach hard), wrong-but-unsure
+  is a plain gap, sure-and-correct nudges toward 14, correct-but-guessing
+  stays at 3 or 7, not 14.
 
 Then say the **bridge** - one line connecting what was recalled to today's
 lesson: "you just got <X>, which is the foundation <Y> you need for today."
@@ -410,10 +432,33 @@ If nothing is due in the queue, compress the warm-up to one recap question
 ("so far, what holds together?" style) and move on - never spend real time
 retrieving what hasn't been reviewed at all.
 
+## Resume: "continue my studies" (no topic name needed)
+
+If the learner says "continue", "continue my studies", or anything that means
+*pick up where we left off* without naming a topic, build today's session from
+the files - never from chat memory:
+
+1. **Read the index + every topic/course file.** Start with
+   `study-artifacts/index.md`, then open the files behind it - hub files first
+   (courses), then topic files. You want three things from each: what's due in
+   the review queue, any open Misses, and where each unfinished course stands
+   on its checklist.
+2. **Say what's on the table, then propose.** Report in one block: the due
+   warm-up items, the unfinished course's next un-ticked subtopic, the topic
+   whose Misses are loudest. Propose today's session (warm-up, then the highest-
+   priority next step) and let them adjust or override. Never silently pick a
+   new topic; the learner chooses the direction.
+3. **Run it as a normal session** - same warm-up, probe, plan, teach, log.
+
 ### End of session - the close (before finishing)
 
-1. **Consolidation round:** 2-3 questions - one from today's lesson, one from
-   earlier in this topic, one from a different topic.
+1. **Brain-dump consolidation:** first, ask them to write out everything they
+   can remember from today's lesson - free recall, no cues, no options. This is
+   the strongest retrieval there is. Grade it against today's learned graph and
+   re-teach only what came out missing or wrong. If energy is done, fall back
+   to 2-3 quick questions - one from today's lesson, one from earlier in this
+   topic, one from a different topic (interleaving). Same interleaving rule
+   either way.
 2. **Link-forward:** one line stating what's next and the edge it builds on
    ("next: <subject B>, which sits on today's <node>") - said in chat and
    written in the log.
@@ -543,6 +588,23 @@ second graph goes the **Misses** recap: every wrong pick and X, the
 exact threads to revisit next session. Topic files also carry the `## Review
 queue` (dated checkboxes, see the Session Link Ritual) - the warm-up of the
 next session draws from it.
+
+**Keep the index, one line at a time.** `study-artifacts/index.md` is the map
+of everything ongoing - a plain markdown table, updated at every close (never
+asked about), listing each topic/course file with: last session date, next due
+date (the earliest date in that file's review queue, or "–"), and status
+(`active`, `complete`, or `course` for hub files). Read it at every session
+start; write it at every close. If you make an index line for a file, the file
+itself still follows all the logging rules above - the index is a pointer, not
+a replacement:
+
+```
+| Topic | Last session | Next due | Status |
+|---|---|---|---|
+| [network-basics](network-basics.md) | 2026-09-05 | 2026-09-08 | active |
+| [monarchs](monarchs.md) | 2026-08-30 | - | course |
+| [ledgers](ledgers.md) | 2026-08-12 | 2026-08-13 | complete |
+```
 
 **No file tools?** (plain chat apps) You cannot write files there - so after
 each exchange, print the running log block with the header *"Study log -
