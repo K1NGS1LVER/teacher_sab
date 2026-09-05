@@ -63,6 +63,25 @@ To pick up mid-stream without naming a topic - due reviews first, then your
 next step: **"Use the teach skill. Continue my studies."** The teacher reads the
 logs and review queues and proposes today's session.
 
+### Quickest: npx (npm package)
+
+```bash
+npx teacher-sab
+```
+
+Prompts for which harnesses and where to install, then drops in the `teach`
+skill (+ optional `visualize` skill and the 3 subagents), creates `LEARNER.md`
+from the template, and makes the `study-artifacts/` log dir. Non-interactive
+variant: `npx teacher-sab -a "2 6 9" -d . -y` (harnesses by number or name).
+
+Package metadata and the CLI credit the original: pedagogy by
+[amosblomqvist/learn](https://github.com/amosblomqvist/learn); installer,
+packaging, and improvements by this fork. What the fork adds over the original
+is documented in [IMPROVEMENTS.md](IMPROVEMENTS.md) (also shipped in the
+package).
+
+The manual installs below do the same thing without npm.
+
 ### Quickstart: setup script
 
 `setup.sh` installs everything interactively - it asks questions with tricolor
