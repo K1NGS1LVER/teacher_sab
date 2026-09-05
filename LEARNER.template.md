@@ -35,3 +35,5 @@ more the teaching adapts. The teacher reads this at the start of every session.
 - Languages: is English fine, or should examples/tools be in another?
 - Anything that should always be true in lessons (tone, length, format, level
   of the first probe):
+- Answer length: short answers by default. Longer answers only when the
+  learner explicitly asks for a detailed answer.

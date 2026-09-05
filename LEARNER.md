@@ -38,3 +38,5 @@ Keep every section. Remove the answer text and fill in your own.
 - Languages: is English fine, or should examples/tools be in another?
 - Anything that should always be true in lessons (tone, length, format, level
   of the first probe):
+- Answer length: short answers by default. Longer answers only when the
+  learner explicitly asks for a detailed answer.
