@@ -55,24 +55,45 @@ every skill-capable agent.
 
 ## Using it in your harness
 
-Pick one row. Every path below installs the pieces you chose from the table
-above. After installing, run your agent and tell it: **"Use the `teach` skill.
+The fastest path is **[npx](https://www.npmjs.com/package/teacher-sab)** (one
+command, any OS):
+
+```bash
+npx teacher-sab
+```
+
+The CLI prompts for which harnesses to install into and where. You can also
+pass flags to skip the prompts (e.g. `npx teacher-sab -a 2 6 9 -d . -y`). It
+installs the teach skill, optional visualize skill and subagents, creates
+`LEARNER.md` from the template, and makes the `study-artifacts/` log directory.
+Edit `LEARNER.md` after install to personalize.
+
+Pick one row below only if you'd rather copy files by hand. After installing
+either way, run your agent and tell it: **"Use the `teach` skill.
 Teach me <topic>. Read LEARNER.md first."**
 
 To pick up mid-stream without naming a topic - due reviews first, then your
 next step: **"Use the teach skill. Continue my studies."** The teacher reads the
 logs and review queues and proposes today's session.
 
-### Quickest: npx (npm package)
+### npx (npm package) - full reference
 
 ```bash
-npx teacher-sab
+npx teacher-sab                      # interactive: pick harnesses, then target
+npx teacher-sab -a "2 6 9" -d . -y   # non-interactive: Claude + agy + universal
 ```
 
-Prompts for which harnesses and where to install, then drops in the `teach`
-skill (+ optional `visualize` skill and the 3 subagents), creates `LEARNER.md`
-from the template, and makes the `study-artifacts/` log dir. Non-interactive
-variant: `npx teacher-sab -a "2 6 9" -d . -y` (harnesses by number or name).
+Harnesses (number or name):
+`1 opencode · 2 Claude Code · 3 Codex · 4 Kilo Code · 5 Cursor ·
+6 Antigravity (agy) · 7 Hermes · 8 pi (original) · 9 Universal (.agents/skills)
+· 10 Plain chat`. Use `a` / `all` for every harness. `9` covers opencode/Codex
+and anything else that reads `.agents/skills/`, so it usually suffices alone.
+
+Flags: `-a, --agents <list>` (numbers or names, space/comma separated, `a`=all);
+`-d, --dir <path>` (default: current directory); `-l, --link` (symlink instead
+of copy - points into the npm cache, watch out); `-y, --yes` (no prompts,
+defaults: all harnesses, copy mode, include visuals); `-v, --version`;
+`-h, --help`.
 
 Package metadata and the CLI credit the original: pedagogy by
 [amosblomqvist/learn](https://github.com/amosblomqvist/learn); installer,

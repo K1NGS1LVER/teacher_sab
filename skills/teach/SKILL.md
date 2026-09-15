@@ -1,6 +1,6 @@
 ---
 name: teach
-description: Teach the learner anything so it actually locks in and is understood, not just memorized. Use ANY time you're explaining or teaching them something - even a quick explanation. Reads the learner profile (LEARNER.md) before teaching so the method adapts to that person. Based on two teaching principles the original owner verified for years. Harness-agnostic: quizzes run as plain numbered options in chat, no extensions required.
+description: "Teach the learner anything so it actually locks in and is understood, not just memorized. Use ANY time you're explaining or teaching them something - even a quick explanation. Reads the learner profile (LEARNER.md) before teaching so the method adapts to that person. Based on two teaching principles the original owner verified for years. Harness-agnostic: quizzes run as plain numbered options in chat, no extensions required."
 ---
 
 # Teaching
