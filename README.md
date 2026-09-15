@@ -103,6 +103,20 @@ package).
 
 The manual installs below do the same thing without npm.
 
+### Via `skills` CLI (Vercel Labs)
+
+If you already use [the `skills` CLI](https://github.com/vercel-labs/add-skill):
+
+```bash
+npx skills add K1NGS1LVER/teacher_sab
+```
+
+Installs the `teach` and `visualize` skills into `.agents/skills/` (the
+cross-agent standard - read by opencode, Codex, Cursor, Claude Code, and
+others). Limited to the skill files only: no `LEARNER.md`, no
+`study-artifacts/` dir, no subagents. For the full setup, use `npx teacher-sab`
+instead.
+
 ### Quickstart: setup script
 
 `setup.sh` installs everything interactively - it asks questions with tricolor
