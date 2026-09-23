@@ -86,7 +86,7 @@ npx teacher-sab -a "2 6 9" -d . -y   # non-interactive: Claude + agy + universal
 Harnesses (number or name):
 `1 opencode · 2 Claude Code · 3 Codex · 4 Kilo Code · 5 Cursor ·
 6 Antigravity (agy) · 7 Hermes · 8 pi (original) · 9 Universal (.agents/skills)
-· 10 Plain chat`. Use `a` / `all` for every harness. `9` covers opencode/Codex
+· 10 Plain chat · 11 pi code · 12 oh-my-pi · 13 aider · 14 cline`. Use `a` / `all` for every harness. `9` covers opencode/Codex
 and anything else that reads `.agents/skills/`, so it usually suffices alone.
 
 Flags: `-a, --agents <list>` (numbers or names, space/comma separated, `a`=all);
@@ -170,13 +170,15 @@ list `teach` as available.
 
 ### Per-harness reference
 
-| Harness | Where the skills go | Subagents (optional) |
-| --- | --- | --- |
 | opencode | `.opencode/skills/` (also reads `.agents/skills/`) | `.opencode/agent/` |
 | Claude Code | `.claude/skills/` (also reads `.agents/skills/`) | `.claude/agents/` |
 | Codex | `.agents/skills/` (repo) or `~/.agents/skills/` (user) | inline (no subagent files) |
 | Cursor | `.cursor/rules/teach.mdc` (also reads `.codex/skills/`) | inline |
 | pi (original harness) | install the whole repo as `.pi/` | `.pi/agents/` |
+| pi code | `.pi/skills/` + `.agents/skills/` (universal) | `.pi/agents/` |
+| oh-my-pi | `.omp/skills/` + `.agents/skills/` (universal) | `.omp/agents/` |
+| aider | `.agents/skills/` (agentskills.io standard) | inline |
+| cline | `.cline/skills/` + `.agents/skills/` (universal) | inline |
 | Plain chat (ChatGPT, Gemini, ...) | paste `skills/teach/SKILL.md` into the session | none |
 
 If your harness reads `.agents/skills/`, skip the per-harness row and just use

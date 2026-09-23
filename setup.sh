@@ -118,12 +118,13 @@ harness_picker() {
   printf "  %b 1)%b opencode        %b 2)%b Claude Code   %b 3)%b Codex        %b 4)%b Kilo Code%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
   printf "  %b 5)%b Cursor          %b 6)%b Antigravity (agy) %b 7)%b Hermes    %b 8)%b pi (original)%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
   printf "  %b 9)%b Universal (.agents/skills)          %b10)%b Plain chat (no files)%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
+  printf "  %b11)%b pi code        %b12)%b oh-my-pi      %b13)%b aider       %b14)%b cline%b\n" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST" "$C_SAFF" "$C_RST"
   local a
   read -r -p "$(printf '%b  Pick numbers, separated by space or comma (e.g. 2 6 9), or [a]:all: %b' "$C_SAFF" "$C_RST")" a
   [[ -z "${a:-}" ]] && { err "pick at least one harness"; return 1; }
   a=${a//,/ }
   if [[ "$a" == "a" || "$a" == "A" ]]; then
-    HARNS=(opencode claude codex kilo cursor agy hermes pi universal chat)
+    HARNS=(opencode claude codex kilo cursor agy hermes pi universal chat pi-code oh-my-pi aider cline)
   else
     HARNS=()
     local n
@@ -132,7 +133,8 @@ harness_picker() {
         1) add_h opencode;;     2) add_h claude;;   3) add_h codex;;   4) add_h kilo;;
         5) add_h cursor;;       6) add_h agy;;      7) add_h hermes;;  8) add_h pi;;
         9) add_h universal;;    10) add_h chat;;
-        *) err "bad pick: '$n' (use numbers 1-10)"; return 1;;
+        11) add_h pi-code;;    12) add_h oh-my-pi;; 13) add_h aider;;   14) add_h cline;;
+        *) err "bad pick: '$n' (use numbers 1-14)"; return 1;;
       esac
     done
   fi
@@ -151,6 +153,10 @@ runbook() {
     agy)        say '  run agy (Antigravity CLI) here and ask:  "use the teach skill. Teach me <topic>."' ;;
     hermes)     say '  run hermes here and ask:  "use the teach skill. Teach me <topic>." (or /skills)' ;;
     pi)         say '  open pi in this project and ask:  "use the teach skill. Teach me <topic>."';;
+    pi-code)    say '  open Pi Code in this project and ask:  "use the teach skill. Teach me <topic>."';;
+    oh-my-pi)   say '  open oh-my-pi in this project and ask:  "use the teach skill. Teach me <topic>."';;
+    aider)      say '  run aider in this project and ask it to use the teach skill. Read LEARNER.md first.';;
+    cline)      say '  open Cline in this project and ask:  "use the teach skill. Teach me <topic>."';;
     universal)  say '  run any skill-capable agent here and ask:  "use the teach skill. Teach me <topic>."';;
     chat)       :
   esac
@@ -210,6 +216,29 @@ install_one() {
     say "  1) contents of $SCRIPT_DIR/skills/teach/SKILL.md, prefixed: \"You are a teacher. Follow this exactly.\""
     [[ "$WITH_VIS" == "y" ]] && say "  2) (optional) contents of $SCRIPT_DIR/skills/visualize/SKILL.md - chat apps with Markdown render it"
     say "  3) your filled-in LEARNER.md, prefixed: \"This is the learner. Teach to this profile.\""
+    ;;
+  pi-code)
+    install_skills "$TARGET/.pi/skills" "$WITH_VIS"
+    [[ "$WITH_AGENTS" == "y" ]] && install_agents "$TARGET/.pi/agents"
+    install_skills "$TARGET/.agents/skills" "$WITH_VIS"
+    info "pi code reads .pi/skills/ (primary) and .agents/skills/ (universal)"
+    ;;
+  oh-my-pi)
+    install_skills "$TARGET/.omp/skills" "$WITH_VIS"
+    [[ "$WITH_AGENTS" == "y" ]] && install_agents "$TARGET/.omp/agents"
+    install_skills "$TARGET/.agents/skills" "$WITH_VIS"
+    info "oh-my-pi reads .omp/skills/ (primary) and .agents/skills/ (universal)"
+    ;;
+  aider)
+    install_skills "$TARGET/.agents/skills" "$WITH_VIS"
+    info "aider reads .agents/skills/ (agentskills.io standard)"
+    info "subagents: inline for aider - research runs in its own context"
+    ;;
+  cline)
+    install_skills "$TARGET/.cline/skills" "$WITH_VIS"
+    install_skills "$TARGET/.agents/skills" "$WITH_VIS"
+    info "cline reads .cline/skills/ (primary) and .agents/skills/ (universal)"
+    info "subagents: inline for Cline - research runs in its own context"
     ;;
   esac
 }

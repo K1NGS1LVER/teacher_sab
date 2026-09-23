@@ -23,8 +23,8 @@ const warn = (s) => console.log(`${Yel}  ! ${s}${Rst}`);
 const err  = (s) => console.error(`${Red}  ✘ ${s}${Rst}`);
 
 // ---------------------------------------------------------------- harnesses
-const ALL = ["opencode", "claude", "codex", "kilo", "cursor", "agy", "hermes", "pi", "universal", "chat"];
-const NUM = { 1: "opencode", 2: "claude", 3: "codex", 4: "kilo", 5: "cursor", 6: "agy", 7: "hermes", 8: "pi", 9: "universal", 10: "chat" };
+const ALL = ["opencode", "claude", "codex", "kilo", "cursor", "agy", "hermes", "pi", "universal", "chat", "pi-code", "oh-my-pi", "aider", "cline"];
+const NUM = { 1: "opencode", 2: "claude", 3: "codex", 4: "kilo", 5: "cursor", 6: "agy", 7: "hermes", 8: "pi", 9: "universal", 10: "chat", 11: "pi-code", 12: "oh-my-pi", 13: "aider", 14: "cline" };
 
 function parseAgents(input) {
   const t = input.trim().toLowerCase();
@@ -33,7 +33,7 @@ function parseAgents(input) {
   for (const bit of t.split(/[\s,]+/)) {
     if (!bit) continue;
     const h = NUM[bit] ?? (ALL.includes(bit) ? bit : null);
-    if (!h) throw new Error(`bad pick: '${bit}' (use numbers 1-10 or a harness name, or 'all')`);
+    if (!h) throw new Error(`bad pick: '${bit}' (use numbers 1-14 or a harness name, or 'all')`);
     if (!out.includes(h)) out.push(h);
   }
   if (!out.length) throw new Error("nothing recognizable picked");
@@ -67,7 +67,7 @@ Pedagogy by amosblomqvist/learn - https://github.com/amosblomqvist/learn
 Installer, packaging, and improvements by K1NGS1LVER (this fork).
 
 Options:
-  -a, --agents <list>   harnesses to install: numbers 1-10 or names, space or
+  -a, --agents <list>   harnesses to install: numbers 1-14 or names, space or
                         comma separated, or 'all' (default when -y)
   -d, --dir <path>      install target directory (default: current directory)
   -l, --link            symlink instead of copy (installs point into this npm cache)
@@ -77,7 +77,8 @@ Options:
 
 Harnesses:
   1 opencode  2 Claude Code  3 Codex  4 Kilo Code  5 Cursor
-  6 Antigravity (agy)  7 Hermes  8 pi (original)  9 Universal (.agents/skills)  10 Plain chat`);
+  6 Antigravity (agy)  7 Hermes  8 pi (original)  9 Universal (.agents/skills)  10 Plain chat
+  11 pi code  12 oh-my-pi  13 aider  14 cline`);
 }
 
 function banner() {
@@ -200,12 +201,30 @@ const installOne = async (h) => {
       await installSkills(path.join(target, ".agents", "skills"));
       info("subagents: not installed (opencode/Claude can read .agents/skills too; for subagent files use that harness's own config)");
       break;
-    case "chat":
-      info("no files to install to - here's what to paste:");
-      say(`  1) contents of ${PKG}/skills/teach/SKILL.md, prefixed: "You are a teacher. Follow this exactly."`);
-      if (withVis) say(`  2) (optional) contents of ${PKG}/skills/visualize/SKILL.md - chat apps with Markdown render it`);
-      say(`  3) your filled-in ${target}/LEARNER.md, prefixed: "This is the learner. Teach to this profile."`);
+    case "pi-code":
+      await installSkills(path.join(target, ".pi", "skills"));
+      if (withVis) await installAgents(path.join(target, ".pi", "agents"));
+      await installSkills(path.join(target, ".agents", "skills"));
+      info("pi code reads .pi/skills/ (primary) and .agents/skills/ (universal)");
       break;
+    case "oh-my-pi":
+      await installSkills(path.join(target, ".omp", "skills"));
+      if (withVis) await installAgents(path.join(target, ".omp", "agents"));
+      await installSkills(path.join(target, ".agents", "skills"));
+      info("oh-my-pi reads .omp/skills/ (primary) and .agents/skills/ (universal)");
+      break;
+    case "aider":
+      await installSkills(path.join(target, ".agents", "skills"));
+      info("aider reads .agents/skills/ (agentskills.io standard)");
+      info("subagents: inline for aider - research runs in its own context");
+      break;
+    case "cline":
+      await installSkills(path.join(target, ".cline", "skills"));
+      await installSkills(path.join(target, ".agents", "skills"));
+      info("cline reads .cline/skills/ (primary) and .agents/skills/ (universal)");
+      info("subagents: inline for Cline - research runs in its own context");
+      break;
+    case "chat":
   }
 };
 
@@ -241,6 +260,10 @@ const runbook = (h) => {
     case "agy":       say('  run agy (Antigravity CLI) here and ask:  "use the teach skill. Teach me <topic>."'); break;
     case "hermes":    say('  run hermes here and ask:  "use the teach skill. Teach me <topic>." (or /skills)'); break;
     case "pi":        say('  open pi in this project and ask:  "use the teach skill. Teach me <topic>."'); break;
+    case "pi-code":   say('  open Pi Code in this project and ask:  "use the teach skill. Teach me <topic>."'); break;
+    case "oh-my-pi":  say('  open oh-my-pi in this project and ask:  "use the teach skill. Teach me <topic>."'); break;
+    case "aider":     say('  run aider in this project and ask it to use the teach skill. Read LEARNER.md first.'); break;
+    case "cline":     say('  open Cline in this project and ask:  "use the teach skill. Teach me <topic>."'); break;
     case "universal": say('  run any skill-capable agent here and ask:  "use the teach skill. Teach me <topic>."'); break;
     case "chat":      break;
   }
@@ -279,6 +302,7 @@ if (harnesses == null) {
       raw(`${Saff}   1) opencode          2) Claude Code   3) Codex        4) Kilo Code`);
       raw(`${Saff}   5) Cursor            6) Antigravity (agy)  7) Hermes  8) pi (original)`);
       raw(`${Saff}   9) Universal (.agents/skills)     10) Plain chat (no files)`);
+      raw(`${Saff}  11) pi code        12) oh-my-pi      13) aider       14) cline`);
       try {
         harnesses = parseAgents(await ask("  Pick numbers, separated by space or comma (e.g. 2 6 9), or [a]:all: "));
         break;
