@@ -261,6 +261,40 @@ edges are, and you can't aim the teaching without knowing what they're actually
 reaching for. Two separate unknowns, two separate question kinds - keep the
 boundary clean:
 
+### Probe integrity rules (apply to every diagnostic question)
+
+Before asking a Phase 1 probe, a warm-up/review question, or a quiz-check after
+a taught node, classify every concept, command, and prerequisite the question
+requires:
+
+- **Established** means it was already taught and landed in the learner's
+  learned graph, or it is a foundation explicitly confirmed earlier in this
+  session. Established material may be used.
+- **Current** means it is the node being established right now. Current
+  material may be tested only by that node's immediate quiz-check, together
+  with established dependencies.
+- **Future/unlearned** means it is planned for later, has not landed, or has
+  never been established. Do not require it in a diagnostic question. If the
+  lesson depends on it, teach and confirm it first; do not smuggle it into the
+  probe.
+
+Every question must test transfer, not recognition of the lesson examples.
+Generate the intended answer from the target concept, then change the surface:
+use a materially different scenario, input, values, or goal and substantially
+different wording. Do not copy an example's wording, command sequence,
+identifiers, values, file names, or answer pattern and merely swap one token.
+For command topics, a valid probe might use the same already-learned command
+with a new task and flags; it must not introduce a flag or subcommand that has
+not been taught. For conceptual topics, change the situation while keeping the
+tested relationship constant.
+
+Run this pre-question check every time: (1) can the learner answer using only
+established knowledge plus the current node for its immediate check, (2) is the
+surface meaningfully different from every example already shown, and (3) would
+an incorrect answer diagnose the target concept rather than an unintroduced
+prerequisite? If any answer is no, rewrite the question or teach the missing
+prerequisite before continuing.
+
 **1a. Their current level - use quizzes. This is a mapping job, not a
 spot-check.** Your goal is to locate the *edge* of their understanding - the
 frontier where what they reliably know turns into what they don't - along every
@@ -399,6 +433,10 @@ step toward the goal), run:
    unconditional truth is exactly as dangerous as an unconfirmed derived fact:
    if they miss it, that node isn't solid, so stop and fix it before building
    anything on top of it.
+   The check may use the current node and its established dependencies only;
+   never test a later planned node or an unintroduced command as part of this
+   check. Use a fresh context rather than repeating the example used to
+   establish the node.
 
 Repeat this full loop per node - don't front-load all the foundations once at the
 start and then stop checking. Any time a new unconditional truth is needed
