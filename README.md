@@ -1,346 +1,223 @@
-# teacher_sab
+# teacher-sab
 
-A teaching system that works in **any** AI harness: opencode, Claude Code, pi,
-Codex, Cursor, plain ChatGPT - whatever you use. No harness-specific code, no
-extensions to install: the pedagogy runs as plain-chat conventions and a set of
-portable Markdown skills.
+### A portable AI teacher that helps knowledge stick.
 
-> **Fork of [amosblomqvist/learn](https://github.com/amosblomqvist/learn)**.
-> The pedagogy - two teaching principles, the probe → plan → teach loop, the quiz
-> construction rules, the visualization discipline - is entirely from that
-> project ([the original video](https://www.youtube.com/watch?v=kzcI5F4tGiU)).
-> This fork strips the pi-specific extension code so nothing depends on a
-> particular agent: no popups, no Obsidian md-log, no extension-backed makers.
-> The teaching core is the transferable part; the original belongs to the author
-> who got it right first. Upstream: https://github.com/amosblomqvist/learn
+`teacher-sab` brings a structured teaching loop to any AI harness: probe what
+you know, build a dependency-aware lesson, check understanding as you go, and
+keep the memory of every session in plain Markdown.
 
-## What it teaches how
+<p>
+  <a href="https://www.npmjs.com/package/teacher-sab"><img src="https://img.shields.io/npm/v/teacher-sab?color=CB3837&logo=npm&logoColor=white" alt="npm version"></a>
+  <a href="https://github.com/K1NGS1LVER/teacher_sab/blob/main/LICENSE"><img src="https://img.shields.io/github/license/K1NGS1LVER/teacher_sab?color=2ea44f" alt="MIT license"></a>
+  <a href="https://github.com/K1NGS1LVER/teacher_sab"><img src="https://img.shields.io/github/stars/K1NGS1LVER/teacher_sab?style=flat&logo=github" alt="GitHub stars"></a>
+  <a href="https://www.npmjs.com/package/teacher-sab"><img src="https://img.shields.io/npm/dm/teacher-sab?color=CB3837&logo=npm&logoColor=white" alt="npm weekly downloads"></a>
+</p>
 
-Two principles, verified by the original owner over years of use:
+> A fork of [amosblomqvist/learn](https://github.com/amosblomqvist/learn).
+> The teaching philosophy comes from the original project; this fork makes the
+> system portable across modern AI tools and keeps its session memory in files.
 
-1. **Unconditional truths first** - lock in the always-true core before anything
-   built on it, so it commits instantly and safely.
-2. **"How could I have discovered this?"** - every step gets a reason, so
-   nothing feels arbitrary. A fact you could have found yourself, you remember.
+## Why this exists
 
-Plus a **probe → plan → teach** loop: graded quizzes (and free-recall checks)
-to locate the exact edge of your understanding, a plan (with a dependency map)
-you approve before any teaching, then node-by-node building with a quiz check
-after every step - and misses are self-explained before being corrected. Every
-session opens with a low-stakes retrieval warm-up and closes with a brain-dump,
-feeding a spaced review queue so knowledge survives the gaps between sessions.
-Whole domains run as connected course sessions. Visuals are added only when a
-picture genuinely beats words - never decoration.
+Most AI explanations optimize for getting an answer out. This system optimizes
+for building a connected mental model:
 
-## What's in here
+- **Unconditional truths first** — establish the safe foundations before
+  building on top of them.
+- **Discoverable reasoning** — show how each idea follows from the previous one
+  instead of presenting arbitrary facts.
+- **Retrieval over recognition** — probe first, quiz during the lesson, and use
+  free recall to strengthen what was learned.
+- **Continuity across sessions** — save the plan, transcript, learned graph,
+  misses, and review queue so the next session can pick up where you stopped.
 
-| Path | Role | Required? |
-| --- | --- | --- |
-| `skills/teach/SKILL.md` | the teaching philosophy + process (atomic lessons + course mode for whole domains) | **yes** |
-| `LEARNER.md` | the learner profile the teacher reads each session | **yes** |
-| `skills/visualize/SKILL.md` | when/how to add a correct visual to a lesson | optional |
-| `agents/researcher.md` | brief for a research subagent (accuracy checks) | optional |
-| `agents/mermaid-maker.md` | brief for a diagram-maker subagent | optional |
-| `agents/svg-maker.md` | brief for a geometry-diagram subagent | optional |
-| `study-artifacts/` | session logs (planned + learned knowledge graphs, review queues) + an auto-maintained index - auto-created, filled by the teach skill | generated |
-| `LEARNER.template.md` | blank profile for handing the system to someone else | - |
+## Quick start
 
-Minimum viable setup: `skills/teach/SKILL.md` + `LEARNER.md`. Everything else is
-polish that degrades gracefully when absent.
+Install into the current project:
 
-Atomic topics use one file under `study-artifacts/`. A large multi-session topic
-uses a root-level course hub plus a matching subdirectory for its numbered
-session artifacts, for example `study-artifacts/docker.md` and
-`study-artifacts/docker/01-foundations.md`. The teach skill reuses exact
-normalized topic slugs and does not migrate existing artifacts.
-Study artifacts keep multiple-choice logs compact: they preserve the question
-and learner's answer, not the numbered answer options.
+```bash
+npx teacher-sab -a universal -d . -y
+```
 
-The layout matches both conventions at once: `skills/` and `agents/` are exactly
-what the original pi config used, and the skill files are the standard agent
-skills format (`SKILL.md` with `name`/`description` frontmatter), readable by
-every skill-capable agent.
+Then start your AI harness in that directory and say:
 
-## Using it in your harness
+> Use the `teach` skill. Read `LEARNER.md` first. Teach me Docker.
 
-The fastest path is **[npx](https://www.npmjs.com/package/teacher-sab)** (one
-command, any OS):
+The installer adds the skill, creates a learner profile template, and prepares
+`study-artifacts/` for session memory. Edit `LEARNER.md` once so the teacher
+knows your background, pace, preferences, and constraints.
+
+<details>
+<summary><strong>Interactive installation</strong></summary>
 
 ```bash
 npx teacher-sab
 ```
 
-The CLI prompts for which harnesses to install into and where. You can also
-pass flags to skip the prompts (e.g. `npx teacher-sab -a 2 6 9 -d . -y`). It
-installs the teach skill, optional visualize skill and subagents, creates
-`LEARNER.md` from the template, and makes the `study-artifacts/` log directory.
-Edit `LEARNER.md` after install to personalize.
+Choose one or more harnesses, the target directory, and copy or symlink mode.
+Use `-y` for a non-interactive install; it defaults to all harnesses.
 
-Pick one row below only if you'd rather copy files by hand. After installing
-either way, run your agent and tell it: **"Use the `teach` skill.
-Teach me <topic>. Read LEARNER.md first."**
+</details>
 
-To pick up mid-stream without naming a topic - due reviews first, then your
-next step: **"Use the teach skill. Continue my studies."** The teacher reads the
-logs and review queues and proposes today's session.
+## How a session works
 
-### npx (npm package) - full reference
+```text
+LEARNER.md
+    │
+    ▼
+warm-up ──► probe ──► approve plan ──► teach one node at a time
+    ▲                                      │
+    └──── review queue ◄── close ◄── quiz / free recall
+```
+
+Every lesson follows the same shape:
+
+1. Read the learner profile and any existing study artifacts.
+2. Run a short retrieval warm-up from the review queue.
+3. Probe the learner's current understanding.
+4. Research and propose a dependency-aware plan.
+5. Teach one node at a time, motivating each step and checking it immediately.
+6. Close with free recall, misses, and dated reviews.
+
+For a large domain such as Docker, course mode creates a hub and keeps its
+numbered session artifacts together:
+
+```text
+study-artifacts/
+├── index.md
+├── docker.md
+└── docker/
+    ├── 01-foundations.md
+    └── 02-images-and-containers.md
+```
+
+Atomic topics remain a single file such as
+`study-artifacts/network-basics.md`. Course folders use exact normalized topic
+slugs; existing artifacts are preserved rather than fuzzy-matched or migrated.
+Multiple-choice logs stay compact: the artifact keeps the question and learner's
+answer, not the numbered answer options.
+
+## Works with your harness
+
+| Harness | Project install |
+| --- | --- |
+| Universal standard | `.agents/skills/` |
+| opencode | `.opencode/skills/` |
+| Claude Code | `.claude/skills/` |
+| Codex | `.agents/skills/` |
+| Kilo Code | `.kilo/skills/` |
+| Cursor | `.cursor/rules/` |
+| Antigravity | `.agents/skills/` |
+| Hermes | `.hermes/skills/` |
+| pi / pi code | `.pi/skills/` |
+| oh-my-pi | `.omp/skills/` |
+| aider | `.agents/skills/` |
+| Cline | `.cline/skills/` |
+| Plain chat | Paste the skill and learner profile |
+
+The universal install is usually enough:
 
 ```bash
-npx teacher-sab                      # interactive: pick harnesses, then target
-npx teacher-sab -a "2 6 9" -d . -y   # non-interactive: Claude + agy + universal
+npx teacher-sab -a universal -d . -y
 ```
 
-Harnesses (number or name):
-`1 opencode · 2 Claude Code · 3 Codex · 4 Kilo Code · 5 Cursor ·
-6 Antigravity (agy) · 7 Hermes · 8 pi (original) · 9 Universal (.agents/skills)
-· 10 Plain chat · 11 pi code · 12 oh-my-pi · 13 aider · 14 cline`. Use `a` / `all` for every harness. `9` covers opencode/Codex
-and anything else that reads `.agents/skills/`, so it usually suffices alone.
-
-Flags: `-a, --agents <list>` (numbers or names, space/comma separated, `a`=all);
-`-d, --dir <path>` (default: current directory); `-l, --link` (symlink instead
-of copy - points into the npm cache, watch out); `-y, --yes` (no prompts,
-defaults: all harnesses, copy mode, include visuals); `-v, --version`;
-`-h, --help`.
-
-Package metadata and the CLI credit the original: pedagogy by
-[amosblomqvist/learn](https://github.com/amosblomqvist/learn); installer,
-packaging, and improvements by this fork. What the fork adds over the original
-is documented in [IMPROVEMENTS.md](IMPROVEMENTS.md) (also shipped in the
-package).
-
-The manual installs below do the same thing without npm.
-
-### Via `skills` CLI (Vercel Labs)
-
-If you already use [the `skills` CLI](https://github.com/vercel-labs/add-skill):
+List all choices and flags:
 
 ```bash
-npx skills add K1NGS1LVER/teacher_sab
+npx teacher-sab --help
 ```
 
-Installs the `teach` and `visualize` skills into `.agents/skills/` (the
-cross-agent standard - read by opencode, Codex, Cursor, Claude Code, and
-others). Limited to the skill files only: no `LEARNER.md`, no
-`study-artifacts/` dir, no subagents. For the full setup, use `npx teacher-sab`
-instead.
-
-### Quickstart: setup script
-
-`setup.sh` installs everything interactively - it asks questions with tricolor
-(yes, you guessed it) menus:
+<details>
+<summary><strong>Manual universal install</strong></summary>
 
 ```bash
-bash <path-to-this-repo>/setup.sh
-```
-
-Run it from anywhere; it finds its own files from its own location.
-
-**Pick one harness or several.** Type one number, or space/comma-separated
-numbers for multiple (e.g. `2 6 9` installs into Claude, Antigravity, and the
-universal dir at once). Type `a` for everything.
-
-**Copy or symlink.** It asks whether to copy the files in or symlink to the
-repo. Symlink mode makes the repo the single source of truth: edit
-`skills/teach/SKILL.md` or `LEARNER.md` once and every harness sees the change.
-(Cursor rules are generated `.mdc` files, so those are always written.)
-
-When it asks where to install, you can type a path, **or drag a folder from
-Finder into the terminal** (it pastes the path for you), or just press Enter to
-use the current directory. Relative paths resolve against wherever you ran the
-script from:
-
-```
-Install into directory (absolute or relative) [..]: ~/some/project
-```
-
-If you pick a *global* harness (Claude, Kilo, Hermes, Cursor), the script also
-offers a user-level install so the skill follows you across projects instead of
-staying in a project folder.
-
-### The universal method (recommended - works across agents)
-
-The cross-agent skills standard is `.agents/skills/` - opencode, Codex, and
-increasingly others read it natively, so one copy serves every skill-capable
-agent you run:
-
-```bash
-cd <your-project>
 mkdir -p .agents/skills
-cp -r <path-to-this-repo>/skills/teach .agents/skills/
-cp -r <path-to-this-repo>/skills/visualize .agents/skills/
-cp <path-to-this-repo>/LEARNER.md .
+cp -r /path/to/teacher_sab/skills/teach .agents/skills/
+cp -r /path/to/teacher_sab/skills/visualize .agents/skills/
+cp /path/to/teacher_sab/LEARNER.template.md LEARNER.md
 ```
 
-Put `LEARNER.md` in your project root - the teach skill looks for it there.
-Restart your agent if it caches skills at startup (Codex, Cursor) and it should
-list `teach` as available.
+Restart your harness if it caches skills at startup.
 
-### Per-harness reference
+</details>
 
-| opencode | `.opencode/skills/` (also reads `.agents/skills/`) | `.opencode/agent/` |
-| Claude Code | `.claude/skills/` (also reads `.agents/skills/`) | `.claude/agents/` |
-| Codex | `.agents/skills/` (repo) or `~/.agents/skills/` (user) | inline (no subagent files) |
-| Cursor | `.cursor/rules/teach.mdc` (also reads `.codex/skills/`) | inline |
-| pi (original harness) | install the whole repo as `.pi/` | `.pi/agents/` |
-| pi code | `.pi/skills/` + `.agents/skills/` (universal) | `.pi/agents/` |
-| oh-my-pi | `.omp/skills/` + `.agents/skills/` (universal) | `.omp/agents/` |
-| aider | `.agents/skills/` (agentskills.io standard) | inline |
-| cline | `.cline/skills/` + `.agents/skills/` (universal) | inline |
-| Plain chat (ChatGPT, Gemini, ...) | paste `skills/teach/SKILL.md` into the session | none |
+## What gets installed
 
-If your harness reads `.agents/skills/`, skip the per-harness row and just use
-the universal method above.
+| Path | Purpose | Required |
+| --- | --- | :---: |
+| `skills/teach/SKILL.md` | Teaching philosophy, session loop, course mode, and logging rules | Yes |
+| `LEARNER.md` | Your editable learner profile | Yes |
+| `skills/visualize/SKILL.md` | Rules for useful Mermaid, SVG, or ASCII visuals | No |
+| `agents/researcher.md` | Accuracy-checking subagent brief | No |
+| `agents/mermaid-maker.md` | Mermaid diagram subagent brief | No |
+| `agents/svg-maker.md` | Geometry diagram subagent brief | No |
+| `study-artifacts/` | Session logs, graphs, review queues, and index | Generated |
 
-**opencode**
+## CLI reference
+
+```text
+Usage: npx teacher-sab [options]
+
+-a, --agents <list>   Harness names or numbers, separated by spaces or commas
+-d, --dir <path>      Installation target (default: current directory)
+-l, --link            Symlink instead of copying package files
+-y, --yes             Skip prompts; install all harnesses with defaults
+-h, --help            Show help
+-v, --version         Show version
+```
+
+Harness numbers:
+
+`1 opencode` · `2 claude` · `3 codex` · `4 kilo` · `5 cursor` · `6 agy` ·
+`7 hermes` · `8 pi` · `9 universal` · `10 chat` · `11 pi-code` ·
+`12 oh-my-pi` · `13 aider` · `14 cline`
+
+## Continue your studies
+
+You do not need to remember the last topic:
+
+> Use the teach skill. Continue my studies.
+
+The teacher reads `study-artifacts/index.md`, checks due reviews and unfinished
+courses, then proposes the next session instead of silently starting somewhere
+new.
+
+## Change the learner
+
+Edit `LEARNER.md` to change the teaching experience:
+
+- background and existing knowledge
+- preferred pace and Socratic versus expository style
+- subjects and practical constraints
+- energy and session-length preferences
+
+To hand the system to someone else:
 
 ```bash
-cd <your-project>
-mkdir -p .opencode/skills .opencode/agent
-cp -r <path-to-this-repo>/skills/teach .opencode/skills/
-cp -r <path-to-this-repo>/skills/visualize .opencode/skills/
-cp <path-to-this-repo>/agents/*.md .opencode/agent/
-cp <path-to-this-repo>/LEARNER.md .
+cp LEARNER.md another-learner.md
+cp LEARNER.template.md LEARNER.md
 ```
 
-The `teach` skill shows up in the skill picker and as a slash-command-style
-`/teach`. Ask in chat "use the teach skill" or invoke it directly. The three
-`agents/*.md` files become real subagents the teacher can dispatch for research
-and diagrams.
+## Differences from upstream
 
-**Claude Code**
+This fork keeps the pedagogy and removes the pi-only extension dependency:
 
-```bash
-cd <your-project>
-mkdir -p .claude/skills .claude/agents
-cp -r <path-to-this-repo>/skills/teach .claude/skills/
-cp -r <path-to-this-repo>/skills/visualize .claude/skills/
-cp <path-to-this-repo>/agents/*.md .claude/agents/
-cp <path-to-this-repo>/LEARNER.md .
-```
+- quizzes run as plain numbered chat questions instead of TUI popups
+- logs use portable Markdown instead of an Obsidian-specific md-log
+- visuals degrade to Mermaid or ASCII when a renderer is unavailable
+- installer and skill files work across multiple AI harnesses
 
-Invoke with `/skills` (or ask the agent to use the `teach` skill). The three
-briefs in `agents/` become Claude Code subagents (`researcher`,
-`mermaid-maker`, `svg-maker`).
+For the original pi extensions, use the
+[upstream project](https://github.com/amosblomqvist/learn).
 
-**Codex**
+## Contributing
 
-```bash
-cd <your-project>
-mkdir -p .agents/skills
-cp -r <path-to-this-repo>/skills/teach .agents/skills/
-cp -r <path-to-this-repo>/skills/visualize .agents/skills/
-cp <path-to-this-repo>/LEARNER.md .
-# user-level (all your repos), optionally:
-mkdir -p ~/.agents/skills
-cp -r <path-to-this-repo>/skills/* ~/.agents/skills/
-```
+The core teaching rules live in
+[`skills/teach/SKILL.md`](skills/teach/SKILL.md). Changes to the quiz contract,
+logging format, or pedagogy should be documented there first so every harness
+gets the same behavior.
 
-Restart Codex after adding skills so it picks them up. Codex has no subagent
-files, so research/verification runs inline with its own tools - same behavior,
-different plumbing.
+## License and attribution
 
-**Cursor**
-
-```bash
-mkdir -p .cursor/rules
-```
-
-Create `.cursor/rules/teach.mdc` with this frontmatter prepended to the contents
-of `skills/teach/SKILL.md`:
-
-```markdown
----
-description: Teach anything so it locks in, not just memorizes. Follow for every lesson, explanation, or teaching task. Reads LEARNER.md first.
-alwaysApply: true
-globs: ["**/*"]
----
-<contents of skills/teach/SKILL.md>
-```
-
-The `alwaysApply: true` makes the rules fire on every agent run without any
-setup step. Do the same for `skills/visualize/SKILL.md` as `visualize.mdc` if
-you want diagrams.
-
-**pi (the original harness)**
-
-```bash
-cd <your-project>
-git clone https://github.com/K1NGS1LVER/teacher_sab.git .pi
-```
-
-The repo's layout is exactly the `.pi` config layout, so it drops in as-is.
-Because this fork removed the pi extension code, quizzes now run as in-chat
-numbered options (same grading contract) instead of the original popups. If you
-want the popups and Obsidian md-log back, run the upstream repo instead or
-re-add its `extensions/`.
-
-**Plain chat (ChatGPT, Gemini, Copilot, ...)**
-
-No filesystem to install to. Just paste in:
-
-1. `skills/teach/SKILL.md` - prefixed with "You are a teacher. Follow this
-   exactly."
-2. Your filled-in `LEARNER.md` - prefixed with "This is the learner. Teach to
-   this profile."
-
-Then start the topic. Bonus: paste `skills/visualize/SKILL.md` too if the chat
-app can render Markdown (most can), so diagrams come along.
-
-### First-run checklist
-
-1. Installed the skill into a location your harness reads.
-2. `LEARNER.md` sits in your project root (or wherever the skill can read it).
-3. Said "use the teach skill" (or invoked `/teach` / opened the rule).
-4. The teacher probes with a few quizzes before it ever starts explaining - if
-   it jumps straight into lecturing, remind it to run Phase 1 (probe) first.
-
-## Change the owner
-
-The whole system teaches **one learner at a time**, and that learner lives in
-`LEARNER.md`:
-
-1. Edit `LEARNER.md` - background, how you like to learn, subjects, energy
-   habits, anything that changes how you should be taught.
-2. To hand the system to someone else: `cp LEARNER.md their-name.md`, reset
-   `LEARNER.md` from `LEARNER.template.md`, and have them fill it in.
-
-The teach skill reads `LEARNER.md` at the start of every session. Edit that
-file, and the same skill teaches a different person. No code changes.
-
-## Trade-offs vs. the original
-
-The original ran on pi with real extensions: a `quiz` TUI popup, an
-`ask-user-question` popup, md-log to Obsidian, and tool-backed makers that
-render Mermaid/SVG to PNG and verify by looking. This port loses:
-
-- **Popups** - quizzes are in-chat numbered options instead. Same grading
-  contract, less pretty.
-- **Guaranteed pixel-rendered diagrams** - makers render only where the harness
-  has a rendering path; otherwise the visual is a Mermaid/ASCII block the
-  learner renders in their own viewer.
-- **md-log to Obsidian** - you lose the auto-append to a markdown note. Copy/
-  paste, or wire it to whatever file tools your harness has.
-
-If you want the popups and extension-backed makers back, run the original repo
-(pi) or adapt `extensions/` from it - the pedagogy here is the transferable
-part.
-
-## Keeping in sync with upstream
-
-The fork keeps the upstream remote; pick up original changes with:
-
-```bash
-git fetch upstream main && git merge upstream/main
-```
-
-## Notes
-
-- Accuracy is non-negotiable in this system. When in doubt, the teacher pauses
-  and verifies before teaching.
-- The quiz format and "how options should be built" rules live in
-  `skills/teach/SKILL.md`; if you find a better distractor-writing procedure,
-  edit that file, it applies everywhere.
-- The upstream repo ships without a license file. This fork inherits that
-  status - treat it as reference material for your own learning setup, and
-  credit the original if you redistribute the pedagogy.
+This fork is released under the [MIT License](LICENSE). The teaching pedagogy
+is credited to [amosblomqvist/learn](https://github.com/amosblomqvist/learn).
