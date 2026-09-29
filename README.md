@@ -48,6 +48,12 @@ picture genuinely beats words - never decoration.
 Minimum viable setup: `skills/teach/SKILL.md` + `LEARNER.md`. Everything else is
 polish that degrades gracefully when absent.
 
+Atomic topics use one file under `study-artifacts/`. A large multi-session topic
+uses a root-level course hub plus a matching subdirectory for its numbered
+session artifacts, for example `study-artifacts/docker.md` and
+`study-artifacts/docker/01-foundations.md`. The teach skill reuses exact
+normalized topic slugs and does not migrate existing artifacts.
+
 The layout matches both conventions at once: `skills/` and `agents/` are exactly
 what the original pi config used, and the skill files are the standard agent
 skills format (`SKILL.md` with `name`/`description` frontmatter), readable by

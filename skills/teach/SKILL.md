@@ -544,6 +544,30 @@ standard loop, keep the whole course visible in one file.
 doubt, show the learner the strands you see and confirm the decomposition
 before proceeding - never silently pick one corner.
 
+**Resolve the artifact location before creating the first quiz.** First read
+`study-artifacts/index.md` when it exists, then inspect the paths it points to.
+Derive one deterministic course slug from the learner's topic: lowercase,
+replace runs of non-letters and non-numbers with hyphens, trim hyphens, and
+reuse that exact slug for the course hub and directory. Match existing courses
+by exact slug only - never guess from fuzzy or semantic similarity.
+
+For a course named Docker, the required layout is:
+
+```
+study-artifacts/docker.md
+study-artifacts/docker/
+  01-foundations.md
+  02-images-and-containers.md
+```
+
+If the exact hub or directory already exists, continue that course. If only one
+exists, inspect it and create or complete the missing expected side without
+overwriting existing files. Create the directory before writing the first
+subtopic artifact. A course subtopic artifact must never be written directly
+under `study-artifacts/` beside the hub, and a new fuzzy-match directory must
+never be created. Preserve existing artifacts; this procedure does not migrate
+older root-level files.
+
 ### 1. Decompose (Phase 2, one level coarser)
 
 Research the domain (same scoping rule as Phase 2), then split it into
@@ -557,7 +581,10 @@ than that means the decomposition is wrong, not the loop.
 
 ### 2. The course hub file
 
-`study-artifacts/<course-slug>.md` shows the whole course at a glance.
+`study-artifacts/<course-slug>.md` shows the whole course at a glance. The hub
+stays at the `study-artifacts/` root so it is easy to find from the index; only
+the per-subtopic session artifacts go in the matching
+`study-artifacts/<course-slug>/` directory.
 Top to bottom:
 
 1. **Planned course graph** - the DAG above.
@@ -574,8 +601,10 @@ Top to bottom:
 
 `study-artifacts/<course-slug>/NN-slug.md` - one file per subtopic, numbered in
 teaching order. Standard logging rules apply unchanged: its own planned graph,
-live Q&A, learned graph. Each subtopic session additionally opens and closes
-with its place in the course:
+live Q&A, learned graph. Never substitute
+`study-artifacts/<course-slug>-<subtopic-slug>.md` or another root-level path.
+Each subtopic session additionally opens and closes with its place in the
+course:
 
 - **Open:** "This sits on <depends-on subtopics>, feeds into <enabled
   subtopics>." - the learner always knows where they are.
@@ -585,7 +614,8 @@ with its place in the course:
 ### 4. Continuing across sessions
 
 The hub file is the memory: read it at session start, tell the learner where
-the course stands, teach the next un-ticked subtopic. A course resumes on any
+the course stands, teach the next un-ticked subtopic, and follow the exact hub
+directory links rather than deriving a new path. A course resumes on any
 harness from `study-artifacts/<course-slug>.md` alone. Every subtopic session
 runs the Session Link Ritual too (warm-up draws from the queue, the open is
 its bridge, the close schedules the next reviews).
@@ -597,11 +627,15 @@ of teaching, not an add-on. It is the system's memory across topics, sessions,
 and harnesses.
 
 **Where.** `study-artifacts/` at your working-directory root (same root as
-`LEARNER.md`) - create it and the file on your own with your file tools. One
-file per topic: `study-artifacts/<topic-slug>.md` (lowercase, hyphens). Same
-topic later = append to that file, never a new one. Course mode (a whole-domain
-topic) uses a hub file plus a subtopic subdirectory instead - see "Course mode"
-above.
+`LEARNER.md`) - create it and the file on your own with your file tools. An
+atomic topic gets one root-level file:
+`study-artifacts/<topic-slug>.md` (lowercase, hyphens); the same topic later
+appends to that file, never a new one. Course mode gets exactly one root-level
+hub plus a matching subtopic directory:
+`study-artifacts/<course-slug>.md` and
+`study-artifacts/<course-slug>/NN-<subtopic-slug>.md`. Resolve and create that
+directory before the first course subtopic quiz; do not place course session
+files at the artifact root. See "Course mode" above.
 
 **Create it at the first quiz of the session - and write the planned graph
 first.** The very top of the file is the session's **planned knowledge graph**:
@@ -611,17 +645,20 @@ teaching. Display each named node with its compact ID and clear expanded name
 (`ID (name)`), including node labels in the graph and any prose that explains
 its edges. The learner is never asked "should I create this?".
 
-**Log each question and answer live, in order.** Every quiz you ask and every
-answer they give is appended to the file the moment it happens - before you ask
-the next question. This covers Phase 1 probes, Phase 3 quiz-checks, and "I
-don't know" X answers. No drafting a big dump at the end; the live record *is*
-the file. Teacher lines are `> ` prefixed, the learner's reply on its own
-`Learner replies:` line; a new session under the same topic continues the file
-under a `## <YYYY-MM-DD>` header so the sessions stay separable:
+**Log each question and answer live, in order.** Every question and answer is
+appended to the file the moment it happens - before you ask the next question.
+This covers Phase 1 probes, Phase 3 quiz-checks, and "I don't know" X answers.
+No drafting a big dump at the end; the live record *is* the file. For
+multiple-choice quizzes, persist only the question and the learner's answer;
+the numbered options are prompt-only and must not be copied into the study
+artifact. You may retain the grading result, correct answer, and brief
+explanation when needed to make the record useful. Teacher lines are `> `
+prefixed, the learner's reply on its own `Learner replies:` line; a new session
+under the same topic continues the file under a `## <YYYY-MM-DD>` header so the
+sessions stay separable:
 
 ```
 > Quiz 3: Which of these is an unconditional truth?
-> 1. ...  2. ...  3. ...  4. ...
 Learner replies: 2
 Correct: 3 - <why>
 ```
@@ -667,8 +704,11 @@ a replacement:
 
 **No file tools?** (plain chat apps) You cannot write files there - so after
 each exchange, print the running log block with the header *"Study log -
-save this under study-artifacts/<topic-slug>.md"* so the learner maintains the
-file. Still never ask whether to log; the block is produced unconditionally.
+save this under <artifact-path>"* so the learner maintains the file. Use
+`study-artifacts/<topic-slug>.md` for an atomic topic, or the resolved
+course-session path `study-artifacts/<course-slug>/NN-<subtopic-slug>.md` for
+course mode. Still never ask whether to log; the block is produced
+unconditionally.
 
 ## Formatting - math renders as LaTeX
 
