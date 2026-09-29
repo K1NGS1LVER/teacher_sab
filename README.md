@@ -53,6 +53,8 @@ uses a root-level course hub plus a matching subdirectory for its numbered
 session artifacts, for example `study-artifacts/docker.md` and
 `study-artifacts/docker/01-foundations.md`. The teach skill reuses exact
 normalized topic slugs and does not migrate existing artifacts.
+Study artifacts keep multiple-choice logs compact: they preserve the question
+and learner's answer, not the numbered answer options.
 
 The layout matches both conventions at once: `skills/` and `agents/` are exactly
 what the original pi config used, and the skill files are the standard agent
