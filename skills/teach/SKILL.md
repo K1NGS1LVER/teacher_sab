@@ -344,6 +344,17 @@ A good plan is what makes the teaching feel inevitable instead of arbitrary.
    shape works). This map *is* the teaching order - Phase 3 builds it node by
    node. Keep it small: few nodes, short labels - a map, not the territory.
 
+**Make every graph node self-describing.** While planning the graph, create a
+stable mapping from each compact node ID to a clear, learner-friendly name.
+Compact IDs keep the graph readable, but they are never enough on their own in
+learner-facing output. Whenever a named node is mentioned, write it as
+`<ID> (<clear expanded name>)`, for example `D (Docker writable layer)` or
+`F (writable-layer data is ephemeral)`. Use the expanded name even when the
+graph label is abbreviated; do not copy an unclear abbreviation into the
+parentheses. Keep the compact ID stable throughout the lesson so the learner
+can follow the edges, and do not annotate ordinary letters, variables, or
+prose that are not graph-node references.
+
 **Stress-test the roots before presenting.** For every node you're treating as
 foundational, ask: is this genuinely an unconditional truth *for this learner*,
 or a disguised theorem that itself derives from something simpler they'd accept
@@ -380,6 +391,9 @@ step toward the goal), run:
      open question if there's genuinely no right answer.
 3. **Connect.** Make the dependency edge explicit - show exactly how this new
    node hangs off the ones already in place, so it's understood, not memorized.
+   Name every referenced node using its compact ID plus clear expanded name;
+   never leave a learner-facing reference as a standalone ID such as `D` or
+   `F`.
 4. **Quiz-check.** Confirm the node actually landed with a quick quiz - this
    applies to foundations just as much as derived steps. An unconfirmed
    unconditional truth is exactly as dangerous as an unconfirmed derived fact:
@@ -555,7 +569,9 @@ above.
 first.** The very top of the file is the session's **planned knowledge graph**:
 the Phase 2 dependency map as a mermaid DAG (or text tree) - every node and edge
 you intend to teach. It goes in the moment the plan is approved, before any
-teaching. The learner is never asked "should I create this?".
+teaching. Display each named node with its compact ID and clear expanded name
+(`ID (name)`), including node labels in the graph and any prose that explains
+its edges. The learner is never asked "should I create this?".
 
 **Log each question and answer live, in order.** Every quiz you ask and every
 answer they give is appended to the file the moment it happens - before you ask
@@ -571,6 +587,11 @@ under a `## <YYYY-MM-DD>` header so the sessions stay separable:
 Learner replies: 2
 Correct: 3 - <why>
 ```
+
+Apply the same `ID (clear expanded name)` format to every node reference in
+quiz text, answers, bridges, review-queue entries, Misses recaps, planned and
+learned graphs, and transcripts. A persisted artifact must not require the
+learner to remember what a standalone ID such as `D` or `F` meant.
 
 **The second knowledge graph - ONLY after the lesson is actually learnt.**
 When the session's final node passes its quiz-check, append the **learned
