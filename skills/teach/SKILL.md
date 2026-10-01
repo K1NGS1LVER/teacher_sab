@@ -235,6 +235,68 @@ afterwards; **build the options so evenness is automatic**:
 If, reading the finished set cold, you can still tell which is right without
 knowing the material, you skipped step 1 or 2 - regenerate, don't patch.
 
+### Question quality gate
+
+The options can be perfectly even and the question can still be impossible to
+decode. Apply this gate to **every** quiz-like check: warm-ups, probes,
+node-checks, and reviews. The learner should retrieve the concept, not reverse
+engineer the teacher's wording.
+
+1. **One target per item.** Ask for one result, relationship, or decision.
+   Split two blanks, multiple numbered sub-questions, and prompts that ask for
+   both a shape and a parameter count into separate items.
+2. **Name the requested output.** State the relevant context, operation, and
+   answer shape or units when they matter. A stem must make clear whether the
+   learner should give a shape, count, definition, comparison, or explanation.
+   Replace vague prompts such as "Why does this happen?" with the relationship
+   being tested, such as "Which statement explains why the output height stays
+   constant for these inputs?"
+3. **Make the stem self-contained.** Use plain language and only established
+   prerequisites. If the learner cannot paraphrase what the item is asking
+   without seeing the options, rewrite it before showing it.
+4. **Keep options subordinate to the stem.** Every option must be an answer to
+   the same stem, in the same grammatical shape and at the same level of
+   specificity. Never make an option the question itself, a restatement of the
+   question, a compound of separate claims, or a mini-explanation.
+5. **Run a silent pre-display check.** Before displaying the item, verify:
+   one target; a complete and unambiguous requested output; established
+   prerequisites only; no stem/option duplication; parallel, distinct options;
+   exactly one correct answer; and no wording that gives away the key. If any
+   check fails, silently regenerate the whole item and check it again.
+
+For example, these are not usable as written:
+
+- `On (32,32,1) -> Conv2D(6,5) -> 28x28x6: the input's trailing 1 counts ___,
+  the output's trailing 6 counts ___.` It asks for two answers.
+- `Why is a conv layer's output shape fixed at build time rather than varying
+  per image?` It does not identify the relationship or answer form.
+
+Split and rewrite them as single-target items, for example:
+
+```
+Quiz <n>: In the output shape 28x28x6, what does the trailing 6 represent?
+
+1. The number of filters in the convolution
+2. The number of pixels along the output width
+3. The kernel size used by the convolution
+4. The number of training examples in the batch
+```
+
+and:
+
+```
+Quiz <n>: Which statement best explains why a built convolution layer keeps
+the same output-shape rule for every image in a batch?
+
+1. Every image is passed through the same fixed layer configuration
+2. Each image chooses a new kernel size from its own pixel values
+3. The layer removes channels until every image becomes square
+4. The batch discards images whose shapes do not match the first image
+```
+
+The examples illustrate the shape of a decodable item; adapt the content to
+the learner's established knowledge and the current node.
+
 ## The process: probe -> plan -> teach
 
 The two principles are *how* you teach. This is *when* - the shape of a teaching
