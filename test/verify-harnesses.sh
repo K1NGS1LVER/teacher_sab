@@ -52,6 +52,25 @@ printf '11\na\n' | bash setup.sh "$tmp/shell-picker" >/dev/null 2>&1 || true
 # --- install path assertions ---
 echo "== install paths =="
 
+# --- teach skill: quiz question quality contract ---
+echo "== quiz quality contract =="
+skill="skills/teach/SKILL.md"
+for phrase in \
+  "One target per item" \
+  "Name the requested output" \
+  "Make the stem self-contained" \
+  "Keep options subordinate to the stem" \
+  "Run a silent pre-display check" \
+  "silently regenerate the whole item"; do
+  if grep -Fq "$phrase" "$skill"; then
+    echo "PASS: quiz contract contains '$phrase'"
+    PASS=$((PASS+1))
+  else
+    echo "FAIL: quiz contract missing '$phrase'"
+    FAIL=$((FAIL+1))
+  fi
+done
+
 # Test each harness via bin/cli.js non-interactive
 for spec in \
   "pi-code:.pi/skills/teach/SKILL.md:.pi/agents/researcher.md" \
