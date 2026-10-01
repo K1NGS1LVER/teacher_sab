@@ -28,6 +28,9 @@ for building a connected mental model:
   instead of presenting arbitrary facts.
 - **Retrieval over recognition** — probe first, quiz during the lesson, and use
   free recall to strengthen what was learned.
+- **Decodable quizzes** — every quiz check has one explicit target, a
+  self-contained requested output, and parallel options; malformed or
+  ambiguous items are regenerated before they reach the learner.
 - **Continuity across sessions** — save the plan, transcript, learned graph,
   misses, and review queue so the next session can pick up where you stopped.
 
@@ -38,6 +41,11 @@ Install into the current project:
 ```bash
 npx teacher-sab -a universal -d . -y
 ```
+
+Quiz checks are plain chat, but they are not improvised: the teach skill
+requires one answerable target per item, splits compound questions, and checks
+that no option repeats the question or contains its explanation. If a generated
+item fails that gate, the teacher regenerates it before displaying it.
 
 Then start your AI harness in that directory and say:
 

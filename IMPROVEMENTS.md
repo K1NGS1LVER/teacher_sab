@@ -21,6 +21,7 @@ anywhere and keeping the memory of your sessions between AI tools.
 | 6 | **Evidence-based retrieval upgrades** — confidence grading on quiz misses (1-3), free-recall checks ("explain X in your own words") instead of recognition-only quizzes, self-explaining a wrong pick before it's corrected, and a brain-dump close over a recognition round | Free recall beats multiple choice, errors with self-explanation beat errors with answers — these are the strength increases |
 | 7 | **Learner profile that installs with the system** — every install gets a `LEARNER.md` template; editing that one file re-teaches the system to a different person | Portability of the "teach one person, forever" loop |
 | 8 | **Portable subagent briefs** — `agents/researcher.md`, `agents/mermaid-maker.md`, `agents/svg-maker.md` map onto whatever subagent system your harness has | Accuracy checking and diagram making work without pi's specific plugins |
+| 9 | **Decodable quiz contract** — every quiz-like check has one explicit target, a named answer shape, parallel options, and a silent pre-display quality gate that rejects stem duplication, compound prompts, and ambiguous wording | The learner retrieves the concept instead of decoding malformed question framing |
 
 ## What this fork deliberately does NOT do (vs. the original)
 
