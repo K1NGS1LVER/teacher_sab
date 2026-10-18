@@ -37,3 +37,5 @@ more the teaching adapts. The teacher reads this at the start of every session.
   of the first probe):
 - Answer length: short answers by default. Longer answers only when the
   learner explicitly asks for a detailed answer.
+- Math notation: plain text by default (terminals/plain chat show `$...$`
+  literally). Switch to LaTeX only if your viewer renders it and you want it.

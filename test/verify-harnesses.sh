@@ -61,7 +61,10 @@ for phrase in \
   "Make the stem self-contained" \
   "Keep options subordinate to the stem" \
   "Run a silent pre-display check" \
-  "silently regenerate the whole item"; do
+  "silently regenerate the whole item" \
+  "Write math as readable plain text" \
+  "plain text would be genuinely unreadable" \
+  "Reserve LaTeX"; do
   if grep -Fq "$phrase" "$skill"; then
     echo "PASS: quiz contract contains '$phrase'"
     PASS=$((PASS+1))

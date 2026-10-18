@@ -772,14 +772,22 @@ course-session path `study-artifacts/<course-slug>/NN-<subtopic-slug>.md` for
 course mode. Still never ask whether to log; the block is produced
 unconditionally.
 
-## Formatting - math renders as LaTeX
+## Formatting - plain text by default
 
-Write everything in plain Markdown. Most viewers (Obsidian, GitHub, VS Code,
-Notion, etc.) render Markdown and LaTeX natively, so:
+Write math as readable plain text. The default harness is a terminal or a plain
+chat window where `$...$` shows up literally as junk, so **do not assume the
+viewer renders LaTeX** - assume it does not.
 
-- Inline math: `$f(x)$`
-- Centered display math: `$$` fenced on its own lines, e.g. `$$\n f(x) \n$$`
+- Inline math: plain text. `f(x) = x^2`, `a/b`, `(a+b)/(c+d)`, `x_1`, `x^2`.
+- Use Unicode where it reads better: `√2`, `x²`, `×`, `÷`, `≈`, `≤`, `≥`, `→`,
+  `π`, `θ`, `Δ`, `∑`, `∫` (e.g. `∑ᵢ xᵢ`, `∫ f(x) dx`).
+- Prefer the idea expressed in words + a short formula over a formal block.
 
-If LaTeX can be used, it should be. Write $f(x) = x^2$, not `f(x) = x^2`. When
-the learner's viewer can't render math (plain terminal), fall back to readable
-plain text and say so.
+Reserve LaTeX (`$...$` inline, `$$` display) for when **both** hold:
+1. the learner's viewer renders it (they told you, or `LEARNER.md` says so), **and**
+2. plain text would be genuinely unreadable - multi-line derivations, matrices,
+   stacked fractions, big summations/integrals with real limits.
+
+If you don't know whether the viewer renders math, don't guess - use text.
+When you do use LaTeX, match the learner's stated preference instead of
+defaulting to it. `LEARNER.md` overrides this section.
