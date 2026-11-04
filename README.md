@@ -153,8 +153,9 @@ Restart your harness if it caches skills at startup.
 
 | Path | Purpose | Required |
 | --- | --- | :---: |
-| `skills/teach/SKILL.md` | Teaching philosophy, session loop, course mode, and logging rules | Yes |
-| `LEARNER.md` | Your editable learner profile | Yes |
+| `skills/teach/SKILL.md` | Teaching philosophy, probe→plan→teach loop, course mode, logging rules | Yes |
+| `skills/teach/references/examples.md` | Worked examples for quiz construction, worked-example fading, concreteness fading, confidence grading, intensity scaling | No |
+| `LEARNER.md` | Your editable learner profile (now includes default intensity) | Yes |
 | `skills/visualize/SKILL.md` | Rules for useful Mermaid, SVG, or ASCII visuals | No |
 | `agents/researcher.md` | Accuracy-checking subagent brief | No |
 | `agents/mermaid-maker.md` | Mermaid diagram subagent brief | No |
@@ -224,6 +225,11 @@ The core teaching rules live in
 [`skills/teach/SKILL.md`](skills/teach/SKILL.md). Changes to the quiz contract,
 logging format, or pedagogy should be documented there first so every harness
 gets the same behavior.
+
+The skill uses progressive disclosure: the main `SKILL.md` stays under 500
+lines, and detailed worked examples live in
+`skills/teach/references/examples.md` (quiz construction, worked-example
+fading, concreteness fading, confidence grading, intensity scaling).
 
 ## License and attribution
 

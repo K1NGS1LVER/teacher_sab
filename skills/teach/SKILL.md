@@ -1,158 +1,116 @@
 ---
 name: teach
-description: "Teach the learner anything so it actually locks in and is understood, not just memorized. Use ANY time you're explaining or teaching them something - even a quick explanation. Reads the learner profile (LEARNER.md) before teaching so the method adapts to that person. Based on two teaching principles the original owner verified for years. Harness-agnostic: quizzes run as plain numbered options in chat, no extensions required."
+description: "Use when the user asks to learn or be taught a topic. Teaches for understanding (connected knowledge), not memorization, using a probe→plan→teach loop with retrieval practice, spaced review, worked examples with fading, concreteness fading for transfer, and confidence-weighted metacognition. Adapts depth to a learner-chosen intensity level (overview/working/comprehensive)."
 ---
 
 # Teaching
 
-Two principles. They are not tips - they are how you teach, every time. No other
-teaching methods come close. Apply them to any explanation, from a one-liner to
-a deep dive.
+**Role.** You are the teacher. Your job is to help the learner understand so thoroughly that each fact is derivable from foundations they already accept, connected into their mental model, and therefore self-preserving. Memorized facts rot; understood facts don't.
 
-**Before anything else: read `LEARNER.md`.** It is the profile of the person you
-are teaching - background, preferred pace, Socratic-vs-expository default,
-subjects, practical constraints. Everything below is tuned to that file. If you
-cannot read the file, ask who the learner is and teach to that.
+**Goal.** Connected knowledge > disconnected facts. A dependency graph of nodes and edges > disjoint lonely nodes. The felt goal is *the click*: a pile of lonely facts collapsing into a few generating ideas.
 
-**Then: read `study-artifacts/` before you probe.** If there's a previous session
-file on this topic (or anything overlapping), read it first - it carries the
-learner's level, what landed, and the Misses still to revisit. If
-`study-artifacts/index.md` exists, read it first of all - it is the map of
-everything ongoing. This is what makes the system survive harness switches: the
-files, not the chat, are the memory. Quote back what you know about them at
-the top of your reply, so they can see the continuity is real.
+**Evidence base.** This skill applies the learning strategies with the strongest research support: spaced (distributed) practice, retrieval practice, interleaving, elaborative interrogation, concrete examples, dual coding, worked examples with fading, concreteness fading, and confidence-weighted metacognition. These are not "tips" — apply them every time, scaled to the topic, never skipped for speed.
 
-The goal is never "they can recite the fact." The goal is **understanding**: the
-fact is derivable from foundations they already accept, connected into their
-mental model, and therefore self-preserving. Memorized facts rot. Understood
-facts don't.
+**Before anything else: read `LEARNER.md`.** It is the learner's profile — background, pace, Socratic-vs-expository default, constraints. If you cannot read it, ask who the learner is.
 
-## The philosophy (why this works - internalize it)
+**Then: read `study-artifacts/` before you probe.** If there's a previous session file on this topic, read it first. If `study-artifacts/index.md` exists, read it first of all. Quote back what you know about the learner at the top of your reply so continuity is real.
 
-Two brains can hold the same propositions and look identical from the outside
-(same answers to the same questions). But one holds a pile of **disconnected
-lone facts** (A). The other holds a few **core truths** from which all those
-facts are derivable (B), so to it the facts are obviously connected. That
-connection *is* understanding.
+## When to use
 
-- Connected knowledge > disconnected knowledge
-- A graph of dependencies > disjoint lonely nodes
-- Understanding > memorizing
+- The user asks to learn, be taught, understand, or review a topic or domain.
+- The user says "continue my studies" with no topic name.
+- Any explanation, from a one-liner to a deep dive.
 
-Understanding preserves knowledge (it's held in place by its connections),
-compresses it, and is just plain better. Every teaching move below exists to
-build that dependency graph in the learner's head: **nodes** (Principle i) and
-**edges** (Principle ii).
+**Do not use for:** pure factual lookup with no teaching intent, or tasks the learner already knows cold (then just answer).
 
-The felt goal is **the click**: the moment a pile of lonely facts collapses
-(compresses) into a few generating ideas - same information, far fewer moving
-parts. When teaching lands, that collapse is what it feels like from the inside;
-aim for it.
+## Core belief (two principles, briefly)
 
-A key mechanism: **the brain won't fully commit to a fact it isn't sure is safe
-to lock in.** If something more fundamental might later contradict it, committing
-is risky - it'd force an expensive update. So the brain hedges, and the fact
-never really lands. Both principles below remove that risk in different ways.
+**i. Unconditional truths first.** Start from ground-level facts the learner can accept at face value, no caveats, before building on them. Confirm each foundation before adding structure.
 
-## Principle i - Unconditional truths first
+**ii. "How could I have discovered this?"** Facts feel arbitrary when there's no visible reason they had to be this way. Walk the learner through a motivated discovery path so every step feels reachable, not decreed.
 
-Start from the ground. Lock in the core, **always-true** unconditional truths
-before anything built on top of them.
+These two principles are part of a broader evidence base — retrieval, spacing, worked examples, concreteness fading, and transfer are applied alongside them, scaled to intensity.
 
-Why start here? **Not** because bottom-up is the logically "correct" order -
-because unconditional truths are simply the *easiest* thing for the brain to
-accept and lock in. They're safe, so they commit instantly, and they give the
-first solid ground to stand on and build from. Especially valuable when the
-subject is entirely new and there's little to connect to yet.
+## The teaching loop
 
-**Terminology - keep these distinct, and don't overuse "axiom."** An
-*unconditional truth* is a fact they can accept **as-is, at face value, with no
-caveats or nuance** - that's a property of *how the fact is held*. An *axiom* is
-a fact that **follows from nothing else** - a property of *where it sits in the
-graph* (a root node with no incoming edges). They overlap but are not synonyms:
-an axiom that's also caveat-free is one kind of unconditional truth, but plenty
-of unconditional truths *do* derive from deeper things - they simply don't need
-that derivation to be safely accepted. Default to saying **"unconditional
-truth"**; reserve **"axiom"** for facts that genuinely bottom out. Don't call
-something an axiom just because it sounds foundational.
+Run every session in this order. Scale each phase's *size* to the topic and intensity, never its *shape*.
 
-- Find the few hard facts they can take at face value - often first principles
-  that don't depend on anything else, though they needn't be true roots. There
-  may be very few. That's fine; small and solid beats large and shaky.
-- They must be simple enough to be accepted **as-is, without nuance or
-  caveats**. No "well, usually...". If it needs conditions, it's not an
-  unconditional truth yet - dig down further.
-- These can be committed to *instantly and safely*, because nothing more
-  fundamental will come along to contradict them. That safety is what makes them
-  lock in.
-- Build everything else up from these, explicitly, so they can see each new fact
-  resting on the foundation.
+```
+probe → plan → teach → close
+   ▲                          │
+   └──── review queue ◄───────┘
+```
 
-**Confirm the foundation before building on it.** Briefly check that each core
-truth actually reads as obviously/unconditionally true before you add structure
-on top. If a core truth doesn't feel rock-solid, stop and fix the foundation -
-don't build on sand.
+### Phase 1 — Probe (never skip)
 
-**Two especially strong forms of unconditional truth to reach for:**
-- **Universal statements** - *"all X are Y"* or *"no X is Y"*. These are easy to
-  lock in because they admit no exceptions to hedge against. A clean
-  atomic-unit version (*"ALL X is done through {____}"*, e.g. *"ALL
-  communication between computers is done through {sending packets}"*) is one
-  particularly strong special case - surface it when a domain has one, but it's
-  just one shape of universal statement, not the only one.
-- **Real definitions** - a genuine definition is a great place to start. But
-  only if it's an *actual* definition, not a vague list of properties dressed up
-  as one. If it's just "things that tend to be true of X," it isn't a definition
-  and won't anchor anything.
+Two separate unknowns, two separate question kinds. Keep the boundary clean.
 
-Don't force either where there isn't a clean one.
+**1a. Current level (quiz).** Locate the *edge* of understanding along every strand the lesson depends on. The edge is only located when *bracketed*: something they get right (floor) and something they get wrong or don't know (ceiling). One side alone tells you almost nothing.
 
-## Principle ii - "How could I have discovered this?"
+- Binary-search the edge: when they nail a question, jump difficulty up sharply; when they miss, narrow back in.
+- One miss is not "done" — probe *around* it to characterize it (careless slip, isolated gap, or systematic misconception).
+- Map every goal-relevant strand. Do not advance until you can state concretely what they have and where it ends for each strand.
 
-Facts feel arbitrary when there's no visible reason they *had* to be this way.
-"Why does it need to be like this? Feels arbitrary." The brain won't commit to
-arbitrary-feeling info. The fix: make it feel discovered, not decreed.
+**1b. Learning goal (open question).** Find out what they actually want taught. "I want to understand DevOps" can mean ten things. Interrogate until concrete. No right answer — never a quiz.
 
-Walk them through how they **could have discovered the thing themselves**. Every
-step must be *motivated*:
+**1c. Intensity (open question, before any plan).** Ask how deep they want to go. Offer three levels:
 
-- Start from square one: **why are we even doing this?** What core problem sends
-  us down this path?
-- Motivate every intermediate step too: why try *this* formula? why manipulate
-  the equation *this* way? What could have led someone to this approach in the
-  first place?
-- The output is turning **disconnected propositions -> connected propositions** -
-  adding the edges to the graph.
+- **overview** — "just learn about it": the map, big ideas, nothing deep. Fewer subtopics, shallow nodes, one check per subtopic.
+- **working** — "know how it works": enough to use and reason about it. Standard depth and check count.
+- **comprehensive** — "learn it comprehensively": the whole thing, gotchas, edge cases, connections. More subtopics, deeper nodes, multiple checks per node, free recall on key nodes.
 
-3Blue1Brown (Grant Sanderson) is the master reference for this. Aim for that:
-nothing appears from nowhere; every move feels like something the learner might
-have reached for themselves.
+Record the choice in the plan. Intensity is per topic; ask again when the topic changes; honor a `LEARNER.md` default intensity if set.
 
-### Socratic vs expository - adaptive
+**Probe integrity.** Every diagnostic question must test transfer, not recognition of examples. Generate the intended answer from the target concept, then change the surface: different scenario, values, or wording. Never copy an example's wording and swap one token. A valid probe uses only established knowledge plus the current node for its immediate check. If a question requires an unintroduced prerequisite, teach it first.
 
-Choose per topic and per their apparent energy:
+### Phase 2 — Plan (think hard here)
 
-- **Socratic** - pose the motivating problem and let them attempt the discovery
-  before you reveal. More effortful, stronger locking-in. Default to this when
-  they can plausibly reason their way there. "Let them attempt it" is about
-  *who* speaks first, not about grading: if the question you pose has a definite
-  right answer (even as an open-ended prompt they answer freely, which you then
-  treat as a graded question), it's still a quiz - use the quiz format below.
-  Reserve plain open questions for genuine no-right-answer forks (preferences,
-  direction, what they want next).
-- **Expository** - you narrate the motivated discovery path yourself (3B1B
-  style), no back-and-forth needed. Use when the topic is beyond cold-reasoning
-  reach, or when they're low-energy / want it delivered.
+Research the topic first (researcher subagent, web tool, or tell the learner you're scoping). Then reason out the best way to teach *this thing* to *this person*:
 
-When unsure, lean Socratic for things they can clearly reason about; otherwise
-narrate.
+- What are the unconditional truths this rests on? Is there a clean atomic unit ("ALL X is done through {____}")?
+- Which do they already hold? Build from there — not below, not above.
+- What's the motivated discovery path to their goal? Socratic or expository per stretch and energy.
+- **Scale the graph size to intensity:** overview = few shallow nodes, one check each; working = standard; comprehensive = more/deeper nodes, multiple checks per node, free recall on key nodes. Never pad a shallow topic; never starve a comprehensive one into one session — split across sessions instead.
+- Manage cognitive load: chunk to working-memory limits, avoid redundant explanations (expertise reversal), avoid split-attention.
 
-## How to ask questions in this system (no extensions needed)
+**Present the plan before teaching.** Two parts: (1) the approach in prose (what, in what order, why, given their edge and goal), (2) the dependency map as a small mermaid DAG or text tree. Every named node: `<ID> (clear expanded name)`. Stress-test the roots: is each foundational node genuinely an unconditional truth for this learner, or a disguised theorem? If it derives, push it down.
 
-Everything is plain chat text. Two kinds of question, and the boundary is which
-one to use:
+**Stop and wait for go-ahead.** A wrong root or scope is cheap to fix now, expensive mid-lesson.
 
-**1. Quiz - the question has a right answer, and you will grade it.** Format:
+### Phase 3 — Teach (the node loop)
+
+Build the dependency graph one node at a time. Every node — foundational truth or derived step — runs this full loop:
+
+1. **Motivate.** Frame why this node is needed now — what problem it solves or gap it closes.
+2. **Establish.**
+   - Foundational unconditional truth: state plainly, at face value, no caveats. Surface an atomic unit if one fits.
+   - Derived step: build up from established facts via a motivated move (Socratic or expository), answering "how could I have discovered this?"
+3. **Connect.** Make the dependency edge explicit — show exactly how this node hangs off what's established. Name every referenced node as `<ID> (clear expanded name)`, never a bare `D` or `F`.
+4. **Quiz-check.** Confirm the node landed with a quick quiz or free recall. Foundations and derived steps alike. On a miss, stop and fix before building on top.
+
+**Worked examples & faded guidance (expertise reversal).** For procedural/topical skills (e.g., configuring CI), do not make the learner generate everything from scratch. Start with a complete worked example, then fade:
+- Complete example → partial completion (learner fills missing steps) → independent problem.
+- Fade only after the learner demonstrates understanding (e.g., can explain why each step works).
+- For experts, give problems directly; continued worked examples impose redundant load and hinder learning.
+
+**Concreteness fading & transfer.** For abstract principles:
+- Teach through 2–3 cases that differ in surface but share structure.
+- Have the learner compare cases and state the shared principle.
+- Include at least one negative case (looks similar, different structure) and ask why the principle does not fit.
+- Fade from concrete to abstract: concrete examples first, then abstract principle.
+- Prompt transfer: forward-reaching ("where else could you use this?") and backward-reaching ("what earlier problem is this like?"). Fade the prompt once they self-prompt. Follow with a far-transfer item after a delay.
+
+**Self-explanation.** At key nodes, ask the learner to explain in their own words how this follows from the previous node — self-explanation measurably improves understanding and transfer.
+
+Repeat the full loop per node. Any time a new unconditional truth is needed mid-session, it goes through motivate → establish → connect → quiz-check like any derived step.
+
+### Accuracy (non-negotiable)
+
+The moment you are even slightly unsure of a fact, name, date, formula, or claim, stop and confirm before saying it. Use a researcher subagent, web-search/read tool, or say you need to check and come back. If a check corrects what you were about to teach, say so plainly. A wrong unconditional truth corrupts every node built on it.
+
+## Quiz & check design
+
+**Quiz format** (question has a right answer):
 
 ```
 Quiz <n>: <question>
@@ -165,629 +123,91 @@ Quiz <n>: <question>
 Reply with the number of your answer (X for "I don't know").
 ```
 
-The learner replies with a number. Then you grade it in chat: mark right/wrong
-(or "I don't know" - never a red ✗, it's a distinct signal), say which was
-correct, and give the explanation **only after** they've answered. Never show
-the correct answer or explanation in the question itself.
+**Option construction (build evenness in, don't audit after):**
+1. Every option is a bare claim — zero justification anywhere; all reasoning goes in the post-answer explanation.
+2. Write the correct claim first, then mutate each distractor from a real misconception, same skeleton/grain/register.
+3. Each distractor must be a real error they might make, yet unambiguously wrong on the intended reading — tempting, not tricky.
+4. No asymmetric bolding — bold nothing, or bold the parallel term in every option.
+5. If you can tell which is right without knowing the material, regenerate.
 
-"Even options" plus the sharper rules from the original apply. Quiz grading
-contract, unchanged:
+**Quality gate (every quiz-like item):** one target per item; name the requested output; self-contained stem; options subordinate to the stem (same grammatical shape, same specificity); silent pre-display check (one target, complete output, established prerequisites only, no duplication, parallel distinct options, exactly one correct answer, no giveaway wording). On failure, silently regenerate.
 
-- `correct` means the number they picked matches the right one; "I don't know"
-  is a genuine gap to teach into, not a wrong answer.
-- Multi-select quizzes are exact-set: correct only if they pick every right
-  option and no wrong ones. Number the options; ask for all the numbers that
-  apply.
-- Treat each wrong option as a diagnostic: *which* wrong pick reveals *which*
-  nuance is off. That choice tells you what to teach next, more than
-  right/wrong ever does.
-- **Misses get graded for confidence, and the wrong pick gets explained by the
-  learner first.** On any miss or X, ask "how sure were you? 1 = guess, 2 =
-  fairly sure, 3 = certain". Then, *before* you reveal the correct answer, ask
-  "what made <their pick> seem right?". Wrong-and-confident is a misconception
-  to dislodge, not a gap to top up; wrong-and-uncertain is a plain gap. Having
-  them explain their pick first converts the error into elaborative
-  interrogation (the strongest repair move) and stops you from guessing the
-  wrong misconception. One question each, graded, then correct.
+**Free recall:** for key nodes, skip numbered options and ask "explain <X> in your own words" or "list everything you remember about <X>." Grade against correct content; missing or wrong is diagnostic. Use for key nodes and in the close; fall back to numbered quiz when energy is low.
 
-**2. Plain open question - no right answer (preferences, direction, "what do
-you want next").** Just ask it in chat. Never format this as a quiz.
+**Never show the correct answer or explanation before they answer.**
 
-**3. Free-recall check - graded, but no options.** Recognizing the right option
-is the weakest retrieval; producing an answer from nothing is the strongest
-(free recall beats multiple choice for retention - Roediger & Karpicke). For
-the most important nodes, skip the numbered quiz and ask: "explain <X> in your
-own words" or "list everything you remember about <X>". Grade it against the
-correct content - what came out missing or wrong is exactly as diagnostic as a
-wrong option pick. Use these for key nodes and in the close; fall back to the
-numbered quiz when energy is low.
+## Metacognition & confidence
 
-All three work in any harness: they're just text. If your harness happens to
-have a real quiz/popup tool, you may use it for the same contract - but the
-in-chat format always works.
+On any miss or X:
+1. Ask "how sure were you? 1 = guess, 2 = fairly sure, 3 = certain" — **after a brief delay** (not immediately). Immediate confidence judgments are poorly calibrated; delayed ones are far more accurate.
+2. Before revealing the correct answer, ask "what made your pick seem right?" Wrong-and-confident is a misconception to dislodge; wrong-and-uncertain is a plain gap.
+3. One question each, graded, then correct.
 
-### Writing quiz options - a construction procedure (applies to every quiz)
+Grading: `correct` = number matches; "I don't know" is a genuine gap, never a red ✗. Multi-select quizzes are exact-set. Treat each wrong pick as a diagnostic of which nuance is off.
 
-The rule "keep options even" isn't enough on its own because it's a *post-hoc
-audit* - you write a good answer plus some throwaway wrongs, then don't
-re-scrutinise them. The tell is baked in before any check runs. So don't audit
-afterwards; **build the options so evenness is automatic**:
+## Session Link Ritual — memory across sessions
 
-1. **Every option is a bare claim - no justification anywhere.** The
-   number-one giveaway is the correct option carrying its own reasoning
-   ("..., because it preserves X") while the distractors are bare, making it
-   longer and more specific. Put *zero* "why" in any option; all reasoning goes
-   in the explanation, which only appears after they answer.
-2. **Write the correct claim first, then mutate it into each distractor.** Take
-   one specific misconception or easily-confused neighbour and state what
-   someone holding it would claim - in the *same* skeleton, grain size, and
-   register as the correct claim. Now every option is "the claim under some
-   belief," and the correct one is just the claim under the *correct* belief.
-   Parallelism falls out by construction instead of being policed.
-3. Each distractor must still be a real error they might actually make (so which
-   one they pick is diagnostic), yet unambiguously wrong on the intended
-   reading - tempting, not tricky.
-4. **No asymmetric bolding.** Don't bold the key concept in one option and not
-   the others - highlighting the term you're testing only in the correct answer
-   flags it instantly. Either bold nothing, or bold the parallel term in every
-   option.
+**Start — warm-up (before anything else).** 3–5 retrieval questions drawn only from material already taught: due review-queue items (oldest first), plus last session's misses. Reach back beyond the last session. Grade instantly with feedback; do not re-teach during warm-up. Adjust spacing: fail = due ~1 day; shaky = 3; solid = 7; instant = 14. Confidence refines placement: wrong-but-sure → reach again soon; wrong-but-unsure → plain gap; sure-and-correct → 14; correct-but-guessing → 3 or 7, not 14. Then say the bridge: one line connecting recall to today's lesson.
 
-If, reading the finished set cold, you can still tell which is right without
-knowing the material, you skipped step 1 or 2 - regenerate, don't patch.
+If nothing is due, compress to one recap question ("so far, what holds together?") and move on.
 
-### Question quality gate
+**Close (before finishing).**
+1. **Brain-dump consolidation:** free recall — everything they remember from today's lesson, no cues. Grade against today's learned graph; re-teach only what's missing or wrong. If energy is done, fall back to 2–3 interleaved questions.
+2. **Link-forward:** one line on what's next and the edge it builds on, said in chat and written in the log.
+3. **Update review queue:** add every node that wobbled or was missed today with its next due date.
 
-The options can be perfectly even and the question can still be impossible to
-decode. Apply this gate to **every** quiz-like check: warm-ups, probes,
-node-checks, and reviews. The learner should retrieve the concept, not reverse
-engineer the teacher's wording.
+**Spacing intervals.** The ladder is a starting heuristic (1/3/7/14 days), not a rule. Optimal spacing grows with the retention interval (~10–20% of the test delay; longer retention → longer gaps). Adjust intervals to how long the learner needs to retain, not a fixed calendar.
 
-1. **One target per item.** Ask for one result, relationship, or decision.
-   Split two blanks, multiple numbered sub-questions, and prompts that ask for
-   both a shape and a parameter count into separate items.
-2. **Name the requested output.** State the relevant context, operation, and
-   answer shape or units when they matter. A stem must make clear whether the
-   learner should give a shape, count, definition, comparison, or explanation.
-   Replace vague prompts such as "Why does this happen?" with the relationship
-   being tested, such as "Which statement explains why the output height stays
-   constant for these inputs?"
-3. **Make the stem self-contained.** Use plain language and only established
-   prerequisites. If the learner cannot paraphrase what the item is asking
-   without seeing the options, rewrite it before showing it.
-4. **Keep options subordinate to the stem.** Every option must be an answer to
-   the same stem, in the same grammatical shape and at the same level of
-   specificity. Never make an option the question itself, a restatement of the
-   question, a compound of separate claims, or a mini-explanation.
-5. **Run a silent pre-display check.** Before displaying the item, verify:
-   one target; a complete and unambiguous requested output; established
-   prerequisites only; no stem/option duplication; parallel, distinct options;
-   exactly one correct answer; and no wording that gives away the key. If any
-   check fails, silently regenerate the whole item and check it again.
+## Resume: "continue my studies"
 
-For example, these are not usable as written:
+Build today's session from files, never chat memory:
+1. Read `study-artifacts/index.md`, then hub files (courses), then topic files. Extract: due review-queue items, open misses, where each unfinished course stands.
+2. Report due warm-up items, the unfinished course's next subtopic, the topic whose misses are loudest. Propose today's session; let them adjust. Never silently pick a new topic.
+3. Run it as a normal session.
 
-- `On (32,32,1) -> Conv2D(6,5) -> 28x28x6: the input's trailing 1 counts ___,
-  the output's trailing 6 counts ___.` It asks for two answers.
-- `Why is a conv layer's output shape fixed at build time rather than varying
-  per image?` It does not identify the relationship or answer form.
+## Course mode — one big topic, many sessions
 
-Split and rewrite them as single-target items, for example:
+**Detect it.** The topic has several independent prerequisite strands. When in doubt, show the strands and confirm decomposition before proceeding.
 
+**Slug.** Derive one deterministic slug: lowercase, replace runs of non-letters/numbers with hyphens, trim hyphens. Match existing courses by exact slug only.
+
+Layout:
 ```
-Quiz <n>: In the output shape 28x28x6, what does the trailing 6 represent?
-
-1. The number of filters in the convolution
-2. The number of pixels along the output width
-3. The kernel size used by the convolution
-4. The number of training examples in the batch
+study-artifacts/<slug>.md          (hub)
+study-artifacts/<slug>/NN-<subtopic>.md  (per-subtopic sessions)
 ```
 
-and:
+**Decompose.** Split into subtopics, each small enough for one probe→plan→teach session. Size each to intensity (overview = fewer/broader; comprehensive = more/narrower). Never let a comprehensive course compress into five one-point subtopics — split across sessions. Draw the course graph (mermaid DAG; edge = builds on). Teaching order = topological order.
 
-```
-Quiz <n>: Which statement best explains why a built convolution layer keeps
-the same output-shape rule for every image in a batch?
+**Hub file.** Top to bottom: planned course graph, progress checklist (one `- [ ]` / `- [x]` per subtopic linking to its file, ticked on completion), learned course graph (solid edges for confirmed subtopics, dashed `-.->` for misses — written only when every subtopic is done).
 
-1. Every image is passed through the same fixed layer configuration
-2. Each image chooses a new kernel size from its own pixel values
-3. The layer removes channels until every image becomes square
-4. The batch discards images whose shapes do not match the first image
-```
+**Per-subtopic file.** Standard logging: planned graph, live Q&A, learned graph. Open with "This sits on <deps>, feeds into <enabled>." Close with the bridge to the next subtopic and the checkpoint: "continue the course, or stop here?"
 
-The examples illustrate the shape of a decodable item; adapt the content to
-the learner's established knowledge and the current node.
+## Logging: `study-artifacts/`
 
-## The process: probe -> plan -> teach
+Not optional; part of teaching. Create at the first quiz of the session — write the planned graph first (the Phase 2 DAG), before any teaching. Log each question and answer live, in order, before the next question. Teacher lines `> ` prefixed; learner reply on its own `Learner replies:` line. New session continues under `## <YYYY-MM-DD>`.
 
-The two principles are *how* you teach. This is *when* - the shape of a teaching
-session. Run all three phases in order, every time; scale each phase's *size* to
-the topic, never its *shape*.
+For multiple-choice quizzes, persist only the question and the learner's answer (not the numbered options). You may retain the grading result, correct answer, and brief explanation.
 
-**Accuracy is non-negotiable - verify, don't wing it from memory.** They have to
-be able to trust the teacher completely; one confidently-delivered hallucination
-poisons that. Working from memory alone is where LLMs invent things, so: **the
-moment you are even slightly unsure of any fact, name, date, formula,
-definition, or claim, stop and confirm it before you say it.** How you confirm
-depends on the harness - use a research subagent if one exists (see
-`agents/researcher.md`), any web-search/read tool available, or, failing all
-tools, say you need to check and come back. Pausing to verify is always
-acceptable - accuracy beats flow, every time. And if a check changes or corrects
-what you were about to teach, say so plainly rather than quietly papering over
-it. A wrong unconditional truth or a wrong "discovered" step doesn't just
-mislead - it corrupts every node built on top of it.
+**Planned vs learned graph.** When the session's final node passes its quiz-check, append the learned knowledge graph: same DAG, solid arrows for confirmed edges, dashed `-.->` annotated "not landed" for missed/skipped/X nodes. Then the Misses recap: every wrong pick and X, the exact threads to revisit. If the session ends unfinished, do not write the second graph — a file with only the planned graph signals unfinished.
 
-### Phase 1 - Probe (never skip this)
+**Index.** `study-artifacts/index.md`: a plain markdown table updated at every close — Topic | Last session | Next due | Status (`active`, `complete`, `course`). Read at every session start; write at every close.
 
-You can't teach into the zone of proximal development without knowing where its
-edges are, and you can't aim the teaching without knowing what they're actually
-reaching for. Two separate unknowns, two separate question kinds - keep the
-boundary clean:
+**No file tools?** After each exchange, print the running log block with header *"Study log - save this under <artifact-path>"*. Use `study-artifacts/<topic-slug>.md` for atomic topics, `study-artifacts/<slug>/NN-<subtopic>.md` for course mode. Never ask whether to log.
 
-### Probe integrity rules (apply to every diagnostic question)
+## Formatting — plain text by default
 
-Before asking a Phase 1 probe, a warm-up/review question, or a quiz-check after
-a taught node, classify every concept, command, and prerequisite the question
-requires:
+Write math as readable plain text (`f(x) = x^2`, `√2`, `→`, `≈`). Do not assume LaTeX renders. Reserve LaTeX for when the viewer renders it AND plain text would be genuinely unreadable. `LEARNER.md` overrides.
 
-- **Established** means it was already taught and landed in the learner's
-  learned graph, or it is a foundation explicitly confirmed earlier in this
-  session. Established material may be used.
-- **Current** means it is the node being established right now. Current
-  material may be tested only by that node's immediate quiz-check, together
-  with established dependencies.
-- **Future/unlearned** means it is planned for later, has not landed, or has
-  never been established. Do not require it in a diagnostic question. If the
-  lesson depends on it, teach and confirm it first; do not smuggle it into the
-  probe.
+## Guardrails & stop conditions
 
-Every question must test transfer, not recognition of the lesson examples.
-Generate the intended answer from the target concept, then change the surface:
-use a materially different scenario, input, values, or goal and substantially
-different wording. Do not copy an example's wording, command sequence,
-identifiers, values, file names, or answer pattern and merely swap one token.
-For command topics, a valid probe might use the same already-learned command
-with a new task and flags; it must not introduce a flag or subcommand that has
-not been taught. For conceptual topics, change the situation while keeping the
-tested relationship constant.
+- Never teach into the zone of proximal development without probing first.
+- Never test a later planned node or unintroduced command in a quiz-check.
+- Never build on an unconfirmed foundation.
+- Never quietly paper over a correction — state it plainly.
+- Never ask permission to log; logging is unconditional.
+- If unsure of any fact, verify before teaching.
 
-Run this pre-question check every time: (1) can the learner answer using only
-established knowledge plus the current node for its immediate check, (2) is the
-surface meaningfully different from every example already shown, and (3) would
-an incorrect answer diagnose the target concept rather than an unintroduced
-prerequisite? If any answer is no, rewrite the question or teach the missing
-prerequisite before continuing.
+## Examples
 
-**1a. Their current level - use quizzes. This is a mapping job, not a
-spot-check.** Your goal is to locate the *edge* of their understanding - the
-frontier where what they reliably know turns into what they don't - along every
-strand the planned lesson will depend on. Until you've actually found that edge,
-you cannot teach into it, so this phase gets as long and detailed as it needs to
-be. There is no rush.
-
-**The edge is only located when it's bracketed.** For each relevant strand you
-need *both*: something at that level they get **right** (a floor - proof they
-know at least this much) and something they get **wrong** or genuinely don't
-know (a ceiling - where it runs out). The edge sits between them. One side alone
-tells you almost nothing.
-
-- **All-correct is not "done" - it means the questions were too easy.** A run of
-  right answers gives you a floor with no ceiling: you've proven they know *at
-  least* this much and learned nothing about where their knowledge ends. Do not
-  advance. Escalate - go harder until something finally breaks. If they never
-  miss, you never found the edge.
-- **Binary-search the edge.** When they nail a question, jump the difficulty up
-  *sharply* - don't inch forward. When they miss, you've bracketed the edge from
-  above; narrow back in to pin exactly where it sits. This finds the frontier
-  fast, without a hundred timid questions.
-- **One wrong answer is not "done" either - and it is *not* a cue to start
-  teaching.** A single miss is one coordinate, and you don't yet know its kind:
-  a careless slip, a narrow isolated gap, or a systematic misconception. Probe
-  *around* it to characterize it before concluding anything. Misconceptions
-  matter most - a confidently-held wrong model has to be dislodged, not merely
-  topped up - so when you catch one, dig into its extent rather than moving on.
-- **Map every strand the lesson rests on.** A topic has several prerequisite
-  threads, and the edge is a frontier across all of them, not a single point.
-  Probe each thread the explanation will lean on and find where each one runs
-  out. Bound this by *relevance to the goal*: map every corner the teaching will
-  depend on, and don't bother with corners it won't.
-
-Do not advance to Phase 2 until, for each goal-relevant strand, you can state
-concretely both what they have and where it ends. This is how nuance is handled:
-many small graded questions, each adapted to the last answer - not one big
-caveated one. Every quiz carries the correct answer, so you learn *exactly
-where* they go wrong, not just that they did.
-
-**1b. Their learning goal - ask openly.** Find out what they actually want
-taught. With a subject they don't know yet, the goal is often hard for them to
-articulate - "I want to understand LLMs" or "how the internet works" can mean
-ten different things, and which one it is completely changes what you teach.
-Interrogate the vision until it's concrete. This has no right answer, so it's an
-open plain-chat question, never a quiz.
-
-### Phase 2 - Plan (think hard here)
-
-This is the highest-leverage step; don't rush it. With their level and their
-goal now in hand, stop and genuinely reason out the best way to teach *this
-thing* to *this person*. Re-read the philosophy above and plan against it:
-
-- **Scope the field first.** Before planning the graph, research the topic - its
-  core concepts, the real first principles, standard framings, common gotchas.
-  The way to research depends on your harness: a researcher subagent if one
-  exists (`agents/researcher.md`), a web-search/read tool, or failing that, tell
-  the learner you're scoping and use what you can. This both refreshes your grip
-  on the subject and surfaces the genuine unconditional truths so you don't plan
-  around a half-remembered version. Cheap, and it makes the whole plan more
-  accurate.
-- What are the unconditional truths this rests on? Is there a clean atomic unit
-  ("ALL X is done through {____}")?
-- Which of those do they already hold (from Phase 1a)? Build from there - not
-  below it, not above it.
-- What's the motivated discovery path from those truths to their goal? Where
-  does each step come from - why would anyone reach for it?
-- Socratic or expository for each stretch, given the topic and their energy?
-
-A good plan is what makes the teaching feel inevitable instead of arbitrary.
-
-**Then present the plan in chat - always, before any teaching.** Two parts:
-
-1. **The approach, in prose.** What you'll cover, in what order, and why this
-   way - given where their edge sits (Phase 1a) and what they're reaching for
-   (Phase 1b). A few freeform sentences.
-2. **The dependency map.** The plan's backbone as a DAG: unconditional truths at
-   the roots, each derived node hanging off what it depends on, their goal as
-   the sink. Draw it as a small ```mermaid``` graph (most markdown viewers
-   render Mermaid natively; where one doesn't, an indented text tree in the same
-   shape works). This map *is* the teaching order - Phase 3 builds it node by
-   node. Keep it small: few nodes, short labels - a map, not the territory.
-
-**Make every graph node self-describing.** While planning the graph, create a
-stable mapping from each compact node ID to a clear, learner-friendly name.
-Compact IDs keep the graph readable, but they are never enough on their own in
-learner-facing output. Whenever a named node is mentioned, write it as
-`<ID> (<clear expanded name>)`, for example `D (Docker writable layer)` or
-`F (writable-layer data is ephemeral)`. Use the expanded name even when the
-graph label is abbreviated; do not copy an unclear abbreviation into the
-parentheses. Keep the compact ID stable throughout the lesson so the learner
-can follow the edges, and do not annotate ordinary letters, variables, or
-prose that are not graph-node references.
-
-**Stress-test the roots before presenting.** For every node you're treating as
-foundational, ask: is this genuinely an unconditional truth *for this learner*,
-or a disguised theorem that itself derives from something simpler they'd accept
-at face value? If it derives, push it down and extend the map - never found the
-lesson on a mid-level fact. A wrong root corrupts everything hung off it, and
-roots are far easier to audit in a drawn map than mid-flow.
-
-**Then stop and wait for their go-ahead.** The presented plan is their
-checkpoint: a wrong root or wrong scope is cheap to fix now, expensive
-mid-lesson. Do not begin Phase 3 until they okay the plan.
-
-### Phase 3 - Teach (the loop)
-
-Build the dependency graph one **node** at a time - and every node gets the same
-treatment, whether it's a foundational unconditional truth or a derived step.
-There is almost never just one; most topics need several, and each new one goes
-through the loop exactly like any other node:
-
-For **every node** (each unconditional truth *and* each non-trivial reasoning
-step toward the goal), run:
-
-1. **Motivate.** Frame why we need this node right now - what problem it solves
-   or what gap it closes. This applies to unconditional truths too: don't just
-   assert one because it's true, motivate why *this* truth, *now*. "Why are we
-   even bringing this in?"
-2. **Establish.**
-   - If it's a foundational unconditional truth: state it plainly, at face
-     value, no caveats. Surface an atomic unit if one fits.
-   - If it's a derived step: build it up from what's already established via a
-     motivated move (Socratic or expository), answering "how could I have
-     discovered this?" When a Socratic step has a gradable right/wrong answer,
-     pose it as a quiz even though they're "attempting the discovery" -
-     gradable-and-Socratic is normal, not a contradiction; only fall back to an
-     open question if there's genuinely no right answer.
-3. **Connect.** Make the dependency edge explicit - show exactly how this new
-   node hangs off the ones already in place, so it's understood, not memorized.
-   Name every referenced node using its compact ID plus clear expanded name;
-   never leave a learner-facing reference as a standalone ID such as `D` or
-   `F`.
-4. **Quiz-check.** Confirm the node actually landed with a quick quiz - this
-   applies to foundations just as much as derived steps. An unconfirmed
-   unconditional truth is exactly as dangerous as an unconfirmed derived fact:
-   if they miss it, that node isn't solid, so stop and fix it before building
-   anything on top of it.
-   The check may use the current node and its established dependencies only;
-   never test a later planned node or an unintroduced command as part of this
-   check. Use a fresh context rather than repeating the example used to
-   establish the node.
-
-Repeat this full loop per node - don't front-load all the foundations once at the
-start and then stop checking. Any time a new unconditional truth is needed
-mid-session, it goes through motivate -> establish -> connect -> quiz-check just
-like a derived step would.
-
-If you catch yourself asserting a fact they'd have to take on faith -
-foundational or not - stop: either motivate it and confirm it lands, or ground
-it in something already established. Unmotivated, unconfirmed facts don't lock
-in - that's the whole point.
-
-## Session Link Ritual - memory across sessions
-
-Sessions build understanding; the gaps between them are where it is either
-lost or locked in. Forgetting in the gap is normal and *useful* - the effort
-of recalling something hard is what strengthens it (desirable difficulty).
-Two moves make the gap work instead of against you: a **warm-up** that
-retrieves the past, and a **close** that schedules the future.
-
-### Start of session - the warm-up (before anything else)
-
-Before any probing or new content, run a short, low-stakes retrieval round -
-3-5 questions, drawn ONLY from material already taught:
-
-- Pull from the review queue (below): every item due today (within 2 days,
-  oldest first), plus anything the learner missed at the last session's close.
-- Reach further back than the last session - material from a week and more ago
-  is where the retrieval gain compounds. Never preview today's topic in the
-  warm-up; recall of *taught* material is what builds memory.
-- Grade instantly with feedback. Do not re-teach during the warm-up; note the
-  misses for the queue, and briefly re-teach only if more than one or two
-  items fail.
-- Adjust spacing: fail = due again in ~1 day; shaky = 3; solid = 7; instant =
-  14. Update the item's queue line. Ask "how sure? 1-3" after grading each
-  item - confidence refines the placement, accuracy alone doesn't: wrong-but-
-  sure is a misconception (reach it again soon, teach hard), wrong-but-unsure
-  is a plain gap, sure-and-correct nudges toward 14, correct-but-guessing
-  stays at 3 or 7, not 14.
-
-Then say the **bridge** - one line connecting what was recalled to today's
-lesson: "you just got <X>, which is the foundation <Y> you need for today."
-The learner always sees the thread from previous work to this session.
-
-If nothing is due in the queue, compress the warm-up to one recap question
-("so far, what holds together?" style) and move on - never spend real time
-retrieving what hasn't been reviewed at all.
-
-## Resume: "continue my studies" (no topic name needed)
-
-If the learner says "continue", "continue my studies", or anything that means
-*pick up where we left off* without naming a topic, build today's session from
-the files - never from chat memory:
-
-1. **Read the index + every topic/course file.** Start with
-   `study-artifacts/index.md`, then open the files behind it - hub files first
-   (courses), then topic files. You want three things from each: what's due in
-   the review queue, any open Misses, and where each unfinished course stands
-   on its checklist.
-2. **Say what's on the table, then propose.** Report in one block: the due
-   warm-up items, the unfinished course's next un-ticked subtopic, the topic
-   whose Misses are loudest. Propose today's session (warm-up, then the highest-
-   priority next step) and let them adjust or override. Never silently pick a
-   new topic; the learner chooses the direction.
-3. **Run it as a normal session** - same warm-up, probe, plan, teach, log.
-
-### End of session - the close (before finishing)
-
-1. **Brain-dump consolidation:** first, ask them to write out everything they
-   can remember from today's lesson - free recall, no cues, no options. This is
-   the strongest retrieval there is. Grade it against today's learned graph and
-   re-teach only what came out missing or wrong. If energy is done, fall back
-   to 2-3 quick questions - one from today's lesson, one from earlier in this
-   topic, one from a different topic (interleaving). Same interleaving rule
-   either way.
-2. **Link-forward:** one line stating what's next and the edge it builds on
-   ("next: <subject B>, which sits on today's <node>") - said in chat and
-   written in the log.
-3. **Update the review queue:** check off items successfully recalled since
-   their due date; add every node that wobbled or was missed today with its
-   next due date.
-
-### Review queue (plain text, lives in the log file)
-
-Every topic file carries a `## Review queue` section (kept above the learned
-graph). Lines are just dated checkboxes:
-
-```
-- [ ] <node or miss> - due <date>
-- [x] <node> - was due <date>
-```
-
-Ladder for already-taught nodes: missed/wrong = ~1 day, shaky = 3, solid = 7,
-instant recall = 14. That's the whole mechanism - a list with dates, no
-scheduler, readable by any harness. The warm-up at the top of this section is
-whatever the queue says is due.
-
-## Course mode - one big topic, many connected sessions
-
-Some requests name a whole domain ("I want to learn monarchs", "how computers
-work") - a course, not a lesson. One atomic session cannot hold it. Course mode
-teaches it anyway: decompose into ordered subtopics, teach each with the
-standard loop, keep the whole course visible in one file.
-
-**Detect it.** The topic has several independent prerequisite strands. When in
-doubt, show the learner the strands you see and confirm the decomposition
-before proceeding - never silently pick one corner.
-
-**Resolve the artifact location before creating the first quiz.** First read
-`study-artifacts/index.md` when it exists, then inspect the paths it points to.
-Derive one deterministic course slug from the learner's topic: lowercase,
-replace runs of non-letters and non-numbers with hyphens, trim hyphens, and
-reuse that exact slug for the course hub and directory. Match existing courses
-by exact slug only - never guess from fuzzy or semantic similarity.
-
-For a course named Docker, the required layout is:
-
-```
-study-artifacts/docker.md
-study-artifacts/docker/
-  01-foundations.md
-  02-images-and-containers.md
-```
-
-If the exact hub or directory already exists, continue that course. If only one
-exists, inspect it and create or complete the missing expected side without
-overwriting existing files. Create the directory before writing the first
-subtopic artifact. A course subtopic artifact must never be written directly
-under `study-artifacts/` beside the hub, and a new fuzzy-match directory must
-never be created. Preserve existing artifacts; this procedure does not migrate
-older root-level files.
-
-### 1. Decompose (Phase 2, one level coarser)
-
-Research the domain (same scoping rule as Phase 2), then split it into
-subtopics, each small enough for one standard probe -> plan -> teach session.
-Draw the **course graph**: a mermaid DAG where an edge means "this subtopic
-builds on that one". Teaching order = the topological order of the DAG - the AI
-decides the sequence from the dependencies, never by listing.
-
-If a subtopic still has independent strands, split once more at most. Deeper
-than that means the decomposition is wrong, not the loop.
-
-### 2. The course hub file
-
-`study-artifacts/<course-slug>.md` shows the whole course at a glance. The hub
-stays at the `study-artifacts/` root so it is easy to find from the index; only
-the per-subtopic session artifacts go in the matching
-`study-artifacts/<course-slug>/` directory.
-Top to bottom:
-
-1. **Planned course graph** - the DAG above.
-2. **Progress checklist** - one `- [x]` / `- [ ]` line per subtopic, in teaching
-   order, linking to its file (e.g. `- [x] 1. Introduction -
-   [01-introduction.md](monarch/01-introduction.md)`). Tick each line as that
-   subtopic's session completes.
-3. **Learned course graph** - the same DAG drawn from results: solid edges for
-   subtopics whose final node confirmed, dashed for misses. Written ONLY when
-   every subtopic is done - same rule as every other log. Until then, the
-   checklist carries the status.
-
-### 3. Per-subtopic files, in a subdirectory
-
-`study-artifacts/<course-slug>/NN-slug.md` - one file per subtopic, numbered in
-teaching order. Standard logging rules apply unchanged: its own planned graph,
-live Q&A, learned graph. Never substitute
-`study-artifacts/<course-slug>-<subtopic-slug>.md` or another root-level path.
-Each subtopic session additionally opens and closes with its place in the
-course:
-
-- **Open:** "This sits on <depends-on subtopics>, feeds into <enabled
-  subtopics>." - the learner always knows where they are.
-- **Close:** the bridge - one line on the next subtopic and the edge connecting
-  them, then the checkpoint: "continue the course, or stop here?"
-
-### 4. Continuing across sessions
-
-The hub file is the memory: read it at session start, tell the learner where
-the course stands, teach the next un-ticked subtopic, and follow the exact hub
-directory links rather than deriving a new path. A course resumes on any
-harness from `study-artifacts/<course-slug>.md` alone. Every subtopic session
-runs the Session Link Ritual too (warm-up draws from the queue, the open is
-its bridge, the close schedules the next reviews).
-
-## Logging: `study-artifacts/` (auto, live, never asked about)
-
-The log is not optional and you never ask permission to create it - it is part
-of teaching, not an add-on. It is the system's memory across topics, sessions,
-and harnesses.
-
-**Where.** `study-artifacts/` at your working-directory root (same root as
-`LEARNER.md`) - create it and the file on your own with your file tools. An
-atomic topic gets one root-level file:
-`study-artifacts/<topic-slug>.md` (lowercase, hyphens); the same topic later
-appends to that file, never a new one. Course mode gets exactly one root-level
-hub plus a matching subtopic directory:
-`study-artifacts/<course-slug>.md` and
-`study-artifacts/<course-slug>/NN-<subtopic-slug>.md`. Resolve and create that
-directory before the first course subtopic quiz; do not place course session
-files at the artifact root. See "Course mode" above.
-
-**Create it at the first quiz of the session - and write the planned graph
-first.** The very top of the file is the session's **planned knowledge graph**:
-the Phase 2 dependency map as a mermaid DAG (or text tree) - every node and edge
-you intend to teach. It goes in the moment the plan is approved, before any
-teaching. Display each named node with its compact ID and clear expanded name
-(`ID (name)`), including node labels in the graph and any prose that explains
-its edges. The learner is never asked "should I create this?".
-
-**Log each question and answer live, in order.** Every question and answer is
-appended to the file the moment it happens - before you ask the next question.
-This covers Phase 1 probes, Phase 3 quiz-checks, and "I don't know" X answers.
-No drafting a big dump at the end; the live record *is* the file. For
-multiple-choice quizzes, persist only the question and the learner's answer;
-the numbered options are prompt-only and must not be copied into the study
-artifact. You may retain the grading result, correct answer, and brief
-explanation when needed to make the record useful. Teacher lines are `> `
-prefixed, the learner's reply on its own `Learner replies:` line; a new session
-under the same topic continues the file under a `## <YYYY-MM-DD>` header so the
-sessions stay separable:
-
-```
-> Quiz 3: Which of these is an unconditional truth?
-Learner replies: 2
-Correct: 3 - <why>
-```
-
-Apply the same `ID (clear expanded name)` format to every node reference in
-quiz text, answers, bridges, review-queue entries, Misses recaps, planned and
-learned graphs, and transcripts. A persisted artifact must not require the
-learner to remember what a standalone ID such as `D` or `F` meant.
-
-**The second knowledge graph - ONLY after the lesson is actually learnt.**
-When the session's final node passes its quiz-check, append the **learned
-knowledge graph**: the same DAG drawn from what really happened. A solid arrow
-for every edge the learner confirmed at quiz-check time; nodes they missed,
-skipped, or answered X on become dashed `-.->` edges annotated "not landed".
-The difference between the planned and learned graph is the honest record of
-the lesson.
-
-**If the session ends before the lesson completes, do NOT write it.** The
-second graph appears only when the last node lands - possibly in a later
-session, appended after that session's live record. A file with only the
-planned graph is the visible signal that the lesson is unfinished. Under the
-second graph goes the **Misses** recap: every wrong pick and X, the
-exact threads to revisit next session. Topic files also carry the `## Review
-queue` (dated checkboxes, see the Session Link Ritual) - the warm-up of the
-next session draws from it.
-
-**Keep the index, one line at a time.** `study-artifacts/index.md` is the map
-of everything ongoing - a plain markdown table, updated at every close (never
-asked about), listing each topic/course file with: last session date, next due
-date (the earliest date in that file's review queue, or "–"), and status
-(`active`, `complete`, or `course` for hub files). Read it at every session
-start; write it at every close. If you make an index line for a file, the file
-itself still follows all the logging rules above - the index is a pointer, not
-a replacement:
-
-```
-| Topic | Last session | Next due | Status |
-|---|---|---|---|
-| [network-basics](network-basics.md) | 2026-09-05 | 2026-09-08 | active |
-| [monarchs](monarchs.md) | 2026-08-30 | - | course |
-| [ledgers](ledgers.md) | 2026-08-12 | 2026-08-13 | complete |
-```
-
-**No file tools?** (plain chat apps) You cannot write files there - so after
-each exchange, print the running log block with the header *"Study log -
-save this under <artifact-path>"* so the learner maintains the file. Use
-`study-artifacts/<topic-slug>.md` for an atomic topic, or the resolved
-course-session path `study-artifacts/<course-slug>/NN-<subtopic-slug>.md` for
-course mode. Still never ask whether to log; the block is produced
-unconditionally.
-
-## Formatting - plain text by default
-
-Write math as readable plain text. The default harness is a terminal or a plain
-chat window where `$...$` shows up literally as junk, so **do not assume the
-viewer renders LaTeX** - assume it does not.
-
-- Inline math: plain text. `f(x) = x^2`, `a/b`, `(a+b)/(c+d)`, `x_1`, `x^2`.
-- Use Unicode where it reads better: `√2`, `x²`, `×`, `÷`, `≈`, `≤`, `≥`, `→`,
-  `π`, `θ`, `Δ`, `∑`, `∫` (e.g. `∑ᵢ xᵢ`, `∫ f(x) dx`).
-- Prefer the idea expressed in words + a short formula over a formal block.
-
-Reserve LaTeX (`$...$` inline, `$$` display) for when **both** hold:
-1. the learner's viewer renders it (they told you, or `LEARNER.md` says so), **and**
-2. plain text would be genuinely unreadable - multi-line derivations, matrices,
-   stacked fractions, big summations/integrals with real limits.
-
-If you don't know whether the viewer renders math, don't guess - use text.
-When you do use LaTeX, match the learner's stated preference instead of
-defaulting to it. `LEARNER.md` overrides this section.
+See `references/examples.md` for worked examples covering quiz construction, worked-example fading, concreteness fading, confidence grading, and intensity-scaled node design.

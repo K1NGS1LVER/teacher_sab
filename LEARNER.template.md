@@ -27,6 +27,8 @@ more the teaching adapts. The teacher reads this at the start of every session.
 - Subjects you'd like the teacher to avoid or keep shallow:
 - Your usual goal shape (understand a thing deeply / pass a test / enough to
   use it / curiosity):
+- Default intensity for new topics (overview / working / comprehensive):
+  how deep the teacher goes before you say otherwise.
 
 ## Practical
 
