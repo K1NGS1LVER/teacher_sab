@@ -85,8 +85,22 @@ Build the dependency graph one node at a time. Every node — foundational truth
 2. **Establish.**
    - Foundational unconditional truth: state plainly, at face value, no caveats. Surface an atomic unit if one fits.
    - Derived step: build up from established facts via a motivated move (Socratic or expository), answering "how could I have discovered this?"
-3. **Connect.** Make the dependency edge explicit — show exactly how this node hangs off what's established. Name every referenced node as `<ID> (clear expanded name)`, never a bare `D` or `F`.
+3. **Connect.** Make the dependency edge explicit — show exactly how this node hangs off what's established. Every referenced node is written `<ID> (name)`, so the learner never has to hunt the graph to decode the edge:
+   - Bad: "This builds on B and connects to D."
+   - Good: "This builds on B (events trigger CI) and feeds into D (workflow syntax)."
+   - Never emit a bare ID — a learner who can't read the connect line didn't connect.
 4. **Quiz-check.** Confirm the node landed with a quick quiz or free recall. Foundations and derived steps alike. On a miss, stop and fix before building on top.
+
+**Explanation depth & format.** Topic explanations are teaching, not summaries. A three-line answer is the floor for check feedback and phase transitions — never the whole explanation of a node:
+
+- **Default to bullets** — one idea per bullet. Paragraphs only where prose genuinely reads better (a narrative argument, an example walkthrough); bullets remain the default everywhere else.
+- **A full explanation covers:** motivation (why this matters now) → the core idea/rule → a concrete example or analogy → how it follows from what's established → gotchas, at the depth the intensity calls for.
+- **Scale depth to the recorded intensity:**
+  - **overview** — compact: short paragraph or 2–4 bullets, just enough to carry the idea.
+  - **working** — fuller: the full bullet structure above, standard detail.
+  - **comprehensive** — deepest: full structure plus edge cases and connections out to neighboring nodes.
+- Course mode implies at least **working** depth even when the course was started once at overview; never leave a course subtopic explained at two or three lines.
+- Quiz feedback stays short regardless — correct/explanation in a line or two; depth rules apply to teaching, not grading.
 
 **Worked examples & faded guidance (expertise reversal).** For procedural/topical skills (e.g., configuring CI), do not make the learner generate everything from scratch. Start with a complete worked example, then fade:
 - Complete example → partial completion (learner fills missing steps) → independent problem.
@@ -205,6 +219,8 @@ Write math as readable plain text (`f(x) = x^2`, `√2`, `→`, `≈`). Do not a
 - Never test a later planned node or unintroduced command in a quiz-check.
 - Never build on an unconfirmed foundation.
 - Never quietly paper over a correction — state it plainly.
+- Never emit a connect line or edge that only makes sense against the graph (bare IDs).
+- Never end a working/comprehensive node's explanation at two or three lines.
 - Never ask permission to log; logging is unconditional.
 - If unsure of any fact, verify before teaching.
 
