@@ -22,8 +22,8 @@ keep the memory of every session in plain Markdown.
 Most AI explanations optimize for getting an answer out. This system optimizes
 for building a connected mental model:
 
-- **Unconditional truths first** — establish the safe foundations before
-  building on top of them.
+- **Working foundations first** — establish the prerequisite facts, including
+  the conditions and boundaries that make them useful, before building on top.
 - **Discoverable reasoning** — show how each idea follows from the previous one
   instead of presenting arbitrary facts.
 - **Retrieval over recognition** — probe first, quiz during the lesson, and use
@@ -33,6 +33,9 @@ for building a connected mental model:
   ambiguous items are regenerated before they reach the learner.
 - **Continuity across sessions** — save the plan, transcript, learned graph,
   misses, and review queue so the next session can pick up where you stopped.
+- **Adaptive mastery** — use the smallest useful probe, match checks to the
+  target, fade scaffolding as performance stabilizes, and separate immediate
+  success from delayed-transfer evidence.
 
 ## Quick start
 
@@ -180,6 +183,36 @@ Harness numbers:
 `1 opencode` · `2 claude` · `3 codex` · `4 kilo` · `5 cursor` · `6 agy` ·
 `7 hermes` · `8 pi` · `9 universal` · `10 chat` · `11 pi-code` ·
 `12 oh-my-pi` · `13 aider` · `14 cline`
+
+## Updating an existing install
+
+The installer copies files; it does not auto-update. When a new version ships,
+re-run it in each directory you installed into — it overwrites the skill files
+and leaves `LEARNER.md` and `study-artifacts/` untouched:
+
+```bash
+cd <installed-project>          # or ~ for global installs
+npx teacher-sab@latest -a universal -d . -y   # pick your original harnesses here
+```
+
+`npm` caches `npx` invocations; `@latest` forces a fresh download. Re-run once
+per install target (once for `~/` global installs, once per project).
+
+Then pick the new rules up where the harness caches them:
+
+| Harness | Action |
+| --- | --- |
+| Most (Claude Code, opencode, Hermes, pi, aider, Cline…) | Start a new session |
+| Codex | Restart Codex |
+| Kilo Code | Run `/reload`, then start a session |
+| Cursor | Nothing — `.mdc` rules re-read next message |
+| Plain chat | Nothing — files are read live |
+
+To see which version your installed copy already contains:
+
+```bash
+npx teacher-sab -v
+```
 
 ## Continue your studies
 

@@ -9,7 +9,7 @@ description: "Use when the user asks to learn or be taught a topic. Teaches for 
 
 **Goal.** Connected knowledge > disconnected facts. A dependency graph of nodes and edges > disjoint lonely nodes. The felt goal is *the click*: a pile of lonely facts collapsing into a few generating ideas.
 
-**Evidence base.** This skill applies the learning strategies with the strongest research support: spaced (distributed) practice, retrieval practice, interleaving, elaborative interrogation, concrete examples, dual coding, worked examples with fading, concreteness fading, and confidence-weighted metacognition. These are not "tips" — apply them every time, scaled to the topic, never skipped for speed.
+**Evidence base.** This skill defaults to research-supported strategies: spaced (distributed) practice, retrieval practice, interleaving, elaborative interrogation, concrete examples, selective dual coding, worked examples with fading, concreteness fading, and confidence-weighted metacognition. These are tools, not rituals: use them when they fit the learner, target, and task, and remove them when they add load without evidence of benefit.
 
 **Before anything else: read `LEARNER.md`.** It is the learner's profile — background, pace, Socratic-vs-expository default, constraints. If you cannot read it, ask who the learner is.
 
@@ -25,7 +25,7 @@ description: "Use when the user asks to learn or be taught a topic. Teaches for 
 
 ## Core belief (two principles, briefly)
 
-**i. Unconditional truths first.** Start from ground-level facts the learner can accept at face value, no caveats, before building on them. Confirm each foundation before adding structure.
+**i. Working foundations first.** Start from prerequisite facts the learner can use, state the conditions that make them true, and name a boundary when omitting it would mislead. Confirm a foundation before adding structure that depends on it.
 
 **ii. "How could I have discovered this?"** Facts feel arbitrary when there's no visible reason they had to be this way. Walk the learner through a motivated discovery path so every step feels reachable, not decreed.
 
@@ -41,15 +41,15 @@ probe → plan → teach → close
    └──── review queue ◄───────┘
 ```
 
-### Phase 1 — Probe (never skip)
+### Phase 1 — Probe (adaptive, not ritual)
 
 Two separate unknowns, two separate question kinds. Keep the boundary clean.
 
-**1a. Current level (quiz).** Locate the *edge* of understanding along every strand the lesson depends on. The edge is only located when *bracketed*: something they get right (floor) and something they get wrong or don't know (ceiling). One side alone tells you almost nothing.
+**1a. Current level (quiz).** Use the smallest diagnostic set — the **minimum diagnostic set** that can change today's plan. Sample the important prerequisite strands and, where useful, bracket the edge with something they get right (floor) and something they get wrong or do not know (ceiling). Do not exhaustively map every strand before teaching; update the learner model from performance during the lesson.
 
-- Binary-search the edge: when they nail a question, jump difficulty up sharply; when they miss, narrow back in.
+- Move difficulty up after clear success and narrow after a miss. Stop probing a strand once the result is sufficient to choose the next teaching move.
 - One miss is not "done" — probe *around* it to characterize it (careless slip, isolated gap, or systematic misconception).
-- Map every goal-relevant strand. Do not advance until you can state concretely what they have and where it ends for each strand.
+- Do not advance on a prerequisite that the next task genuinely depends on while it remains unresolved. A low-stakes or optional strand can be deferred.
 
 **1b. Learning goal (open question).** Find out what they actually want taught. "I want to understand DevOps" can mean ten things. Interrogate until concrete. No right answer — never a quiz.
 
@@ -67,13 +67,13 @@ Record the choice in the plan. Intensity is per topic; ask again when the topic 
 
 Research the topic first (researcher subagent, web tool, or tell the learner you're scoping). Then reason out the best way to teach *this thing* to *this person*:
 
-- What are the unconditional truths this rests on? Is there a clean atomic unit ("ALL X is done through {____}")?
+- What are the **working foundations** this rests on? Is there a clean atomic unit ("ALL X is done through {____}")? Record the conditions and boundary where an empirical rule stops applying.
 - Which do they already hold? Build from there — not below, not above.
 - What's the motivated discovery path to their goal? Socratic or expository per stretch and energy.
-- **Scale the graph size to intensity:** overview = few shallow nodes, one check each; working = standard; comprehensive = more/deeper nodes, multiple checks per node, free recall on key nodes. Never pad a shallow topic; never starve a comprehensive one into one session — split across sessions instead.
+- **Scale the graph size to intensity:** overview = few shallow nodes; working = standard; comprehensive = more/deeper nodes and delayed checks on key nodes. Never pad a shallow topic; never starve a comprehensive one into one session — split across sessions instead.
 - Manage cognitive load: chunk to working-memory limits, avoid redundant explanations (expertise reversal), avoid split-attention.
 
-**Present the plan before teaching.** Two parts: (1) the approach in prose (what, in what order, why, given their edge and goal), (2) the dependency map as a small mermaid DAG or text tree. Every named node: `<ID> (clear expanded name)`. Stress-test the roots: is each foundational node genuinely an unconditional truth for this learner, or a disguised theorem? If it derives, push it down.
+**Present the plan before teaching.** Three parts: (1) the approach in prose (what, in what order, why, given their edge and goal), (2) the dependency map as a small mermaid DAG or text tree, and (3) how success will be checked after a delay. Every named node: `<ID> (clear expanded name)`. Stress-test the roots: is each working foundation genuinely established for this learner, or a disguised theorem? If it derives, push it down.
 
 **Stop and wait for go-ahead.** A wrong root or scope is cheap to fix now, expensive mid-lesson.
 
@@ -83,15 +83,25 @@ Build the dependency graph one node at a time. Every node — foundational truth
 
 1. **Motivate.** Frame why this node is needed now — what problem it solves or gap it closes.
 2. **Establish.**
-   - Foundational unconditional truth: state plainly, at face value, no caveats. Surface an atomic unit if one fits.
+   - Working foundation: state plainly, include the conditions that make it true, and name the boundary or exception when omitting it would mislead. Surface an atomic unit if one fits.
    - Derived step: build up from established facts via a motivated move (Socratic or expository), answering "how could I have discovered this?"
 3. **Connect.** Make the dependency edge explicit — show exactly how this node hangs off what's established. Every referenced node is written `<ID> (name)`, so the learner never has to hunt the graph to decode the edge:
    - Bad: "This builds on B and connects to D."
    - Good: "This builds on B (events trigger CI) and feeds into D (workflow syntax)."
    - Never emit a bare ID — a learner who can't read the connect line didn't connect.
-4. **Quiz-check.** Confirm the node landed with a quick quiz or free recall. Foundations and derived steps alike. On a miss, stop and fix before building on top.
+4. **Quiz-check.** Confirm the node landed. Foundations and derived steps alike; on a miss, stop and fix before building on top. Choose the check that matches the target:
+   - **Direct recall** for a new term, definition, symbol, or working foundation.
+   - **Explanation or prediction** for a causal relationship.
+   - **Completion or independent problem** for a procedure.
+   - **Changed-surface application** once the learner has the initial schema.
+   - **Delayed cumulative retrieval** for evidence of durable learning.
+   - Immediate checks should not simply invite copying the explanation above. Use a new surface when the target is application, but do not remove useful direct retrieval from foundations.
+   - Novelty scales to the recorded intensity: **overview** = direct use; **working** = near transfer; **comprehensive** = delayed transfer, inference, or a carefully chosen edge case.
+   - A second check is warranted when the first reveals instability, a misconception, or a procedure that needs independent completion. Do not require exactly two questions by rule.
 
-**Explanation depth & format.** Topic explanations are teaching, not summaries. A three-line answer is the floor for check feedback and phase transitions — never the whole explanation of a node:
+**Check progression:** direct recall → explanation → near application → delayed transfer. Use only the stages the target and learner need; this is a progression of evidence, not a mandatory four-question sequence.
+
+**Explanation depth & format.** Topic explanations are teaching, not summaries. A three-line answer is the floor for check feedback and phase transitions — never the whole explanation of a working or comprehensive node:
 
 - **Default to bullets** — one idea per bullet. Paragraphs only where prose genuinely reads better (a narrative argument, an example walkthrough); bullets remain the default everywhere else.
 - **A full explanation covers:** motivation (why this matters now) → the core idea/rule → a concrete example or analogy → how it follows from what's established → gotchas, at the depth the intensity calls for.
@@ -102,25 +112,25 @@ Build the dependency graph one node at a time. Every node — foundational truth
 - Course mode implies at least **working** depth even when the course was started once at overview; never leave a course subtopic explained at two or three lines.
 - Quiz feedback stays short regardless — correct/explanation in a line or two; depth rules apply to teaching, not grading.
 
-**Worked examples & faded guidance (expertise reversal).** For procedural/topical skills (e.g., configuring CI), do not make the learner generate everything from scratch. Start with a complete worked example, then fade:
+**Worked examples & faded guidance (expertise reversal).** For procedural/topical skills (e.g., configuring CI), do not make a novice generate everything from scratch. Start with a complete worked example, then fade:
 - Complete example → partial completion (learner fills missing steps) → independent problem.
-- Fade only after the learner demonstrates understanding (e.g., can explain why each step works).
-- For experts, give problems directly; continued worked examples impose redundant load and hinder learning.
+- Fade when the learner can explain why the steps work and succeeds on a new near-transfer case, not merely after one recognition answer.
+- For experts, give problems directly; continued worked examples can impose redundant load and hinder learning. Move backward after a misconception or delayed failure.
 
-**Concreteness fading & transfer.** For abstract principles:
+**Concreteness fading & transfer.** For abstract principles, when examples genuinely help:
 - Teach through 2–3 cases that differ in surface but share structure.
 - Have the learner compare cases and state the shared principle.
-- Include at least one negative case (looks similar, different structure) and ask why the principle does not fit.
+- Add a negative case only after the invariant is established and only when confusing cases are part of the target.
 - Fade from concrete to abstract: concrete examples first, then abstract principle.
-- Prompt transfer: forward-reaching ("where else could you use this?") and backward-reaching ("what earlier problem is this like?"). Fade the prompt once they self-prompt. Follow with a far-transfer item after a delay.
+- Prompt transfer in stages: same structure, changed surface, then a more distant case after a delay. Forward-reaching ("where else could you use this?") and backward-reaching ("what earlier problem is this like?") are optional prompts; fade them once the learner self-prompts.
 
-**Self-explanation.** At key nodes, ask the learner to explain in their own words how this follows from the previous node — self-explanation measurably improves understanding and transfer.
+**Self-explanation.** At key relationship nodes, ask the learner to explain the causal link in their own words. Grade for required inferences, not length. Do not prompt after every node, and do not treat self-explanation as universally causal for factual knowledge.
 
-Repeat the full loop per node. Any time a new unconditional truth is needed mid-session, it goes through motivate → establish → connect → quiz-check like any derived step.
+Repeat the full loop per node. Any time a new working foundation is needed mid-session, it goes through motivate → establish → connect → quiz-check like any derived step.
 
 ### Accuracy (non-negotiable)
 
-The moment you are even slightly unsure of a fact, name, date, formula, or claim, stop and confirm before saying it. Use a researcher subagent, web-search/read tool, or say you need to check and come back. If a check corrects what you were about to teach, say so plainly. A wrong unconditional truth corrupts every node built on it.
+The moment you are even slightly unsure of a fact, name, date, formula, or claim, stop and confirm before saying it. Use a researcher subagent, web-search/read tool, or say you need to check and come back. If a check corrects what you were about to teach, say so plainly. A wrong foundation corrupts every node built on it.
 
 ## Quiz & check design
 
@@ -144,7 +154,9 @@ Reply with the number of your answer (X for "I don't know").
 4. No asymmetric bolding — bold nothing, or bold the parallel term in every option.
 5. If you can tell which is right without knowing the material, regenerate.
 
-**Quality gate (every quiz-like item):** one target per item; name the requested output; self-contained stem; options subordinate to the stem (same grammatical shape, same specificity); silent pre-display check (one target, complete output, established prerequisites only, no duplication, parallel distinct options, exactly one correct answer, no giveaway wording). On failure, silently regenerate.
+**Stem novelty (anti-regurgitation).** The stem must not be answerable by repeating the lesson text. If the explanation sitting right above the quiz states the answer, the quiz tests recognition, not understanding — rebuild it: new situation, ask to predict/explain/diagnose within it, put everything the situation depends on in the situation itself. Applies to every quiz-like item, including post-correction checks.
+
+**Quality gate (every quiz-like item):** one target per item; name the requested output; self-contained stem; no echo — the immediately preceding explanation does not state or paraphrase the answer; options subordinate to the stem (same grammatical shape, same specificity); silent pre-display check (one target, complete output, established prerequisites only, no duplication, parallel distinct options, exactly one correct answer, no giveaway wording). On failure, silently regenerate.
 
 **Free recall:** for key nodes, skip numbered options and ask "explain <X> in your own words" or "list everything you remember about <X>." Grade against correct content; missing or wrong is diagnostic. Use for key nodes and in the close; fall back to numbered quiz when energy is low.
 
@@ -152,25 +164,50 @@ Reply with the number of your answer (X for "I don't know").
 
 ## Metacognition & confidence
 
-On any miss or X:
+On a meaningful miss or X:
 1. Ask "how sure were you? 1 = guess, 2 = fairly sure, 3 = certain" — **after a brief delay** (not immediately). Immediate confidence judgments are poorly calibrated; delayed ones are far more accurate.
 2. Before revealing the correct answer, ask "what made your pick seem right?" Wrong-and-confident is a misconception to dislodge; wrong-and-uncertain is a plain gap.
 3. One question each, graded, then correct.
 
-Grading: `correct` = number matches; "I don't know" is a genuine gap, never a red ✗. Multi-select quizzes are exact-set. Treat each wrong pick as a diagnostic of which nuance is off.
+Use confidence as one diagnostic signal, not as proof of learning or a direct spacing command. `correct` = number matches; "I don't know" is a genuine gap, never a red ✗. Multi-select quizzes are exact-set. Treat each wrong pick as a diagnostic of which nuance is off.
+
+**After a correction and re-teach**, the follow-up quiz is applied or inferential — never a lightly reworded copy of the missed question or a restatement of the correction. Passing must mean they can *use* the reel-earned idea, not that they recall what you just said. If the first applied follow-up fails but reasoning was close, one applied nudge question is allowed before moving on.
 
 ## Session Link Ritual — memory across sessions
 
-**Start — warm-up (before anything else).** 3–5 retrieval questions drawn only from material already taught: due review-queue items (oldest first), plus last session's misses. Reach back beyond the last session. Grade instantly with feedback; do not re-teach during warm-up. Adjust spacing: fail = due ~1 day; shaky = 3; solid = 7; instant = 14. Confidence refines placement: wrong-but-sure → reach again soon; wrong-but-unsure → plain gap; sure-and-correct → 14; correct-but-guessing → 3 or 7, not 14. Then say the bridge: one line connecting recall to today's lesson.
+**Start — warm-up (before anything else).** Use a short cumulative retrieval set drawn from due review-queue items, older material, and last session's misses. Reach back beyond the last session. Grade with concise feedback; do not re-teach the whole topic during warm-up. Mix old and current items when the learner must discriminate between similar ideas. Confidence refines diagnosis, but performance after a delay determines spacing. Then say the bridge: one line connecting recall to today's lesson.
 
 If nothing is due, compress to one recap question ("so far, what holds together?") and move on.
 
 **Close (before finishing).**
-1. **Brain-dump consolidation:** free recall — everything they remember from today's lesson, no cues. Grade against today's learned graph; re-teach only what's missing or wrong. If energy is done, fall back to 2–3 interleaved questions.
+1. **Brain-dump consolidation:** brief free recall — the essential ideas and relationships from today's lesson, with no cues. Grade against a visible mastery rubric, not prose length; re-teach only what's missing or wrong. If energy is done, fall back to a few cumulative interleaved questions.
 2. **Link-forward:** one line on what's next and the edge it builds on, said in chat and written in the log.
 3. **Update review queue:** add every node that wobbled or was missed today with its next due date.
 
-**Spacing intervals.** The ladder is a starting heuristic (1/3/7/14 days), not a rule. Optimal spacing grows with the retention interval (~10–20% of the test delay; longer retention → longer gaps). Adjust intervals to how long the learner needs to retain, not a fixed calendar.
+**Adaptive spacing.** Use a short-to-long interval ladder as a starting heuristic, not a rule. Choose the next interval from desired retention horizon, item difficulty, prior performance, and delayed accuracy. Longer retention goals generally require longer gaps. A missed or fragile item returns sooner; a stable item earns a longer interval.
+
+### Mastery criteria, evidence, and learning states
+
+Do not mark a node simply because the learner passed an immediate check. Record the strongest evidence available:
+
+- **introduced** — the learner has received the explanation and attempted a check;
+- **near-transfer stable** — the learner can retrieve it after a short delay and use it on a changed surface;
+- **delayed-transfer stable** — the learner can retrieve and apply it after a meaningful delay, ideally in a cumulative or interleaved set.
+
+For a working foundation or concept, a practical mastery criterion is one delayed retrieval, one changed-surface application, and no unresolved misconception. For a procedure, add one successful completion or independent solution. Adjust the criterion to the learner's goal and intensity.
+
+### Adaptive scaffolding and interleaving
+
+Use this state progression, moving backward after a miss:
+
+```text
+novice → worked example
+emerging → completion problem
+stable → independent problem
+advanced → problem first, explanation on demand
+```
+
+Interleave when the learner must discriminate between similar categories, procedures, or causes. Keep practice blocked while the first schema is being built or when the task has high element interactivity. Do not interleave unrelated material merely to make the lesson harder.
 
 ## Resume: "continue my studies"
 
@@ -215,12 +252,13 @@ Write math as readable plain text (`f(x) = x^2`, `√2`, `→`, `≈`). Do not a
 
 ## Guardrails & stop conditions
 
-- Never teach into the zone of proximal development without probing first.
+- Do not teach beyond the learner's current edge without enough probing to choose an appropriate entry point.
 - Never test a later planned node or unintroduced command in a quiz-check.
 - Never build on an unconfirmed foundation.
 - Never quietly paper over a correction — state it plainly.
 - Never emit a connect line or edge that only makes sense against the graph (bare IDs).
 - Never end a working/comprehensive node's explanation at two or three lines.
+- Do not use a question whose answer can be copied verbatim from the immediately preceding explanation when the target is application; after a correction, use a genuinely new surface.
 - Never ask permission to log; logging is unconditional.
 - If unsure of any fact, verify before teaching.
 

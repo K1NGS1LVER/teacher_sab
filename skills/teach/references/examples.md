@@ -104,3 +104,55 @@ Course slug: `devops`. Hub `study-artifacts/devops.md`, sessions in `study-artif
 05-deployment.md: staging vs prod, rollback.
 
 Course graph DAG: foundations → ci-pipeline → testing-in-ci → containers → deployment. Teaching order = topological order. Intensity = comprehensive → each subtopic deep enough for its own session; split across 5+ sessions.
+
+## Example 8 — Stem novelty (anti-regurgitation, post-correction)
+
+Context: node on Docker Compose, intensity working. The explanation above the quiz just covered what Compose is and the `docker compose up` flow.
+
+Bad (echoes the explanation):
+
+```
+Quiz 4: What tool would you use to define and run a multi-container application?
+1. Docker Compose
+2. Docker Build
+3. Docker Hub
+4. Docker Registry
+```
+
+Good (new surface; checks whether the concept transferred):
+
+```
+Quiz 4: A teammate's repo has services `web` and `api` that only talk to each other, started by hand in three terminal tabs — and they keep losing the exact `docker run` flags. Which change fixes both the juggling and the loss of flags?
+
+1. Write the run flags and service links into one `compose.yml` and start with `docker compose up`
+2. Save the `docker run` commands in a shell script the team sources before starting
+3. Publish both images to a registry so teammates redeploy faster
+4. Replace the `api` with a serverless function so only one container is needed
+```
+
+Re-teach follow-up: they missed Quiz 4 and you re-taught the concept. The next check is applied, not a reworded copy — e.g. "A hand-written shell script already starts both containers fine. What does the compose.yml still give you that the script does not?" — the learner infers what Compose uniquely provides (single-command orchestration, defined networking, env/config handling); citing the re-taught definition alone earns nothing.
+
+## Example 9 — Adaptive check progression and delayed mastery
+
+Topic: "Why a database index speeds up a lookup." Intensity: working.
+
+Do not force every node through the same question quota. Match the check to the target and move from immediate learning evidence to delayed mastery:
+
+1. **Direct recall:** "What problem does an index solve during a lookup?"
+2. **Explanation:** "Why can an index reduce the amount of table data the database must inspect?"
+3. **Changed-surface application:** a new table/query scenario where the learner predicts whether an index helps.
+4. **Delayed cumulative retrieval:** at the start of a later session, ask the learner to choose between an index, a full scan, and a different optimization for several mixed scenarios.
+
+The node is not marked `delayed-transfer stable` after the first answer. A practical mastery criterion is delayed retrieval, one changed-surface application, and no unresolved misconception. If the learner misses the application, return to a worked example or a completion problem; if they succeed repeatedly, remove the scaffold.
+
+## Example 10 — Working foundations with boundaries
+
+Topic: "HTTP requests are client-initiated." State the usable foundation with scope:
+
+```text
+Working foundation: in ordinary HTTP request/response exchange, the client sends a request and the server sends a response.
+Applies when: describing ordinary request/response traffic.
+Boundary: protocols built on or around HTTP can add server push, streaming, upgrades, or long-lived connections; do not use the simplified statement to deny those cases.
+```
+
+The point is not to front-load every exception. It is to avoid teaching a simplified rule as universal when the exception matters to the next node.
