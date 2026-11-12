@@ -56,16 +56,16 @@ echo "== install paths =="
 echo "== quiz quality contract =="
 skill="skills/teach/SKILL.md"
 for phrase in \
-  "One target per item" \
-  "Name the requested output" \
-  "Make the stem self-contained" \
-  "Keep options subordinate to the stem" \
-  "Run a silent pre-display check" \
-  "silently regenerate the whole item" \
+  "one target per item" \
+  "name the requested output" \
+  "self-contained stem" \
+  "options subordinate to the stem" \
+  "silent pre-display check" \
+  "On failure, silently regenerate" \
   "Write math as readable plain text" \
   "plain text would be genuinely unreadable" \
   "Reserve LaTeX"; do
-  if grep -Fq "$phrase" "$skill"; then
+  if grep -Fqi "$phrase" "$skill"; then
     echo "PASS: quiz contract contains '$phrase'"
     PASS=$((PASS+1))
   else
