@@ -32,15 +32,15 @@
 
 **Produces:** A command that imports a local directory into deterministic JSON containing `sourceKind`, `locator`, `retrievedAt`, `documents`, `warnings`, `license`, and `limits`.
 
-- [ ] Write failing unit tests for deterministic ordering, supported text files, hashes, ignored secrets, size limits, and root containment.
-- [ ] Run the focused unit test and verify it fails because the importer does not exist.
-- [ ] Implement the smallest importer using Node standard-library APIs only.
-- [ ] Run focused unit tests and verify they pass.
-- [ ] Add integration coverage for CLI JSON output and exit behavior.
-- [ ] Add e2e coverage that invokes the CLI against a fixture course directory.
-- [ ] Run `npm test` and inspect all three suite results.
-- [ ] Commit the phase and open its PR.
-- [ ] Merge only after PR checks and a fresh full test run pass.
+- [x] Write failing unit tests for deterministic ordering, supported text files, hashes, ignored secrets, size limits, and root containment.
+- [x] Run the focused unit test and verify it fails because the importer does not exist.
+- [x] Implement the smallest importer using Node standard-library APIs only.
+- [x] Run focused unit tests and verify they pass.
+- [x] Add integration coverage for CLI JSON output and exit behavior.
+- [x] Add e2e coverage that invokes the CLI against a fixture course directory.
+- [x] Run `npm test` and inspect all three suite results.
+- [x] Commit the phase and open its PR.
+- [x] Merge only after PR checks and a fresh full test run pass.
 
 ### Task 2: Existing cloned repository adapter
 
@@ -52,10 +52,10 @@
 
 **Produces:** Local repository metadata with checked-out `HEAD`, remote metadata when available, and no fetch/install/execute behavior.
 
-- [ ] Add failing tests for repository detection, HEAD capture, and `.git` exclusion.
-- [ ] Implement metadata-only repository support.
-- [ ] Run unit, integration, and e2e suites.
-- [ ] Open and merge a separate PR only after all suites pass.
+- [x] Add failing tests for repository detection, HEAD capture, and `.git` exclusion.
+- [x] Implement metadata-only repository support.
+- [x] Run unit, integration, and e2e suites.
+- [x] Open and merge a separate PR only after all suites pass.
 
 ### Task 3: Public GitHub adapter
 
@@ -66,10 +66,10 @@
 
 **Produces:** A commit-pinned snapshot for canonical public GitHub repository URLs with bounded tree/file acquisition, license evidence, caching, rate-limit handling, and truncation warnings.
 
-- [ ] Add failing tests for URL validation, commit pinning, truncation, rate-limit handling, and missing licenses.
-- [ ] Implement adapter behind an explicit network command boundary.
-- [ ] Run all suites with network behavior tested through local fixtures.
-- [ ] Open and merge a separate PR only after all suites pass.
+- [x] Add failing tests for URL validation, commit pinning, truncation, rate-limit handling, and missing licenses.
+- [x] Implement adapter behind an explicit network command boundary.
+- [x] Run all suites with network behavior tested through local fixtures.
+- [x] Open and merge a separate PR only after all suites pass.
 
 ### Task 4: Snapshot-to-course outline integration
 
@@ -82,9 +82,9 @@
 
 **Produces:** Active-course startup instructions that consume a snapshot, preserve source order/citations, label inferred edges, map exercises/projects, and keep existing learner probing and mastery rules.
 
-- [ ] Add failing policy-contract tests.
-- [ ] Add the bounded active-course protocol to the skill.
-- [ ] Run all suites and merge as its own PR.
+- [x] Add failing policy-contract tests.
+- [x] Add the bounded active-course protocol to the skill.
+- [x] Run all suites and merge as its own PR.
 ### Task 5: Static public website adapter
 
 **Files:**
@@ -94,9 +94,9 @@
 
 **Produces:** Static same-origin website snapshots with robots handling, redirect validation, SSRF defenses, HTML parsing, sanitization, and strict budgets.
 
-- [ ] Add failing security and parsing tests using local HTTP fixtures.
-- [ ] Implement static-only bounded acquisition.
-- [ ] Run all suites and merge as its own PR.
+- [x] Add failing security and parsing tests using local HTTP fixtures.
+- [x] Implement static-only bounded acquisition.
+- [x] Run all suites and merge as its own PR.
 
 ### Task 6: Refresh and revision support
 
@@ -107,6 +107,6 @@
 
 **Produces:** Revision comparison that preserves old study artifacts and marks changed nodes as stale or requiring re-check.
 
-- [ ] Add failing tests for unchanged, changed, removed, and newly added documents.
-- [ ] Implement revision manifests and diff output.
-- [ ] Run all suites and merge as its own PR.
+- [x] Add failing tests for unchanged, changed, removed, and newly added documents.
+- [x] Implement revision manifests and diff output.
+- [x] Run all suites and merge as its own PR.
