@@ -28,6 +28,9 @@ for building a connected mental model:
   instead of presenting arbitrary facts.
 - **Retrieval over recognition** — probe first, quiz during the lesson, and use
   free recall to strengthen what was learned.
+- **Practice that is checked, not assigned** — deeper sessions end with one
+  novel-variant task and task-level feedback on the attempt, rather than
+  ungraded homework nobody verifies.
 - **Decodable quizzes** — every quiz check has one explicit target, a
   self-contained requested output, and parallel options; malformed or
   ambiguous items are regenerated before they reach the learner.
@@ -78,7 +81,7 @@ LEARNER.md
     ▼
 warm-up ──► probe ──► approve plan ──► teach one node at a time
     ▲                                      │
-    └──── review queue ◄── close ◄── quiz / free recall
+    └──── review queue ◄── close ◄── quiz / free recall / transfer task
 ```
 
 Every lesson follows the same shape:
@@ -88,7 +91,8 @@ Every lesson follows the same shape:
 3. Probe the learner's current understanding.
 4. Research and propose a dependency-aware plan.
 5. Teach one node at a time, motivating each step and checking it immediately.
-6. Close with free recall, misses, and dated reviews.
+6. Close with free recall, one checked transfer task in deeper modes, misses,
+   and dated reviews.
 
 For a large domain such as Docker, course mode creates a hub and keeps its
 numbered session artifacts together:
