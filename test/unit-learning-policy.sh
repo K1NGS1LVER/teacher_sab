@@ -56,5 +56,13 @@ contains "$examples" "delayed retrieval"
 contains "$examples" "mastery criterion"
 contains "$examples" "worked example"
 
+echo "== transfer task is gated, checked, and carried forward =="
+contains "$skill" "Transfer task"
+contains "$skill" "working and comprehensive only"
+contains "$skill" "carry-forward task"
+contains "$skill" "task-level feedback"
+contains "$skill" "Never complete a transfer or carry-forward task"
+contains "$skill" "no nagging"
+
 echo "Results: $pass passed, $fail failed"
 exit "$fail"

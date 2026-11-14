@@ -1,6 +1,6 @@
 ---
 name: teach
-description: "Use when the user asks to learn or be taught a topic. Teaches for understanding (connected knowledge), not memorization, using a probe→plan→teach loop with retrieval practice, spaced review, worked examples with fading, concreteness fading for transfer, and confidence-weighted metacognition. Adapts depth to a learner-chosen intensity level (overview/working/comprehensive)."
+description: "Use when the user asks to learn or be taught a topic. Teaches for understanding (connected knowledge), not memorization, using a probe→plan→teach loop with retrieval practice, spaced review, worked examples with fading, concreteness fading for transfer, confidence-weighted metacognition, and a gated transfer task in deeper modes. Adapts depth to a learner-chosen intensity level (overview/working/comprehensive)."
 ---
 
 # Teaching
@@ -175,14 +175,24 @@ Use confidence as one diagnostic signal, not as proof of learning or a direct sp
 
 ## Session Link Ritual — memory across sessions
 
-**Start — warm-up (before anything else).** Use a short cumulative retrieval set drawn from due review-queue items, older material, and last session's misses. Reach back beyond the last session. Grade with concise feedback; do not re-teach the whole topic during warm-up. Mix old and current items when the learner must discriminate between similar ideas. Confidence refines diagnosis, but performance after a delay determines spacing. Then say the bridge: one line connecting recall to today's lesson.
+**Start — warm-up (before anything else).** If a carry-forward task is open, review it first and give task-level feedback on the attempt. Then use a short cumulative retrieval set drawn from due review-queue items, older material, and last session's misses. Reach back beyond the last session. Grade with concise feedback; do not re-teach the whole topic during warm-up. Mix old and current items when the learner must discriminate between similar ideas. Confidence refines diagnosis, but performance after a delay determines spacing. Then say the bridge: one line connecting recall to today's lesson.
 
 If nothing is due, compress to one recap question ("so far, what holds together?") and move on.
 
 **Close (before finishing).**
 1. **Brain-dump consolidation:** brief free recall — the essential ideas and relationships from today's lesson, with no cues. Grade against a visible mastery rubric, not prose length; re-teach only what's missing or wrong. If energy is done, fall back to a few cumulative interleaved questions.
-2. **Link-forward:** one line on what's next and the edge it builds on, said in chat and written in the log.
-3. **Update review queue:** add every node that wobbled or was missed today with its next due date.
+2. **Transfer task (working and comprehensive only):** one novel-variant task, checked immediately. Rules below.
+3. **Link-forward:** one line on what's next and the edge it builds on, said in chat and written in the log.
+4. **Update review queue:** add every node that wobbled or was missed today with its next due date.
+
+**Transfer task.** Practice carries learning only when it is retrieval plus feedback on work the learner actually produced; assigned work that is never checked is close to a null treatment. So:
+
+- **Gate it.** Working and comprehensive only. Overview skips it — no measured benefit at that depth, and it costs load.
+- **One task, changed surface.** Same concept, new values, scenario, or data. The learner must produce an answer, not recognise one. Do not assign a set.
+- **Never a blank page for a novice.** The task is a variant of the worked example just faded: partial completion, changed parameters, find-the-error, or an ordering item *with plausible wrong steps* — distractors are what force attention. A from-scratch brief belongs only to an advanced learner.
+- **Check it now.** Give task-level feedback on the attempt: what is right, what is wrong, and why. "Looks good" is not feedback. Self-check is a fallback, not the default.
+- **Never do it for them.** No full solution before an attempt. Escalate hints one step at a time.
+- **Between sessions (optional).** If the learner wants work outside the session, assign exactly one **carry-forward task**, log it, and open the *next* warm-up with it before new teaching — the only shape where spacing and feedback both land. If it is not done, record it as a miss in the review queue and continue; no nagging and no completion tracking.
 
 **Adaptive spacing.** Use a short-to-long interval ladder as a starting heuristic, not a rule. Choose the next interval from desired retention horizon, item difficulty, prior performance, and delayed accuracy. Longer retention goals generally require longer gaps. A missed or fragile item returns sooner; a stable item earns a longer interval.
 
@@ -240,6 +250,8 @@ Not optional; part of teaching. Create at the first quiz of the session — writ
 
 For multiple-choice quizzes, persist only the question and the learner's answer (not the numbered options). You may retain the grading result, correct answer, and brief explanation.
 
+**Transfer task.** Log the task, the learner's attempt, the feedback given, and its state (pending or done). A pending carry-forward task surfaces in the next warm-up.
+
 **Planned vs learned graph.** When the session's final node passes its quiz-check, append the learned knowledge graph: same DAG, solid arrows for confirmed edges, dashed `-.->` annotated "not landed" for missed/skipped/X nodes. Then the Misses recap: every wrong pick and X, the exact threads to revisit. If the session ends unfinished, do not write the second graph — a file with only the planned graph signals unfinished.
 
 **Index.** `study-artifacts/index.md`: a plain markdown table updated at every close — Topic | Last session | Next due | Status (`active`, `complete`, `course`). Read at every session start; write at every close.
@@ -259,6 +271,9 @@ Write math as readable plain text (`f(x) = x^2`, `√2`, `→`, `≈`). Do not a
 - Never emit a connect line or edge that only makes sense against the graph (bare IDs).
 - Never end a working/comprehensive node's explanation at two or three lines.
 - Do not use a question whose answer can be copied verbatim from the immediately preceding explanation when the target is application; after a correction, use a genuinely new surface.
+- Never assign a from-scratch transfer task to a learner still building the first schema; the entry point is a faded worked example.
+- Never complete a transfer or carry-forward task for the learner.
+- Never assign between-session work in overview mode.
 - Never ask permission to log; logging is unconditional.
 - If unsure of any fact, verify before teaching.
 
