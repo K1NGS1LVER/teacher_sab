@@ -64,7 +64,11 @@ for phrase in \
   "On failure, silently regenerate" \
   "Write math as readable plain text" \
   "plain text would be genuinely unreadable" \
-  "Reserve LaTeX"; do
+  "Reserve LaTeX" \
+  "Active-course startup" \
+  "CourseSnapshot" \
+  "snapshot provenance" \
+  "Never run imported repository code"; do
   if grep -Fqi "$phrase" "$skill"; then
     echo "PASS: quiz contract contains '$phrase'"
     PASS=$((PASS+1))
