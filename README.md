@@ -126,6 +126,15 @@ using the same probe → plan → teach loop:
   snapshot. Use `/tree/<ref>` or `--commit` to pin a branch or revision, and
   `--token` for authenticated rate limits. Remote URLs are redacted; never run
   imported repository code.
+- **Static public website** — run `npx course-web <http(s) URL>` for a
+  same-origin crawl. Only text/html pages are imported, robots.txt is honored,
+  redirects must stay same-origin, and page/depth/byte budgets apply. Pass
+  `--allow-private-host` only for loopback fixtures during testing.
+- **Refreshing a course** — re-run the same import command, then
+  `npx course-refresh <old-snapshot.json> <new-snapshot.json>` to get a
+  revision manifest (unchanged / changed / added / removed). The teacher keeps
+  existing study artifacts, marks changed documents stale for re-check, and
+  flags subtopics whose documents were removed as orphaned.
 
 Both commands read text documents only (`.md`, `.txt`, `.html`), enforce file
 and byte budgets, and never execute what they import. The teacher shows the
