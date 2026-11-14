@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { IGNORED_DIRECTORIES, isLicenseFile, isSecret, isSupportedFile, sha256, titleFor } from './course-source-lib.js';
 
 const DEFAULTS = {
   maxFiles: 1000,
@@ -13,20 +13,7 @@ const DEFAULTS = {
   maxTotalBytes: 50 * 1024 * 1024,
 };
 
-const TEXT_EXTENSIONS = new Set(['.html', '.htm', '.md', '.markdown', '.txt']);
-const IGNORED_DIRECTORIES = new Set(['.git', '.hg', '.svn', 'node_modules']);
 const SENSITIVE_DIRECTORIES = new Set(['.aws', '.gnupg', '.kube', '.ssh']);
-const SECRET_NAMES = new Set([
-  '.env',
-  '.env.local',
-  '.env.production',
-  '.env.development',
-  'id_rsa',
-  'id_ed25519',
-]);
-const SECRET_PATTERNS = [
-  /^(?:credentials?|secrets?|private|passwords?|tokens?|auth|api[-_.]?keys?)(?:[._-].*)?$/i,
-];
 
 function usageError(message) {
   const error = new Error(message);
@@ -94,28 +81,6 @@ function parsePositiveInteger(value, flag) {
 
 function relativePath(root, candidate) {
   return path.relative(root, candidate).split(path.sep).join('/');
-}
-
-function titleFor(relative, content) {
-  const heading = content.match(/^\s*#\s+(.+?)\s*$/m);
-  if (heading) return heading[1].replace(/\s+#*\s*$/, '').trim();
-  return path.basename(relative, path.extname(relative));
-}
-
-function isSecret(name) {
-  const normalized = name.toLowerCase();
-  return SECRET_NAMES.has(normalized)
-    || normalized.startsWith('.env.')
-    || /^id_(?:rsa|ed25519|ecdsa)(?:[._-].*)?$/i.test(normalized)
-    || SECRET_PATTERNS.some((pattern) => pattern.test(normalized));
-}
-
-function isSupportedFile(name) {
-  return TEXT_EXTENSIONS.has(path.extname(name).toLowerCase()) || isLicenseFile(name);
-}
-
-function isLicenseFile(name) {
-  return /^(?:license|copying)(?:[._-].*)?$/i.test(name);
 }
 
 function compareNames(left, right) {
@@ -332,10 +297,6 @@ function readGitMetadata(root) {
   }
 
   return { head, headRef, remotes };
-}
-
-function sha256(content) {
-  return crypto.createHash('sha256').update(content).digest('hex');
 }
 
 function buildSnapshot(options) {
