@@ -5,13 +5,14 @@
   "type": "module",
   "bin": {
     "teacher-sab": "bin/cli.js",
-    "course-import": "bin/course-import.js"
+    "course-import": "bin/course-import.js",
+    "course-github": "bin/course-github.js"
   },
   "scripts": {
     "test": "npm run test:unit && npm run test:integration && npm run test:e2e",
-    "test:unit": "bash test/unit-learning-policy.sh && bash test/unit-course-import.sh",
-    "test:integration": "bash test/verify-harnesses.sh && bash test/integration-course-import.sh",
-    "test:e2e": "bash test/e2e-install-flow.sh && bash test/e2e-course-import.sh"
+    "test:unit": "bash test/unit-learning-policy.sh && bash test/unit-course-import.sh && bash test/unit-course-github.sh",
+    "test:integration": "bash test/verify-harnesses.sh && bash test/integration-course-import.sh && bash test/integration-course-github.sh",
+    "test:e2e": "bash test/e2e-install-flow.sh && bash test/e2e-course-import.sh && bash test/e2e-course-github.sh"
   },
   "files": [
     "bin",
