@@ -271,4 +271,12 @@ fading, concreteness fading, confidence grading, intensity scaling).
 ## License and attribution
 
 This fork is released under the [MIT License](LICENSE). The teaching pedagogy
-is credited to [amosblomqvist/learn](https://github.com/amosblomqvist/learn).
+inside `skills/` — the two teaching principles, the probe → plan → teach loop,
+the quiz construction rules, and the visualization discipline — was written by
+the original owner of [amosblomqvist/learn](https://github.com/amosblomqvist/learn),
+which ships without a license of its own. The MIT grant covers **this fork's
+work only**: the installer (`setup.sh`, `bin/`), the packaging shape, and the
+improvements documented in [IMPROVEMENTS.md](IMPROVEMENTS.md).
+
+If you distribute or teach the pedagogy itself, credit amosblomqvist/learn,
+not this fork's MIT license.

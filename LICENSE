@@ -19,18 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-## Attribution (this license does not cover the pedagogy)
-
-teacher-sab is a fork of [amosblomqvist/learn](https://github.com/amosblomqvist/learn).
-The teaching pedagogy inside `skills/` — the two teaching principles, the
-probe → plan → teach loop, the quiz construction rules, and the visualization
-discipline — was written by the original owner of that project, which ships
-without a license of its own. This MIT grant covers **this fork's work only**:
-the installer (`setup.sh`, `bin/`), the packaging shape, and the improvements
-documented in [IMPROVEMENTS.md](IMPROVEMENTS.md).
-
-If you distribute or teach the pedagogy itself, credit amosblomqvist/learn,
-not this fork's MIT license.
