@@ -112,6 +112,26 @@ slugs; existing artifacts are preserved rather than fuzzy-matched or migrated.
 Multiple-choice logs stay compact: the artifact keeps the question and learner's
 answer, not the numbered answer options.
 
+## Active courses — teach from a repo, directory, or public course
+
+Point the teacher at existing course material and it will guide you through it
+using the same probe → plan → teach loop:
+
+- **Local directory or cloned repo** — run
+  `npx course-import <directory>` to produce a bounded, deterministic
+  `CourseSnapshot` (source order, hashes, license evidence, skipped secrets,
+  budgets). Then ask the teacher to start the course.
+- **Public GitHub repository** — run
+  `npx course-github <https://github.com/owner/repo>` for a commit-pinned
+  snapshot. Use `/tree/<ref>` or `--commit` to pin a branch or revision, and
+  `--token` for authenticated rate limits. Remote URLs are redacted; never run
+  imported repository code.
+
+Both commands read text documents only (`.md`, `.txt`, `.html`), enforce file
+and byte budgets, and never execute what they import. The teacher shows the
+import summary, confirms the course boundary with you, decomposes the material
+with your input, and cites documents by snapshot path in the course hub.
+
 ## Works with your harness
 
 | Harness | Project install |

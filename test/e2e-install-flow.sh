@@ -30,6 +30,7 @@ for harness in opencode claude codex kilo cursor agy hermes pi universal chat pi
       found=1
       grep -Fq "delayed-transfer stable" "$candidate"
       grep -Fq "working foundation" "$candidate"
+      grep -Fq "Active-course startup" "$candidate"
       break
     fi
   done
