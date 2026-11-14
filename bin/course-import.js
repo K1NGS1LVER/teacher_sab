@@ -264,6 +264,76 @@ function detectLicense(root, files) {
   };
 }
 
+function redactRemoteUrl(url) {
+  return url.replace(/^[a-z][a-z0-9+.-]*:\/\/[^/@]+@/i, (match) => match.replace(/[^/@]+@/, ''));
+}
+
+function readGitMetadata(root) {
+  const gitDir = path.join(root, '.git');
+  let gitStats;
+  try {
+    gitStats = fs.statSync(gitDir);
+  } catch {
+    return null;
+  }
+  if (!gitStats.isDirectory()) return null;
+
+  let head = null;
+  let headRef = null;
+  try {
+    const headContent = fs.readFileSync(path.join(gitDir, 'HEAD'), 'utf8').trim();
+    const refMatch = /^ref:\s*(\S+)$/.exec(headContent);
+    if (refMatch) {
+      headRef = refMatch[1];
+      try {
+        const loose = fs.readFileSync(path.join(gitDir, headRef), 'utf8').trim();
+        if (/^[0-9a-f]{40}$/.test(loose)) head = loose;
+      } catch {
+        // loose ref missing; fall through to packed refs
+      }
+      if (head === null) {
+        try {
+          const packed = fs.readFileSync(path.join(gitDir, 'packed-refs'), 'utf8');
+          for (const line of packed.split('\n')) {
+            const match = /^([0-9a-f]{40})\s+(\S+)$/.exec(line.trim());
+            if (match && match[2] === headRef) {
+              head = match[1];
+              break;
+            }
+          }
+        } catch {
+          // packed-refs missing
+        }
+      }
+    } else if (/^[0-9a-f]{40}$/.test(headContent)) {
+      head = headContent;
+    }
+  } catch {
+    // HEAD unreadable; leave head unresolved
+  }
+
+  const remotes = {};
+  try {
+    const config = fs.readFileSync(path.join(gitDir, 'config'), 'utf8');
+    let current = null;
+    for (const rawLine of config.split('\n')) {
+      const line = rawLine.trim();
+      if (/^\[/.test(line)) {
+        const remoteMatch = /^\[remote\s+"([^"]+)"\]$/.exec(line);
+        current = remoteMatch ? remoteMatch[1] : null;
+        continue;
+      }
+      if (current === null) continue;
+      const urlMatch = /^url\s*=\s*(.+)$/.exec(line);
+      if (urlMatch) remotes[current] = { url: redactRemoteUrl(urlMatch[1].trim()) };
+    }
+  } catch {
+    // config unreadable; leave remotes empty
+  }
+
+  return { head, headRef, remotes };
+}
+
 function sha256(content) {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
@@ -291,12 +361,14 @@ function buildSnapshot(options) {
     sha256: sha256(content),
     order,
   }));
+  const repository = readGitMetadata(options.root);
 
   return {
     schemaVersion: 1,
     sourceKind: 'local-directory',
     locator: fs.realpathSync(options.root),
     retrievedAt: options.retrievedAt,
+    repository,
     documents,
     warnings,
     license: detectLicense(options.root, files),
