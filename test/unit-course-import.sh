@@ -5,7 +5,10 @@ repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-mkdir -p "$tmp/course/02-basics" "$tmp/course/.git" "$tmp/course/.GIT" "$tmp/course/private-notes" "$tmp/course/.aws" "$tmp/course/.SSH" "$tmp/outside"
+mkdir -p "$tmp/course/02-basics" "$tmp/course/.git/refs/heads" "$tmp/course/.GIT" "$tmp/course/private-notes" "$tmp/course/.aws" "$tmp/course/.SSH" "$tmp/outside"
+printf 'ref: refs/heads/main\n' > "$tmp/course/.git/HEAD"
+printf '0123456789abcdef0123456789abcdef01234567\n' > "$tmp/course/.git/refs/heads/main"
+printf '[remote "origin"]\n  url = https://user:token@example.com/example/course.git\n' > "$tmp/course/.git/config"
 printf '# First lesson\n' > "$tmp/course/01-intro.md"
 printf 'console.log("text")\n' > "$tmp/course/02-basics/example.txt"
 printf '<h1>HTML lesson</h1>\n' > "$tmp/course/03-page.html"
@@ -33,6 +36,12 @@ const snapshot = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 assert.equal(snapshot.sourceKind, 'local-directory');
 assert.equal(snapshot.locator, fs.realpathSync(process.argv[3]));
 assert.equal(snapshot.retrievedAt, '2026-11-14T00:00:00.000Z');
+assert.deepEqual(snapshot.repository, {
+  head: '0123456789abcdef0123456789abcdef01234567',
+  headRef: 'refs/heads/main',
+  remotes: { origin: { url: 'https://example.com/example/course.git' } },
+});
+assert.ok(!snapshot.documents.some((document) => document.path.startsWith('.git/')));
 assert.deepEqual(snapshot.documents.map((document) => document.path), [
   '01-intro.md',
   '02-basics/LICENSE-APACHE',
@@ -174,4 +183,39 @@ const snapshot = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 assert.equal(snapshot.documents.length, 1);
 assert.ok(snapshot.warnings.some((warning) => warning.includes('total byte limit')));
 console.log('PASS: aggregate byte budget');
+NODE
+
+mkdir -p "$tmp/detached/.git"
+printf 'fedcba9876543210fedcba9876543210fedcba98\n' > "$tmp/detached/.git/HEAD"
+node "$repo/bin/course-import.js" "$tmp/detached" > "$tmp/detached.json"
+node --input-type=module - "$tmp/detached.json" <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const snapshot = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+assert.equal(snapshot.repository.head, 'fedcba9876543210fedcba9876543210fedcba98');
+assert.equal(snapshot.repository.headRef, null);
+assert.deepEqual(snapshot.repository.remotes, {});
+console.log('PASS: detached repository head is captured');
+NODE
+
+mkdir -p "$tmp/packed/.git/refs/heads"
+printf 'ref: refs/heads/feature\n' > "$tmp/packed/.git/HEAD"
+printf '1234567890abcdef1234567890abcdef12345678 refs/heads/feature\n' > "$tmp/packed/.git/packed-refs"
+node "$repo/bin/course-import.js" "$tmp/packed" > "$tmp/packed.json"
+node --input-type=module - "$tmp/packed.json" <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const snapshot = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+assert.equal(snapshot.repository.head, '1234567890abcdef1234567890abcdef12345678');
+assert.equal(snapshot.repository.headRef, 'refs/heads/feature');
+console.log('PASS: packed repository head is captured');
+NODE
+
+node "$repo/bin/course-import.js" "$tmp/deep" > "$tmp/non-repo.json"
+node --input-type=module - "$tmp/non-repo.json" <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const snapshot = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+assert.equal(snapshot.repository, null);
+console.log('PASS: non-repository root reports no repository metadata');
 NODE
