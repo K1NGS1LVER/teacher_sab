@@ -1,0 +1,10 @@
+.*
+test/
+evals/
+.github/
+.worktrees/
+research/
+study-artifacts/
+.commandcode/
+*.tgz
+*.log
