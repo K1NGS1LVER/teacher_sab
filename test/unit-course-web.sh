@@ -116,7 +116,7 @@ for bad in "file:///etc/passwd" "ftp://example.com/x" "http://localhost/x" "http
     echo "FAIL: private/non-http URL should be rejected: $bad" >&2
     exit 1
   fi
-  grep -FqE 'private or loopback|usage: course-web' "$tmp/bad.err"
+  grep -Eq 'private or loopback|usage: course-web' "$tmp/bad.err"
 done
 echo 'PASS: private and non-http targets are rejected'
 
