@@ -2,6 +2,19 @@
 
 Worked examples the teacher can pattern-match against. Each shows correct application of a skill rule. Use these to calibrate format, not to copy content wholesale.
 
+## Contents
+
+- Quiz construction
+- Node loop with worked-example fading
+- Concreteness fading and transfer
+- Confidence grading with delayed judgment
+- Intensity scaling
+- Self-explanation prompt
+- Course decomposition
+- Stem novelty
+- Adaptive check progression and delayed mastery
+- Working foundations with boundaries
+
 ## Example 1 — Quiz construction (bare claims, parallel, no asymmetry)
 
 Bad (correct answer gives itself away):

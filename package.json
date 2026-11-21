@@ -14,7 +14,8 @@
     "test": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "test:unit": "bash test/unit-learning-policy.sh && bash test/unit-course-import.sh && bash test/unit-course-github.sh && bash test/unit-course-web.sh && bash test/unit-course-refresh.sh",
     "test:integration": "bash test/verify-harnesses.sh && bash test/integration-course-import.sh && bash test/integration-course-github.sh && bash test/integration-course-web.sh && bash test/integration-course-refresh.sh",
-    "test:e2e": "bash test/e2e-install-flow.sh && bash test/e2e-course-import.sh && bash test/e2e-course-github.sh && bash test/e2e-course-web.sh && bash test/e2e-course-refresh.sh"
+    "test:e2e": "bash test/e2e-install-flow.sh && bash test/e2e-course-import.sh && bash test/e2e-course-github.sh && bash test/e2e-course-web.sh && bash test/e2e-course-refresh.sh",
+    "test:eval": "node evals/run.mjs"
   },
   "files": [
     "bin",

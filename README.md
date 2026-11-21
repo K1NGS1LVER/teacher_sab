@@ -57,6 +57,10 @@ Then start your AI harness in that directory and say:
 
 > Use the `teach` skill. Read `LEARNER.md` first. Teach me Docker.
 
+Or ask it to coach you through building something:
+
+> Use the `teach` skill. Don't write code. Mentor me through building a small agent service.
+
 The installer adds the skill, creates a learner profile template, and prepares
 `study-artifacts/` for session memory. Edit `LEARNER.md` once so the teacher
 knows your background, pace, preferences, and constraints.
@@ -141,6 +145,28 @@ and byte budgets, and never execute what they import. The teacher shows the
 import summary, confirms the course boundary with you, decomposes the material
 with your input, and cites documents by snapshot path in the course hub.
 
+## Build mode - you build, it coaches
+
+Say "don't write code" and the teacher stops producing code entirely. It hands
+you a stage ladder, states what evidence proves each stage, and inspects what
+you built: your prediction versus the real output, which layer the bug lives in,
+and one question that exposes the gap in your model.
+
+- **Nothing to paste.** No code, commands, config, or pseudocode. The ban lifts
+  only when you name a specific item, then resumes on its own.
+- **One capability per stage.** Each stage ends runnable, and each one rewrites
+  part of the last, so the project stacks instead of sprawling.
+- **A gate before the next stage.** It runs, you explain it in your own words,
+  you broke it deliberately and diagnosed the failure, and you recalled an
+  earlier stage.
+- **The ladder is the guide.** It is saved to `study-artifacts/` with a progress
+  checklist, so "continue my studies" resumes at the next stage.
+
+A default ladder for a cloud-native agent project ships in
+`skills/teach/references/build-mode.md`, from one model call in a container up
+to multi-agent orchestration and operations. For any other project the teacher
+builds the ladder from your goal and asks you to approve it first.
+
 ## Works with your harness
 
 | Harness | Project install |
@@ -191,6 +217,7 @@ Restart your harness if it caches skills at startup.
 | --- | --- | :---: |
 | `skills/teach/SKILL.md` | Teaching philosophy, probe→plan→teach loop, course mode, logging rules | Yes |
 | `skills/teach/references/examples.md` | Worked examples for quiz construction, worked-example fading, concreteness fading, confidence grading, intensity scaling | No |
+| `skills/teach/references/build-mode.md` | Build-mode default ladder, rules for building another ladder, journal template, worked exchange | No |
 | `LEARNER.md` | Your editable learner profile (now includes default intensity) | Yes |
 | `skills/visualize/SKILL.md` | Rules for useful Mermaid, SVG, or ASCII visuals | No |
 | `agents/researcher.md` | Accuracy-checking subagent brief | No |
