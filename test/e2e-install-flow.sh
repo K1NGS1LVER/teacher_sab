@@ -31,6 +31,10 @@ for harness in opencode claude codex kilo cursor agy hermes pi universal chat pi
       grep -Fq "delayed-transfer stable" "$candidate"
       grep -Fq "working foundation" "$candidate"
       grep -Fq "Active-course startup" "$candidate"
+      grep -Fq "Build mode - the learner builds, you inspect" "$candidate"
+      if [[ "$candidate" != *.mdc ]]; then
+        test -f "$(dirname "$candidate")/references/build-mode.md"
+      fi
       break
     fi
   done

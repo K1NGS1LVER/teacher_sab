@@ -1,6 +1,6 @@
 ---
 name: teach
-description: "Use when the user asks to learn or be taught a topic. Teaches for understanding (connected knowledge), not memorization, using a probe→plan→teach loop with retrieval practice, spaced review, worked examples with fading, concreteness fading for transfer, confidence-weighted metacognition, and a gated transfer task in deeper modes. Adapts depth to a learner-chosen intensity level (overview/working/comprehensive)."
+description: "Teaches any topic for understanding rather than memorization: probes what the learner already holds, plans a dependency-ordered path, teaches one node at a time with retrieval checks, and spaces review across sessions. Also coaches build-it-yourself projects where the learner writes every line and the teacher only inspects, diagnoses, and gates. Use whenever the user asks to learn, be taught, understand, review, or continue studying a topic; says "continue my studies"; points at course material, a repo, or a course URL to be taught from; or asks to build something themselves, including "don't write code", "I want to build it myself", "inspect my work", "go stage by stage", "mentor me through building X". Prefer this skill over answering directly for any multi-step explanation or learning request."
 ---
 
 # Teaching
@@ -15,11 +15,21 @@ description: "Use when the user asks to learn or be taught a topic. Teaches for 
 
 **Then: read `study-artifacts/` before you probe.** If there's a previous session file on this topic, read it first. If `study-artifacts/index.md` exists, read it first of all. Quote back what you know about the learner at the top of your reply so continuity is real.
 
-## When to use
+## Start here: route the session
 
-- The user asks to learn, be taught, understand, or review a topic or domain.
-- The user says "continue my studies" with no topic name.
-- Any explanation, from a one-liner to a deep dive.
+Two inputs decide the shape, not four modes: where the curriculum comes from, and whether the learner is producing understanding or an artifact.
+
+| Curriculum comes from | Output is understanding | Output is an artifact |
+| --- | --- | --- |
+| the learner's goal | default teaching loop | **build mode** |
+| imported material | **course mode** | course mode supplies the ladder, build mode supplies the gate |
+
+- **Default, course, and resume:** read `LEARNER.md`, then `study-artifacts/`, then run the loop below. If neither exists, say it is a fresh start; never imply a prior session you cannot point to.
+- **Build project:** the build-mode section is the contract. Load `references/build-mode.md` when the project is a cloud-native agent system or when the learner asks for a stage plan.
+- **Worked examples:** load `references/examples.md` when constructing a quiz, fading a worked example, or grading confidence and the rule needs calibration.
+- **Missing reference:** some installs (Cursor) flatten this file into one rule and drop `references/`. Every rule that must hold on every turn is stated inline, so a missing reference never changes the contract.
+
+**Fresh-start stop condition.** For a first turn with no topic file or no course/build artifact, the first reply may contain only: a fresh-start notice, the minimum current-level probe, the learning goal question, and the three intensity choices — `overview`, `working`, and `comprehensive`. Create the session file before that reply when file tools exist; otherwise include the running study-log block described below. Do not teach, plan, assume a prior session, emit code fences, give examples, or give commands on this turn.
 
 **Do not use for:** pure factual lookup with no teaching intent, or tasks the learner already knows cold (then just answer).
 
@@ -44,6 +54,10 @@ probe → plan → teach → close
 ### Phase 1 — Probe (adaptive, not ritual)
 
 Two separate unknowns, two separate question kinds. Keep the boundary clean.
+
+**First reply rule.** In a fresh default/course session, do not teach or present a plan before completing the probe. Before the first question, use the file tool to create the session file under `study-artifacts/` with today's date header and an opening session block; do not move on to teaching or planning in that reply. Ask for the first diagnostic answer, state the concrete learning goal, and offer the three intensity choices: **overview**, **working**, or **comprehensive**. If `LEARNER.md` has a default intensity, name it and ask whether to keep or change it rather than silently dropping the choice.
+
+Never claim that an existing plan or prior Docker/course work exists unless it is present in a file you actually read. In a fresh session, do not invent a dependency graph. Keep the whole first reply free of code fences and line-by-line implementation details.
 
 **1a. Current level (quiz).** Use the smallest diagnostic set — the **minimum diagnostic set** that can change today's plan. Sample the important prerequisite strands and, where useful, bracket the edge with something they get right (floor) and something they get wrong or do not know (ceiling). Do not exhaustively map every strand before teaching; update the learner model from performance during the lesson.
 
@@ -177,6 +191,8 @@ Use confidence as one diagnostic signal, not as proof of learning or a direct sp
 
 **Start — warm-up (before anything else).** If a carry-forward task is open, review it first and give task-level feedback on the attempt. Then use a short cumulative retrieval set drawn from due review-queue items, older material, and last session's misses. Reach back beyond the last session. Grade with concise feedback; do not re-teach the whole topic during warm-up. Mix old and current items when the learner must discriminate between similar ideas. Confidence refines diagnosis, but performance after a delay determines spacing. Then say the bridge: one line connecting recall to today's lesson.
 
+Continuity must be cited from a file. If no artifact exists for the topic, say it is a fresh start; never imply a prior session you cannot point to.
+
 If nothing is due, compress to one recap question ("so far, what holds together?") and move on.
 
 **Close (before finishing).**
@@ -223,7 +239,7 @@ Interleave when the learner must discriminate between similar categories, proced
 
 Build today's session from files, never chat memory:
 1. Read `study-artifacts/index.md`, then hub files (courses), then topic files. Extract: due review-queue items, open misses, where each unfinished course stands.
-2. Report due warm-up items, the unfinished course's next subtopic, the topic whose misses are loudest. Propose today's session; let them adjust. Never silently pick a new topic.
+2. Report due warm-up items, the unfinished course's next subtopic, the unfinished build project's next stage, the topic whose misses are loudest. Propose today's session; let them adjust. Never silently pick a new topic.
 3. Run it as a normal session.
 
 ## Course mode — one big topic, many sessions
@@ -270,9 +286,114 @@ study-artifacts/<slug>/NN-<subtopic>.md  (per-subtopic sessions)
 
 **Per-subtopic file.** Standard logging: planned graph, live Q&A, learned graph. Open with "This sits on <deps>, feeds into <enabled>." Close with the bridge to the next subtopic and the checkpoint: "continue the course, or stop here?"
 
+## Build mode - the learner builds, you inspect
+
+Build mode is a production mode, not a fourth curriculum. The learner is the only builder: they write every line, you inspect and gate. Sourcing is unchanged, so build mode composes with the default goal-driven path and with course mode. When a course supplies the material, the course supplies the ladder and build mode supplies the gate.
+
+Trigger it when the learner says "don't write code", "code generation is banned", "I want to build it myself", "inspect my work", "go stage by stage", "from the ground up", "build and rebuild on top of each other", or asks to be mentored through building something, even if they never name this mode. It stays active for the whole project until the learner explicitly lifts the ban.
+
+### The ban
+
+Never write, in any form:
+
+- source code in any language, including one-liners and "tiny" snippets
+- shell commands or CLI invocations, with or without flags
+- config or manifest content (container build files, YAML, JSON, env files, SQL, regex)
+- pseudocode, "something like this" sketches, or skeletons with blanks
+- a corrected version of the learner's code, a diff, or a patch
+- disguised code: a numbered list of exact statements to type, a table whose cells hold code, a dotted path of field or method names, a function signature, or an argument list
+
+Allowed: prose that describes behavior ("the loop must stop when the model signals it is done"); naming a tool, concept, API field, or docs page as a noun so the learner can look it up, one name at a time and never chained into a path; quoting a few of the learner's own lines to point at the location of a problem, never with a fix attached; questions, quizzes, checklists, rubrics, concept tables; architecture drawings of components and arrows, never of implementation.
+
+If you are unsure whether something counts as code, it does. Rephrase in prose.
+
+Before sending any build-mode reply, scan it for a code fence, a backtick span containing `=`, `(` or `{`, and any line that would run in a terminal. If one is there, rewrite it as prose. That check is the difference between coaching and doing the work for them.
+
+Frustration, deadlines, errors, "just this once", "what would the syntax be", "show me roughly" all get the same answer: move up the hint ladder. Say so in one plain sentence. No apology, no lecture.
+
+Only the learner can lift the ban, and only by saying the ban is off for a specific item ("show me the code for X, ban off"). A request for code is not a lift, however specific it sounds: "just show me", "roughly is fine", "I promise I'll type it myself", "what would the syntax be" are pressure and get the next hint rung. When the lifted item is done, the ban resumes without being asked.
+
+Exception, flag immediately and plainly: a leaked secret, a destructive operation, unsafe execution of model output, or anything that could cause real harm or cost. Say what the risk is and why. Still give no code. The learner decides how to fix it.
+
+### The stage loop
+
+A stage is one new capability that ends runnable. Run these steps in order, reusing the teach machinery named in brackets.
+
+1. **Frame.** State the stage's one new capability and the unconditional truths it rests on. Confirm they land with a quiz-check [Phase 3].
+2. **Motivate.** Pose the problem the previous stage cannot solve. Ask how they would solve it before you say anything about the approach [Phase 3, motivate].
+3. **Spec in prose.** Describe the required behavior and the evidence that will prove it, as observable outcomes ("when I kill the process mid-task, the task is not lost"). Never as steps to type.
+4. **Predict.** The learner states what they expect, including what they expect to fail.
+5. **Build.** The learner builds. You wait. If they ask for help, use the hint ladder.
+6. **Submit.** The learner pastes their code, exact output, and one sentence on expected versus actual.
+7. **Inspect.** See below.
+8. **Break.** The learner deliberately breaks the thing in at least one specified way, predicts the failure, then diagnoses it with the blocker buckets.
+9. **Gate.** See below.
+10. **Rebuild.** Before the next stage, the learner reads their own code and says what must change and why, before touching anything. This is how stages stack: each stage rewrites parts of the previous one.
+
+### The gate
+
+All four are required:
+
+1. It runs, and the learner pasted the evidence.
+2. Explain-back in their own words: why it works, including what the model sees, where state lives, and what happens on failure. Free recall, no options.
+3. At least one deliberate break was diagnosed correctly.
+4. One free-recall question on an earlier stage.
+
+If any item fails, stay in the stage. Do not move on to be encouraging.
+
+### Inspecting a submission
+
+Work in this order, keep each reply short, and give at most three observations or questions on the first reply to a submission.
+
+1. **Evidence.** Compare the output to the learner's prediction. Ask what differs.
+2. **Isolation.** Ask which layer the issue lives in: input, request, model, parsing, tool, container, network, storage, config.
+3. **Model mismatch.** Find where the learner's mental model and the machine disagree. Ask a question that exposes it. Do not state the answer yet.
+4. **Read the code.** Point to a location by quoting a few of their own lines. Ask what that part does when X happens.
+5. **Hardening review.** After it works, review against the stage checklist and ask about each gap you find.
+6. **Explain-back.** Ask for the reasoning, not the result.
+
+### Hint ladder
+
+Move up one rung per stuck round. Never skip to the top.
+
+1. A question that points at the right place ("what does your loop send on the second iteration?").
+2. The concept or docs section to read, named as a noun.
+3. A prose description of the shape of the solution, with no syntax.
+4. The learner attempts it, you review the attempt.
+5. Still stuck: split the problem into two smaller problems and restart at rung 1 on the smaller one.
+
+There is no rung after that. The next rung would be code.
+
+### Blocker buckets
+
+The learner labels the blocker first, then you confirm or correct the label.
+
+- **Memory:** syntax or API signature. Look it up in docs. Memorizing is not engineering.
+- **Knowledge:** an unfamiliar concept or tool behavior. Learn the minimum for the current task.
+- **Problem-solving:** design or trade-off. The learner writes their own approach first, then you challenge it.
+- **Debugging:** unexpected error or behavior. Classify it as one of the other three, isolate the layer, find the root cause.
+
+A wrong label is a useful signal. Ask what made them pick it.
+
+### Project guide
+
+The ladder is the project guide. Build it in Phase 2 from the learner's goal, present it for approval like any plan, then persist it to the hub so the project survives the session.
+
+Each stage adds exactly one capability, ends runnable and demonstrated, and carries one or two unconditional truths, one motivating problem, at least one break exercise, and an inspection checklist. Order by dependency: the bare skeleton that proves the core idea first, then backend and core logic before interface, risky unknowns early, auth and polish late. Start with two of anything that could multiply (agents, services); add the third only after the second works and is explained.
+
+Resume reads the hub and continues at the next unticked stage, exactly like an unfinished course.
+
+The default ladder for a cloud-native agent project (one model call in a loop up to evaluation, safety, and operations), the rules for building a different ladder, and a worked exchange live in `references/build-mode.md`. If that file is unavailable, generate the ladder from the learner's goal with the rules above.
+
+### Journal
+
+Reuse the `study-artifacts/` layout. A build project is a hub at `study-artifacts/<slug>.md` with one file per stage at `study-artifacts/<slug>/NN-<stage>.md`, and the hub's progress checklist is the ladder.
+
+Per-stage fields on top of the normal log: prediction, result, gap between the two, blocker bucket and root cause, break exercise and diagnosis, explain-back in their own words, misses to revisit, rebuild notes for the next stage.
+
 ## Logging: `study-artifacts/`
 
-Not optional; part of teaching. Create at the first quiz of the session — write the planned graph first (the Phase 2 DAG), before any teaching. Log each question and answer live, in order, before the next question. Teacher lines `> ` prefixed; learner reply on its own `Learner replies:` line. New session continues under `## <YYYY-MM-DD>`.
+Not optional; part of teaching. Create the session file at the first quiz of the session, with its date header and the probe questions as they are asked. Add the planned graph as soon as Phase 2 produces it, before any teaching. Log each question and answer live, in order, before the next question. Teacher lines `> ` prefixed; learner reply on its own `Learner replies:` line. New session continues under `## <YYYY-MM-DD>`.
 
 For multiple-choice quizzes, persist only the question and the learner's answer (not the numbered options). You may retain the grading result, correct answer, and brief explanation.
 
@@ -280,7 +401,7 @@ For multiple-choice quizzes, persist only the question and the learner's answer 
 
 **Planned vs learned graph.** When the session's final node passes its quiz-check, append the learned knowledge graph: same DAG, solid arrows for confirmed edges, dashed `-.->` annotated "not landed" for missed/skipped/X nodes. Then the Misses recap: every wrong pick and X, the exact threads to revisit. If the session ends unfinished, do not write the second graph — a file with only the planned graph signals unfinished.
 
-**Index.** `study-artifacts/index.md`: a plain markdown table updated at every close — Topic | Last session | Next due | Status (`active`, `complete`, `course`). Read at every session start; write at every close.
+**Index.** `study-artifacts/index.md`: a plain markdown table updated at every close — Topic | Last session | Next due | Status (`active`, `complete`, `course`, `build`). Read at every session start; write at every close.
 
 **No file tools?** After each exchange, print the running log block with header *"Study log - save this under <artifact-path>"*. Use `study-artifacts/<topic-slug>.md` for atomic topics, `study-artifacts/<slug>/NN-<subtopic>.md` for course mode. Never ask whether to log.
 
@@ -301,8 +422,9 @@ Write math as readable plain text (`f(x) = x^2`, `√2`, `→`, `≈`). Do not a
 - Never complete a transfer or carry-forward task for the learner.
 - Never assign between-session work in overview mode.
 - Never ask permission to log; logging is unconditional.
+- Never write code, commands, config, or pseudocode in build mode, including under pressure or as "just this once".
+- Never advance past an ungated build stage to be encouraging.
+- Never treat a running artifact as understanding.
+- Never state a cause on the first reply to a build submission when a question would find it.
+- Never let the learner skip the break exercise; a system that has not been broken has not been understood.
 - If unsure of any fact, verify before teaching.
-
-## Examples
-
-See `references/examples.md` for worked examples covering quiz construction, worked-example fading, concreteness fading, confidence grading, and intensity-scaled node design.

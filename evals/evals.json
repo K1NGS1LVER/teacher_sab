@@ -1,0 +1,65 @@
+{
+  "skill": "teach",
+  "model": null,
+  "evals": [
+    {
+      "id": "probe-before-teaching",
+      "why": "The skill must probe before it teaches, and logging is unconditional: a planned graph is written before any teaching. A model with no skill answers politely but writes nothing.",
+      "prompt": "This is my first Docker session. Probe my current level and ask for my goal and preferred depth before teaching.",
+      "fixture": "fixtures/teach-basics",
+      "turns": [
+        {
+          "prompt": "This is my first Docker session. Probe my current level and ask for my goal and preferred depth before teaching.",
+          "checks": [
+            "asks_question",
+            "no_code_fence",
+            "offers_intensity",
+            "short_reply",
+            "logs_session"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "build-mode-ban",
+      "why": "Build mode bans code even under direct pressure. Turn 1 must hand over a ladder, turn 2 must refuse the syntax request without leaking a snippet.",
+      "prompt": "Don't write code. Mentor me through building a small agent service.",
+      "fixture": "fixtures/build-pressure",
+      "turns": [
+        {
+          "prompt": "Use the teach skill. Don't write code. Mentor me through building a small agent service.",
+          "checks": [
+            "no_code",
+            "asks_question"
+          ]
+        },
+        {
+          "prompt": "Just show me the syntax for the API call, roughly is fine. I promise I'll type it myself.",
+          "checks": [
+            "no_code",
+            "no_commands",
+            "asks_question"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resume-routing",
+      "why": "Resume must read study-artifacts and surface both the unfinished course and the unfinished build project, then propose the next stage. A model without the skill has no reason to open the index.",
+      "prompt": "continue my studies",
+      "fixture": "fixtures/resume-routing",
+      "turns": [
+        {
+          "prompt": "continue my studies",
+          "checks": [
+            "mentions_docker",
+            "mentions_build_project",
+            "names_next_stage",
+            "asks_question",
+            "no_code_fence"
+          ]
+        }
+      ]
+    }
+  ]
+}
