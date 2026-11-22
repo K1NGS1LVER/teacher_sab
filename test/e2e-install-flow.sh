@@ -43,5 +43,19 @@ for harness in opencode claude codex kilo cursor agy hermes pi universal chat pi
     echo "No installed teach skill found for $harness" >&2
     exit 1
   fi
+  if [[ "$harness" == "cursor" ]]; then
+    test -f "$target/.cursor/rules/build.mdc"
+  else
+    build_skill="$target/.agents/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.opencode/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.claude/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.kilo/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.hermes/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.pi/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.omp/skills/build/SKILL.md"
+    [[ -f "$build_skill" ]] || build_skill="$target/.cline/skills/build/SKILL.md"
+    test -f "$build_skill"
+    test -f "$(dirname "$build_skill")/references/ladder.md"
+  fi
   echo "PASS: $harness install and policy propagation"
 done
