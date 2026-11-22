@@ -5,8 +5,9 @@ repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 skill="$repo/skills/teach/SKILL.md"
 examples="$repo/skills/teach/references/examples.md"
 buildref="$repo/skills/teach/references/build-mode.md"
-buildskill="$repo/skills/build/SKILL.md"
-ladder="$repo/skills/build/references/ladder.md"
+buildskill="$repo/skills/build-along/SKILL.md"
+legacybuild="$repo/skills/build/SKILL.md"
+ladder="$repo/skills/build-along/references/ladder.md"
 
 pass=0
 fail=0
@@ -138,11 +139,14 @@ contains "$buildref" "first end-to-end data flow"
 contains "$buildref" "Core flow (numbered prose)"
 absent "$buildref" "S9: evaluation, safety, and operations"
 
-echo "== standalone build skill =="
-contains "$buildskill" "name: build"
+echo "== standalone build-along skill =="
+contains "$buildskill" "name: build-along"
 contains "$buildskill" "The ban"
 contains "$buildskill" "Attempt first"
 contains "$buildskill" "references/ladder.md"
+contains "$legacybuild" "name: build"
+contains "$legacybuild" "build-along"
+contains "$legacybuild" "deprecated compatibility alias"
 contains "$ladder" "S0: loop that carries its own messages"
 contains "$ladder" "S11: evaluation, safety, and operations"
 

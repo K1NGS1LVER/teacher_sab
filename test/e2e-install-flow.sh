@@ -44,18 +44,30 @@ for harness in opencode claude codex kilo cursor agy hermes pi universal chat pi
     exit 1
   fi
   if [[ "$harness" == "cursor" ]]; then
+    test -f "$target/.cursor/rules/build-along.mdc"
     test -f "$target/.cursor/rules/build.mdc"
   else
-    build_skill="$target/.agents/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.opencode/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.claude/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.kilo/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.hermes/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.pi/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.omp/skills/build/SKILL.md"
-    [[ -f "$build_skill" ]] || build_skill="$target/.cline/skills/build/SKILL.md"
-    test -f "$build_skill"
-    test -f "$(dirname "$build_skill")/references/ladder.md"
+    build_along_skill="$target/.agents/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.opencode/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.claude/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.kilo/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.hermes/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.pi/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.omp/skills/build-along/SKILL.md"
+    [[ -f "$build_along_skill" ]] || build_along_skill="$target/.cline/skills/build-along/SKILL.md"
+    test -f "$build_along_skill"
+    test -f "$(dirname "$build_along_skill")/references/ladder.md"
+
+    legacy_build_skill="$target/.agents/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.opencode/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.claude/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.kilo/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.hermes/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.pi/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.omp/skills/build/SKILL.md"
+    [[ -f "$legacy_build_skill" ]] || legacy_build_skill="$target/.cline/skills/build/SKILL.md"
+    test -f "$legacy_build_skill"
+    grep -Fq "deprecated compatibility alias" "$legacy_build_skill"
   fi
   echo "PASS: $harness install and policy propagation"
 done
