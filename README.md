@@ -154,6 +154,8 @@ and one question that exposes the gap in your model.
 
 - **Nothing to paste.** No code, commands, config, or pseudocode. The ban lifts
   only when you name a specific item, then resumes on its own.
+- **Standalone build skill.** Build coaching is installed as `build` alongside
+  `teach`, so build requests can route directly to its narrower contract.
 - **One capability per stage.** Each stage ends runnable, and each one rewrites
   part of the last, so the project stacks instead of sprawling.
 - **A gate before the next stage.** It runs, you explain it in your own words,
@@ -161,11 +163,23 @@ and one question that exposes the gap in your model.
   earlier stage.
 - **The ladder is the guide.** It is saved to `study-artifacts/` with a progress
   checklist, so "continue my studies" resumes at the next stage.
+- **A cut list before stage one.** Every feature you imagine is challenged: does
+  the core flow break without it, and would it change what the project proves?
+  Whatever fails goes on a written list, with the stage where it can return as an
+  expansion pack.
+- **Design principles, not fixes.** Bare minimum first, black-box modules, thin
+  interfaces, one data flow per feature, and commodity pieces bought rather than
+  built. The teacher asks about each one and fixes none of them for you.
+- **A swap test before you call it modular.** "Replace the sandbox with different
+  isolation. Which files change?" If the answer is more than one module, the
+  boundaries are wrong.
 
 A default ladder for a cloud-native agent project ships in
-`skills/teach/references/build-mode.md`, from one model call in a container up
-to multi-agent orchestration and operations. For any other project the teacher
-builds the ladder from your goal and asks you to approve it first.
+`skills/teach/references/build-mode.md`, from a loop that carries its own
+messages through tools, a sandbox decision, one end-to-end data flow, managed
+persistence, modularizing, concurrent sandboxes, and optional multi-agent work up
+to cloud native and operations. For any other project the teacher builds the
+ladder from your goal and asks you to approve it first.
 
 ## Works with your harness
 
@@ -203,6 +217,7 @@ npx teacher-sab --help
 ```bash
 mkdir -p .agents/skills
 cp -r /path/to/teacher_sab/skills/teach .agents/skills/
+cp -r /path/to/teacher_sab/skills/build .agents/skills/
 cp -r /path/to/teacher_sab/skills/visualize .agents/skills/
 cp /path/to/teacher_sab/LEARNER.template.md LEARNER.md
 ```
@@ -218,6 +233,8 @@ Restart your harness if it caches skills at startup.
 | `skills/teach/SKILL.md` | Teaching philosophy, probe→plan→teach loop, course mode, logging rules | Yes |
 | `skills/teach/references/examples.md` | Worked examples for quiz construction, worked-example fading, concreteness fading, confidence grading, intensity scaling | No |
 | `skills/teach/references/build-mode.md` | Build-mode default ladder, rules for building another ladder, journal template, worked exchange | No |
+| `skills/build/SKILL.md` | Standalone learner-authored build coaching contract | Yes |
+| `skills/build/references/ladder.md` | Build-mode stage ladder and inspection checks | No |
 | `LEARNER.md` | Your editable learner profile (now includes default intensity) | Yes |
 | `skills/visualize/SKILL.md` | Rules for useful Mermaid, SVG, or ASCII visuals | No |
 | `agents/researcher.md` | Accuracy-checking subagent brief | No |

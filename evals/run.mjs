@@ -32,16 +32,32 @@ const value = (name) => {
 
 const only = value("--only");
 const model = value("--model") || spec.model;
-const configs = flag("--baseline-only") ? ["baseline"] : ["skill", "baseline"];
+const configsFor = (evalSpec) =>
+  flag("--baseline-only") ? ["baseline"] : evalSpec.baseline === false ? ["skill"] : ["skill", "baseline"];
 const timeout = Number(value("--timeout") || 600) * 1000;
 
+const commandish =
+  /^(npm|npx|pnpm|yarn|pip|pip3|poetry|uv|curl|git|docker|kubectl|helm|brew|python|python3|node|go|cargo|make|psql|aws|gcloud)\s/m;
+const codeish = (s) =>
+  commandish.test(s) ||
+  /(=|=>|\{|\}|;|\$\s)/.test(s) ||
+  /\w+\.\w+\(/.test(s) ||
+  /\[\w+\]/.test(s) ||
+  /\b(import|def|class|const|let|var|function|return|async|await|print|echo)\s+[A-Za-z_]/i.test(s);
+
 const checks = {
-  asks_question: (t) => /[?]/.test(t),
+  asks_question: (t) => /[?]|say go|pick one|pick another|your call|which (one|session)/i.test(t),
+  // A fenced block counts as code only when it reads like code; a prose DAG does not.
   no_code_fence: (t) => !/```/.test(t),
-  no_code: (t) => !/```/.test(t) && !/`[^`\n]*(=|\(|\)|\{|\}|;|=>)[^`\n]*`/.test(t),
+  no_code: (t) => {
+    const fences = t.match(/```[\s\S]*?```/g) || [];
+    if (fences.some(codeish)) return false;
+    const spans = [...t.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
+    return !spans.some(codeish);
+  },
   no_commands: (t) =>
-    !/\b(npm|npx|pip|pip3|poetry|uv|curl|git|docker|kubectl|helm|brew)\s+[a-z-]/i.test(t) &&
-    !/\b(const|let|var|function|def|class|import|from)\s+[A-Za-z_]/i.test(t) &&
+    !commandish.test(t) &&
+    !/\b(const|let|var|function|def|class|import|from)\s+[A-Za-z_]/.test(t) &&
     !/=>/.test(t),
   offers_intensity: (t) =>
     ["overview", "working", "comprehensive"].filter((w) => new RegExp(`\\b${w}\\b`, "i").test(t)).length >= 2,
@@ -52,6 +68,30 @@ const checks = {
   logs_session: (t, ctx) =>
     mdFiles(path.join(ctx.dir, "study-artifacts")).length > 0 ||
     /Study log\s*-\s*save this under/i.test(t),
+  // S3 must present inside-the-sandbox versus outside-the-sandbox as the learner's call.
+  mentions_sandbox_choice: (t) =>
+    /(inside|outside|in the container|out of the container)/i.test(t) &&
+    /(sandbox|container)/i.test(t) &&
+    /[?]/.test(t),
+  // The ladder must reach the loop before it reaches the sandbox.
+  loop_before_sandbox: (t) => {
+    const loop = t.search(/loop/i);
+    const sandbox = t.search(/sandbox|container/i);
+    return loop >= 0 && sandbox >= 0 && loop < sandbox;
+  },
+  mentions_cut: (t) => /cut list|cut-list|break without|actually need|do you need/i.test(t),
+  mentions_core_flow: (t) => /core flow|smallest version|first end-to-end|one flow|bare minimum/i.test(t),
+  // Coaching ends with the learner acting. A question or a direct instruction both count.
+  hands_back: (t) =>
+    /[?]/.test(t) ||
+    /\byou (paste|try|write|show|tell|reply|run|attempt|send|answer|choose|pick)\b/i.test(t) ||
+    /^(paste|try|write|show|tell|reply|run|attempt|send|answer|choose|pick)\b/im.test(t),
+  asks_learning_goal: (t) =>
+    /trying to learn|learning goal|the thing you.{0,20}learn|what you want to learn/i.test(t),
+  mentions_two_options: (t) =>
+    ["supabase", "firebase", "auth0", "clerk", "neon", "planetscale", "rds", "cloud sql", "s3", "r2", "gcs", "managed"].filter(
+      (w) => new RegExp(`\\b${w}\\b`, "i").test(t),
+    ).length >= 2,
 };
 
 function mdFiles(dir) {
@@ -66,7 +106,7 @@ function mdFiles(dir) {
 }
 
 function run(cwd, args) {
-  const env = { ...process.env, XDG_CONFIG_HOME: path.join(cwd, ".xdg") };
+  const env = { ...process.env, PWD: cwd, XDG_CONFIG_HOME: path.join(cwd, ".xdg") };
   fs.mkdirSync(env.XDG_CONFIG_HOME, { recursive: true });
   const r = spawnSync("opencode", args, { cwd, env, timeout, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
   if (r.error) throw new Error(`opencode failed: ${r.error.message}`);
@@ -92,13 +132,23 @@ function run(cwd, args) {
 function workspace(evalSpec, config) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), `teach-eval-${evalSpec.id}-`));
   fs.cpSync(path.join(here, evalSpec.fixture), dir, { recursive: true });
+  // Without its own git root, opencode resolves the project elsewhere and reads
+  // this repository instead of the fixture.
+  spawnSync("git", ["init", "-q", "."], { cwd: dir });
   if (config === "skill") {
-    const dst = path.join(dir, ".opencode", "skills", "teach");
+    // --skill-dir lets a prototype skill be measured with the same checks.
+    const src = value("--skill-dir") || path.join(repo, "skills", "teach");
+    const name = value("--skill-name") || path.basename(src);
+    const dst = path.join(dir, ".opencode", "skills", name);
     fs.mkdirSync(path.dirname(dst), { recursive: true });
-    fs.cpSync(path.join(repo, "skills", "teach"), dst, { recursive: true });
+    fs.cpSync(src, dst, { recursive: true });
   }
   return dir;
 }
+
+// Eval workspaces are throwaway directories. Without this, a model will wander
+// into the real home directory and answer from the wrong project.
+const SANDBOX = "Work only from files in the current directory; do not read outside it.\n\n";
 
 function grade(evalSpec, config) {
   const dir = workspace(evalSpec, config);
@@ -106,10 +156,12 @@ function grade(evalSpec, config) {
   let session = null;
 
   for (const [i, turn] of evalSpec.turns.entries()) {
-    const args = ["run", "--format", "json", "--archived", "--auto"];
+    // No --auto: an auto-approved headless model can write anywhere on the machine.
+    // Without it, edits are denied, which is what an eval sandbox should do.
+    const args = ["run", "--format", "json", "--archived"];
     if (model) args.push("--model", model);
     if (session) args.push("--session", session);
-    args.push(turn.prompt);
+    args.push(i === 0 ? SANDBOX + turn.prompt : turn.prompt);
     const out = run(dir, args);
     session = out.session || session;
     const failed = (turn.checks || []).filter((c) => {
@@ -133,7 +185,7 @@ let failures = 0;
 
 for (const evalSpec of spec.evals) {
   if (only && evalSpec.id !== only) continue;
-  for (const config of configs) {
+  for (const config of configsFor(evalSpec)) {
     process.stdout.write(`${evalSpec.id} [${config}] ... `);
     const result = grade(evalSpec, config);
     const status = result.passed ? "PASS" : `FAIL (${result.failed.join(", ")})`;

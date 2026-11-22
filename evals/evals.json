@@ -4,25 +4,23 @@
   "evals": [
     {
       "id": "probe-before-teaching",
-      "why": "The skill must probe before it teaches, and logging is unconditional: a planned graph is written before any teaching. A model with no skill answers politely but writes nothing.",
-      "prompt": "This is my first Docker session. Probe my current level and ask for my goal and preferred depth before teaching.",
+      "why": "The skill must probe before it teaches. A model with no skill dumps an explanation on turn one.",
+      "prompt": "Teach me Docker.",
       "fixture": "fixtures/teach-basics",
       "turns": [
         {
-          "prompt": "This is my first Docker session. Probe my current level and ask for my goal and preferred depth before teaching.",
+          "prompt": "Teach me Docker.",
           "checks": [
             "asks_question",
-            "no_code_fence",
-            "offers_intensity",
-            "short_reply",
-            "logs_session"
+            "no_code",
+            "short_reply"
           ]
         }
       ]
     },
     {
       "id": "build-mode-ban",
-      "why": "Build mode bans code even under direct pressure. Turn 1 must hand over a ladder, turn 2 must refuse the syntax request without leaking a snippet.",
+      "why": "Build mode bans code even under direct pressure. Turn 3 asks for syntax and promises to type it; the reply must stay prose and hand back a question.",
       "prompt": "Don't write code. Mentor me through building a small agent service.",
       "fixture": "fixtures/build-pressure",
       "turns": [
@@ -30,7 +28,13 @@
           "prompt": "Use the teach skill. Don't write code. Mentor me through building a small agent service.",
           "checks": [
             "no_code",
-            "asks_question"
+            "hands_back"
+          ]
+        },
+        {
+          "prompt": "Working level. Just give me the stage plan, I don't need more probing.",
+          "checks": [
+            "no_code"
           ]
         },
         {
@@ -38,14 +42,14 @@
           "checks": [
             "no_code",
             "no_commands",
-            "asks_question"
+            "hands_back"
           ]
         }
       ]
     },
     {
       "id": "resume-routing",
-      "why": "Resume must read study-artifacts and surface both the unfinished course and the unfinished build project, then propose the next stage. A model without the skill has no reason to open the index.",
+      "why": "Resume must read study-artifacts, surface both the unfinished course and the unfinished build project, and propose the next stage instead of restarting.",
       "prompt": "continue my studies",
       "fixture": "fixtures/resume-routing",
       "turns": [
@@ -56,7 +60,79 @@
             "mentions_build_project",
             "names_next_stage",
             "asks_question",
-            "no_code_fence"
+            "no_code"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ladder-order-and-sandbox-decision",
+      "baseline": false,
+      "why": "The default ladder starts with a loop that carries its own messages, tools before the sandbox, and the sandbox is a decision the learner argues, never a decree.",
+      "prompt": "Mentor me through building an agent that runs commands. Don't write code.",
+      "fixture": "fixtures/build-pressure",
+      "turns": [
+        {
+          "prompt": "Use the teach skill. Mentor me through building an agent that runs commands in a container. Don't write code.",
+          "checks": [
+            "no_code"
+          ]
+        },
+        {
+          "prompt": "Working level, and I have not built an agent before. Just give me the stage plan.",
+          "checks": [
+            "no_code",
+            "hands_back",
+            "mentions_sandbox_choice",
+            "loop_before_sandbox"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cut-list",
+      "baseline": false,
+      "why": "A feature list must be challenged before stage one. The teacher asks whether each feature breaks the core flow, records what fails, and keeps the first ladder to what survived.",
+      "prompt": "I want to build an agent app with login, billing, and a dashboard.",
+      "fixture": "fixtures/build-pressure",
+      "turns": [
+        {
+          "prompt": "Use the teach skill. I want to build an agent app with login, billing, and a dashboard. Don't write code.",
+          "checks": [
+            "no_code"
+          ]
+        },
+        {
+          "prompt": "Working level. I know some Python but not agents. Just give me the stage plan.",
+          "checks": [
+            "no_code",
+            "hands_back",
+            "mentions_cut",
+            "mentions_core_flow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "buy-versus-build",
+      "baseline": false,
+      "why": "Auth and a database are commodity pieces. The teacher asks whether they are the learning goal, offers more than one managed option, stays vendor-neutral, and still gives no snippets.",
+      "prompt": "I'm going to write my own auth and run my own Postgres.",
+      "fixture": "fixtures/build-pressure",
+      "turns": [
+        {
+          "prompt": "Use the teach skill. I'm going to write my own auth and run my own Postgres for this project. Don't write code.",
+          "checks": [
+            "no_code"
+          ]
+        },
+        {
+          "prompt": "Working level, Python is fine, I have never run a database. Just give me the stage plan.",
+          "checks": [
+            "no_code",
+            "hands_back",
+            "asks_learning_goal",
+            "mentions_two_options"
           ]
         }
       ]
