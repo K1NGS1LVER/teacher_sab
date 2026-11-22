@@ -1,6 +1,6 @@
 # Build ladder reference
 
-The standalone `build` skill owns the learner-authored project ladder. Load this file when the learner asks for a stage plan or is building an agent or service.
+The deprecated `build` compatibility skill points to `build-along`, which owns the learner-authored project ladder. Load `../../build-along/references/ladder.md` when the learner asks for a stage plan or is building an agent or service.
 
 ## Default ladder: agent orchestration
 

@@ -154,8 +154,9 @@ and one question that exposes the gap in your model.
 
 - **Nothing to paste.** No code, commands, config, or pseudocode. The ban lifts
   only when you name a specific item, then resumes on its own.
-- **Standalone build skill.** Build coaching is installed as `build` alongside
-  `teach`, so build requests can route directly to its narrower contract.
+- **Standalone build-along skill.** Build coaching is installed as `build-along`
+  alongside `teach`, so build requests can route directly to its narrower contract.
+  `build` remains available as a deprecated compatibility alias.
 - **One capability per stage.** Each stage ends runnable, and each one rewrites
   part of the last, so the project stacks instead of sprawling.
 - **A gate before the next stage.** It runs, you explain it in your own words,
@@ -217,7 +218,8 @@ npx teacher-sab --help
 ```bash
 mkdir -p .agents/skills
 cp -r /path/to/teacher_sab/skills/teach .agents/skills/
-cp -r /path/to/teacher_sab/skills/build .agents/skills/
+cp -r /path/to/teacher_sab/skills/build-along .agents/skills/
+cp -r /path/to/teacher_sab/skills/build .agents/skills/build
 cp -r /path/to/teacher_sab/skills/visualize .agents/skills/
 cp /path/to/teacher_sab/LEARNER.template.md LEARNER.md
 ```
@@ -233,8 +235,9 @@ Restart your harness if it caches skills at startup.
 | `skills/teach/SKILL.md` | Teaching philosophy, probe→plan→teach loop, course mode, logging rules | Yes |
 | `skills/teach/references/examples.md` | Worked examples for quiz construction, worked-example fading, concreteness fading, confidence grading, intensity scaling | No |
 | `skills/teach/references/build-mode.md` | Build-mode default ladder, rules for building another ladder, journal template, worked exchange | No |
-| `skills/build/SKILL.md` | Standalone learner-authored build coaching contract | Yes |
-| `skills/build/references/ladder.md` | Build-mode stage ladder and inspection checks | No |
+| `skills/build-along/SKILL.md` | Standalone learner-authored build coaching contract | Yes |
+| `skills/build-along/references/ladder.md` | Build-mode stage ladder and inspection checks | No |
+| `skills/build/SKILL.md` | Deprecated compatibility alias for `build-along` | Yes |
 | `LEARNER.md` | Your editable learner profile (now includes default intensity) | Yes |
 | `skills/visualize/SKILL.md` | Rules for useful Mermaid, SVG, or ASCII visuals | No |
 | `agents/researcher.md` | Accuracy-checking subagent brief | No |

@@ -133,6 +133,7 @@ async function copyInto(src, dst) {
 const installSkills = async (skDir) => {
   fs.mkdirSync(skDir, { recursive: true });
   await copyInto(path.join(PKG, "skills", "teach"), path.join(skDir, "teach"));
+  await copyInto(path.join(PKG, "skills", "build-along"), path.join(skDir, "build-along"));
   await copyInto(path.join(PKG, "skills", "build"), path.join(skDir, "build"));
   if (withVis) await copyInto(path.join(PKG, "skills", "visualize"), path.join(skDir, "visualize"));
 };
@@ -190,6 +191,7 @@ const installOne = async (h) => {
     case "cursor":
       fs.mkdirSync(path.join(target, ".cursor", "rules"), { recursive: true });
       await genMdc("teach", '"**/*"');
+      await genMdc("build-along", '"**/*"');
       await genMdc("build", '"**/*"');
       if (withVis) await genMdc("visualize", '"**/*"');
       info("subagents are inline for Cursor - nothing to install");
